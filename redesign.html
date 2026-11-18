@@ -1,28 +1,32 @@
 <title>Manidhay Construction</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Manidhay Business Services: watch a home go from empty plot to handover. One accountable team for design, approvals, finance and construction across Karnataka.">
+<meta name="description" content="Manidhay Business Services: watch a home go from empty plot to handover, told through the documents of a real build.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
-/* Layout: a scroll-driven site diary. A sticky 3D construction site builds itself stage by stage
-   while explanation cards scroll past; below it, concrete-ground sections for services, work and contact. */
+/* Layout: the story of one build, told through the paperwork a site produces. Every section is a different
+   artifact from that world: field book, drawing, stamp, tag, contract, visitor book, chat, work order. */
 :root{
   --bg:#E8E9E6; --surface:#F4F4F2; --ink:#15181B; --muted:#585E65; --line:#C6C9C5;
-  --accent:#E8980A; --on-accent:#15181B; --blueprint:#6CC2FF;
+  --accent:#E8980A; --on-accent:#15181B;
   --band:#11151A; --band-2:#1A1F24; --band-fg:#ECEDEA; --band-muted:#99A0A7; --band-line:#2C3238;
+  /* paperwork colours: same in both themes, they are physical objects */
+  --paper:#F3F2EE; --paper-ink:#1B1E21; --paper-muted:#61666C; --paper-line:#D5D3CC;
+  --bp:#14385A; --bp-ink:#E8F2FB; --bp-line:rgba(232,242,251,.16); --stamp:#B3261E;
   --display:"Archivo","Arial Narrow",Arial,sans-serif;
   --body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --hand:"Caveat","Segoe Print","Bradley Hand",cursive;
   --gut-l:max(16px,env(safe-area-inset-left,0px)); --gut-r:max(16px,env(safe-area-inset-right,0px));
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#111417; --surface:#181C20; --ink:#E7E9E8; --muted:#9BA2A9; --line:#2A3035;
-  --accent:#F2A51C; --on-accent:#111417; --blueprint:#7FCBFF;
+  --accent:#F2A51C; --on-accent:#111417;
   --band:#0B0E11; --band-2:#14181C; --band-fg:#ECEDEA; --band-muted:#8E959C; --band-line:#262B30; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#111417; --surface:#181C20; --ink:#E7E9E8; --muted:#9BA2A9; --line:#2A3035;
-  --accent:#F2A51C; --on-accent:#111417; --blueprint:#7FCBFF;
+  --accent:#F2A51C; --on-accent:#111417;
   --band:#0B0E11; --band-2:#14181C; --band-fg:#ECEDEA; --band-muted:#8E959C; --band-line:#262B30; color-scheme:dark}
 
 *{box-sizing:border-box}
@@ -35,214 +39,396 @@ a{color:inherit}
 .band{background:var(--band);color:var(--band-fg)}
 h1,h2,h3{font-family:var(--display);font-stretch:118%;text-transform:uppercase;line-height:.95;letter-spacing:-.01em;margin:0;text-wrap:balance}
 h2{font-size:clamp(2rem,4.6vw,3.6rem);font-weight:800}
-h3{font-size:1.15rem;font-weight:700;letter-spacing:.01em;line-height:1.15}
+h3{font-size:1.15rem;font-weight:700;line-height:1.15}
 p{margin:0}
 .eyebrow{font:500 .75rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px}
 .eyebrow::before{content:"";width:22px;height:2px;background:var(--accent)}
 .band .eyebrow,.story .eyebrow{color:var(--band-muted)}
-.lede{color:var(--muted);max-width:56ch;font-size:1.05rem}
+.lede{color:var(--muted);max-width:52ch;font-size:1.05rem}
 .band .lede{color:var(--band-muted)}
-section{padding-block:clamp(64px,9vw,120px)}
-.sec-head{display:grid;grid-template-columns:1fr 1fr;gap:24px 48px;align-items:end;margin-bottom:clamp(36px,5vw,64px)}
-.sec-head > div{display:grid;gap:18px;min-width:0}
-@media (max-width:820px){.sec-head{grid-template-columns:1fr}}
-
+.mono{font-family:var(--mono)}
 .btn{display:inline-flex;align-items:center;gap:12px;padding:15px 22px;font:700 .82rem/1 var(--display);font-stretch:112%;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;border:2px solid transparent;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
 .btn-accent{background:var(--accent);color:var(--on-accent)}
 .btn-accent:hover{background:var(--band-fg);color:var(--band)}
 .btn-ghost{border-color:currentColor;background:transparent;color:inherit}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn-ink{background:var(--paper-ink);color:var(--paper)}
+.btn-ink:hover{background:transparent;color:var(--paper-ink);border-color:var(--paper-ink)}
 
 /* header */
 .site-header{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);z-index:30;color:var(--band-fg);background:color-mix(in srgb,var(--band) 78%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--band-line)}
 .site-header .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:12px}
 .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
 .logo-mark{width:38px;height:38px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;font:900 1.25rem/1 var(--display);font-stretch:125%;clip-path:polygon(0 0,100% 0,100% 72%,72% 100%,0 100%)}
-.logo b{display:block;font:800 1.02rem/1 var(--display);font-stretch:120%;text-transform:uppercase;letter-spacing:.02em}
+.logo b{display:block;font:800 1.02rem/1 var(--display);font-stretch:120%;text-transform:uppercase}
 .logo small{display:block;font:400 .64rem/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--band-muted);margin-top:5px}
 .nav{display:flex;gap:28px;list-style:none;margin:0;padding:0}
 .nav a{text-decoration:none;font:600 .78rem/1 var(--display);font-stretch:110%;text-transform:uppercase;letter-spacing:.1em;color:var(--band-muted);transition:color .2s}
 .nav a:hover{color:var(--accent)}
-@media (max-width:960px){.nav{display:none}}
+@media (max-width:980px){.nav{display:none}}
 @media (max-width:520px){.site-header .btn{padding:11px 13px;font-size:.7rem}}
 
-/* ===== story ===== */
+/* ===== 1. STORY: 3D build + a different site document per stage ===== */
 .story{position:relative;background:var(--band);color:var(--band-fg)}
 .stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;z-index:0}
 .stage canvas{display:block;width:100%;height:100%}
 .stage.no-gl{background:radial-gradient(ellipse at 70% 60%,var(--band-2),var(--band) 70%)}
 .stage.no-gl::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--band-line) 1px,transparent 1px),linear-gradient(90deg,var(--band-line) 1px,transparent 1px);background-size:48px 48px;opacity:.5}
 .chapters{position:relative;z-index:2;margin-top:-100vh;margin-top:-100svh}
-.chapter{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding-block:110px 80px}
-.chapter .wrap{width:100%}
-.card{max-width:470px;background:color-mix(in srgb,var(--band) 84%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--band-line);border-top:3px solid var(--band-line);padding:28px 28px 30px;display:grid;gap:16px;transition:border-color .4s}
-.chapter.is-active .card{border-top-color:var(--accent)}
-.card h2{font-size:clamp(1.8rem,3vw,2.5rem)}
-.card > p{color:var(--band-muted)}
-.card ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:.92rem}
-.card li{display:grid;grid-template-columns:14px 1fr;gap:10px;align-items:baseline}
-.card li::before{content:"";width:8px;height:8px;background:var(--accent);transform:translateY(-1px)}
-.card dl{margin:4px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:14px;border-top:1px dashed var(--band-line);padding-top:16px;font-size:.88rem}
-.card dt{font:500 .66rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--band-muted);margin-bottom:6px}
-.card dd{margin:0}
-.stage-no{font:500 .74rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
-.chapter.hero-ch .card{background:none;backdrop-filter:none;-webkit-backdrop-filter:none;border:0;padding:0;max-width:640px;gap:26px}
-.hero-ch h1{font-size:clamp(2.8rem,7vw,6.2rem);font-weight:900;font-stretch:122%;line-height:.88;text-shadow:0 2px 30px color-mix(in srgb,var(--band) 70%,transparent)}
-.hero-ch h1 .amb{color:var(--accent)}
-.hero-ch h1 .out{color:transparent;-webkit-text-stroke:2px var(--accent)}
-.hero-ch .lede{color:var(--band-fg);opacity:.85;max-width:46ch}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
-.cue{display:flex;align-items:center;gap:12px;font:500 .72rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--band-muted)}
-.cue i{width:2px;height:34px;background:linear-gradient(var(--accent),transparent);animation:cue 1.8s ease-in-out infinite}
-@keyframes cue{0%,100%{transform:scaleY(.4);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
-.chapter.end .card .hero-actions{margin-top:6px}
+.chapter{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding-block:120px 110px}
+.chapter .wrap{width:100%;display:flex}
+.chapter[data-side="r"] .wrap{justify-content:flex-end}
+.doc{width:100%;max-width:450px;display:grid;gap:14px;position:relative;box-shadow:0 30px 60px -20px rgba(0,0,0,.6)}
+.doc h2{font-size:clamp(1.7rem,2.8vw,2.3rem)}
+.doc ul{margin:0;padding:0;list-style:none;display:grid;gap:7px;font-size:.9rem}
+.doc li{display:grid;grid-template-columns:16px 1fr;gap:8px;align-items:baseline}
+.doc .meta-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding-top:14px;font-size:.86rem}
+.doc .meta-row b{display:block;font:500 .64rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;opacity:.7}
+.tagline{font:500 .7rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
 
-/* HUD */
-.hud{position:absolute;right:max(24px,env(safe-area-inset-right,0px));bottom:max(24px,env(safe-area-inset-bottom,0px));width:300px;background:color-mix(in srgb,var(--band) 82%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--band-line);padding:16px 18px;font:400 .72rem/1.4 var(--mono);letter-spacing:.05em;z-index:3}
-.hud-top{display:flex;justify-content:space-between;gap:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--band-muted)}
-.hud-top b{color:var(--band-fg);font-weight:500}
-.hud-bar{height:4px;background:var(--band-line);margin:12px 0 14px;position:relative}
-.hud-bar i{position:absolute;inset:0 auto 0 0;width:0;background:var(--accent)}
-.hud dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 14px}
-.hud dt{color:var(--band-muted);text-transform:uppercase}
-.hud dd{margin:0;color:var(--band-fg);font-variant-numeric:tabular-nums}
-.rail{position:absolute;right:max(24px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-62%);display:grid;gap:4px;z-index:3}
-.rail button{all:unset;cursor:pointer;display:flex;align-items:center;justify-content:flex-end;gap:10px;padding:5px 0;font:500 .66rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--band-muted)}
-.rail button span{opacity:0;transform:translateX(6px);transition:opacity .25s,transform .25s}
-.rail button i{width:10px;height:2px;background:var(--band-line);transition:width .25s,background .25s}
-.rail button:hover span,.rail button.on span{opacity:1;transform:none}
-.rail button.on{color:var(--band-fg)}
-.rail button.on i{width:28px;background:var(--accent)}
-.rail button.done i{background:var(--band-muted)}
-.rail button:focus-visible{outline:2px solid var(--accent)}
+/* 0 hero */
+.hero-doc{max-width:640px;gap:24px;box-shadow:none}
+.hero-doc h1{font-size:clamp(2.8rem,7vw,6.2rem);font-weight:900;font-stretch:122%;line-height:.88;text-shadow:0 2px 30px rgba(0,0,0,.5)}
+.hero-doc h1 .amb{color:var(--accent)}
+.hero-doc h1 .out{color:transparent;-webkit-text-stroke:2px var(--accent)}
+.hero-doc .lede{color:var(--band-fg);opacity:.85;max-width:46ch}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+.cue{display:flex;align-items:center;gap:12px;font:500 .72rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--band-muted)}
+.cue i{width:2px;height:34px;background:linear-gradient(var(--accent),transparent);animation:cue 1.8s ease-in-out infinite;transform-origin:top}
+@keyframes cue{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+
+/* 1 field book: squared paper, handwritten readings */
+.d-field{background-color:var(--paper);color:var(--paper-ink);padding:26px 26px 24px 46px;background-image:linear-gradient(var(--paper-line) 1px,transparent 1px),linear-gradient(90deg,var(--paper-line) 1px,transparent 1px);background-size:18px 18px;transform:rotate(-1.2deg)}
+.d-field::before{content:"";position:absolute;left:22px;top:0;bottom:0;width:2px;background:var(--stamp);opacity:.5}
+.d-field .tagline{color:var(--paper-muted)}
+.d-field p{color:var(--paper-muted);background:var(--paper)}
+.readings{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;font:700 1.35rem/1.2 var(--hand);color:#1f4f86;background:var(--paper);padding:8px 0}
+.readings dt{font:500 .66rem/1.9 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--paper-muted)}
+.readings dd{margin:0}
+.d-field li::before{content:"✓";font:700 1.05rem/1 var(--hand);color:#1f4f86}
+.d-field .meta-row{border-top:1px dashed var(--paper-muted);background:var(--paper)}
+
+/* 2 blueprint title block */
+.d-bp{background:var(--bp);color:var(--bp-ink);padding:0;border:2px solid var(--bp-ink);background-image:linear-gradient(var(--bp-line) 1px,transparent 1px),linear-gradient(90deg,var(--bp-line) 1px,transparent 1px);background-size:22px 22px}
+.d-bp .bp-body{padding:24px 24px 18px;display:grid;gap:12px}
+.d-bp p{opacity:.85}
+.register{display:grid;font:400 .76rem/1 var(--mono);letter-spacing:.04em;border-top:1px solid var(--bp-ink)}
+.register div{display:grid;grid-template-columns:72px 1fr 40px;border-bottom:1px solid var(--bp-line);padding:9px 24px}
+.register div:last-child{border-bottom:0}
+.register span:last-child{text-align:right;color:var(--accent)}
+.titleblock{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:2px solid var(--bp-ink);font:400 .62rem/1.3 var(--mono);text-transform:uppercase;letter-spacing:.1em}
+.titleblock div{padding:10px 12px;border-right:1px solid var(--bp-ink)}
+.titleblock div:last-child{border-right:0}
+.titleblock b{display:block;font:500 .78rem/1.3 var(--mono);margin-top:3px}
+
+/* 3 approval: stamped document */
+.d-stamp{background:var(--paper);color:var(--paper-ink);padding:28px 28px 26px;transform:rotate(.8deg)}
+.d-stamp .tagline{color:var(--paper-muted);border-bottom:2px solid var(--paper-ink);padding-bottom:12px}
+.d-stamp p{color:var(--paper-muted)}
+.checks{display:grid;gap:8px;font-size:.9rem}
+.checks label{display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:start;text-transform:none;letter-spacing:0;font:500 .9rem/1.4 var(--body);color:var(--paper-ink)}
+.checks i{width:18px;height:18px;border:2px solid var(--paper-ink);display:grid;place-items:center;font:700 .8rem/1 var(--body);font-style:normal}
+.seal{position:absolute;right:-26px;bottom:-46px;width:132px;height:132px;border:5px solid var(--stamp);border-radius:50%;display:grid;place-items:center;text-align:center;color:var(--stamp);font:900 .95rem/1 var(--display);font-stretch:118%;transform:rotate(-14deg);mix-blend-mode:multiply;box-shadow:inset 0 0 0 4px var(--paper),inset 0 0 0 6px var(--stamp)}
+.seal small{display:block;font:500 .56rem/1.3 var(--mono);letter-spacing:.12em;margin-top:4px}
+.d-stamp .meta-row{border-top:1px solid var(--paper-line);padding-right:96px}
+
+/* 4 inspection tag */
+.d-tag{background:var(--accent);color:var(--on-accent);padding:30px 28px 28px 56px;clip-path:polygon(28px 0,100% 0,100% 100%,28px 100%,0 calc(100% - 28px),0 28px);max-width:430px}
+.d-tag::before{content:"";position:absolute;left:14px;top:50%;width:18px;height:18px;margin-top:-9px;border-radius:50%;background:var(--band);box-shadow:0 0 0 3px rgba(0,0,0,.25)}
+.d-tag .tagline{display:flex;justify-content:space-between;border-bottom:2px solid currentColor;padding-bottom:10px}
+.d-tag p{opacity:.85}
+.d-tag li::before{content:"■";font-size:.7rem}
+.passrow{display:grid;grid-template-columns:repeat(3,1fr);border:2px solid currentColor}
+.passrow span{padding:8px 6px;text-align:center;font:600 .62rem/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;border-right:2px solid currentColor}
+.passrow span:last-child{border-right:0;background:var(--on-accent);color:var(--accent)}
+
+/* 5 slab counter */
+.d-slab{background:color-mix(in srgb,var(--band) 90%,transparent);border:1px solid var(--band-line);padding:26px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.d-slab .tagline{color:var(--accent)}
+.d-slab p{color:var(--band-muted)}
+.slabs{display:grid;gap:8px;margin:4px 0}
+.slab{display:grid;grid-template-columns:70px 1fr 82px;gap:12px;align-items:center;font:500 .72rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.slab .bar{height:22px;background:var(--band-2);border:1px solid var(--band-line);position:relative;overflow:hidden}
+.slab .bar i{position:absolute;inset:0 auto 0 0;width:0;background:repeating-linear-gradient(-45deg,var(--accent) 0 8px,color-mix(in srgb,var(--accent) 75%,#000) 8px 16px)}
+.slab b{text-align:right;color:var(--band-fg);font-weight:500;font-variant-numeric:tabular-nums}
+.d-slab li::before{content:"→";color:var(--accent)}
+.d-slab .meta-row{border-top:1px solid var(--band-line)}
+
+/* 6 room schedule */
+.d-sched{background:var(--paper);color:var(--paper-ink);padding:26px}
+.d-sched .tagline{color:var(--paper-muted)}
+.d-sched p{color:var(--paper-muted)}
+.d-sched table{width:100%;border-collapse:collapse;font:400 .8rem/1.2 var(--mono);font-variant-numeric:tabular-nums}
+.d-sched th{text-align:left;font-weight:500;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--paper-muted);padding:6px 0;border-bottom:2px solid var(--paper-ink)}
+.d-sched td{padding:7px 0;border-bottom:1px solid var(--paper-line)}
+.d-sched td:last-child,.d-sched th:last-child{text-align:right}
+.d-sched li::before{content:"—"}
+.d-sched .meta-row{border-top:1px solid var(--paper-line)}
+
+/* 7 swatch card */
+.d-swatch{background:var(--paper);color:var(--paper-ink);padding:0;overflow:hidden}
+.swatches{display:grid;grid-template-columns:repeat(4,1fr);height:96px}
+.swatches span{display:flex;align-items:flex-end;padding:8px;font:500 .58rem/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.d-swatch .sw-body{padding:22px 24px 24px;display:grid;gap:12px}
+.d-swatch p{color:var(--paper-muted)}
+.d-swatch li::before{content:"●";color:var(--accent);font-size:.7rem}
+.d-swatch .meta-row{border-top:1px solid var(--paper-line)}
+
+/* 8 key tag */
+.d-key{background:var(--band-fg);color:var(--paper-ink);padding:34px 30px 30px;border-radius:0 0 26px 26px;max-width:420px;margin-top:40px}
+.d-key::before{content:"";position:absolute;top:-38px;left:50%;width:56px;height:56px;margin-left:-28px;border-radius:50%;border:8px solid var(--band-fg);background:transparent}
+.d-key::after{content:"";position:absolute;top:10px;left:50%;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--band)}
+.d-key .tagline{text-align:center;color:var(--paper-muted);margin-top:8px}
+.d-key h2{text-align:center;font-size:clamp(2rem,3.4vw,2.8rem)}
+.d-key p{color:var(--paper-muted);text-align:center}
+.d-key li::before{content:"✓";color:var(--accent);font-weight:700}
+.d-key .actions{justify-content:center}
+
+/* HUD: bottom strip, its segments double as stage navigation */
+.hud{position:absolute;left:50%;transform:translateX(-50%);bottom:max(20px,env(safe-area-inset-bottom,0px));width:min(780px,calc(100% - 32px));background:color-mix(in srgb,var(--band) 86%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--band-line);padding:12px 16px 10px;font:400 .7rem/1.3 var(--mono);letter-spacing:.06em;z-index:3}
+.hud-row{display:flex;gap:18px;align-items:center;flex-wrap:wrap;text-transform:uppercase}
+.hud-row span{color:var(--band-muted)}
+.hud-row b{color:var(--band-fg);font-weight:500;font-variant-numeric:tabular-nums}
+.hud-row .log{margin-left:auto;text-transform:none;color:var(--band-fg)}
+.segs{display:grid;grid-template-columns:repeat(9,1fr);gap:4px;margin-top:10px}
+.segs button{all:unset;cursor:pointer;height:16px;position:relative}
+.segs button::before{content:"";position:absolute;left:0;right:0;top:6px;height:4px;background:var(--band-line)}
+.segs button i{position:absolute;left:0;top:6px;height:4px;width:0;background:var(--accent)}
+.segs button:focus-visible{outline:2px solid var(--accent)}
+.segs button span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.segs button:hover::before{background:var(--band-muted)}
 @media (max-width:899px){
-  .chapter{min-height:0;align-items:flex-start;padding-block:64svh 12svh}
-  .chapter:first-child{padding-top:46svh}
-  .card{max-width:none}
-  .card dl{grid-template-columns:1fr}
-  .rail{display:none}
-  .hud{left:var(--gut-l);right:var(--gut-r);bottom:auto;top:calc(72px + env(safe-area-inset-top,0px));width:auto;padding:10px 14px}
-  .hud dl{display:none}.hud-bar{margin:8px 0 0}
+  .chapter{min-height:0;align-items:flex-start;padding-block:62svh 14svh}
+  .chapter:first-child{padding-top:44svh}
+  .chapter .wrap{justify-content:center!important}
+  .doc{max-width:520px}
+  .d-field,.d-stamp{transform:none}
+  .seal{position:static;justify-self:end;margin-top:-6px;width:104px;height:104px;font-size:.8rem}
+  .d-stamp .meta-row{padding-right:0}
+  .hud{top:calc(70px + env(safe-area-inset-top,0px));bottom:auto}
+  .hud-row .log,.hud-row .lvl{display:none}
+  .segs button span{display:none}
 }
 
-/* after-story sections */
-.ticker{background:var(--accent);color:var(--on-accent);overflow:hidden;white-space:nowrap;position:relative;z-index:2}
-.ticker div{display:inline-flex;gap:40px;padding-block:16px;animation:tick 38s linear infinite;font:800 1rem/1 var(--display);font-stretch:120%;text-transform:uppercase;letter-spacing:.06em}
-.ticker span::after{content:"■";margin-left:40px;font-size:.6em;vertical-align:middle}
-@keyframes tick{to{transform:translateX(-50%)}}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:clamp(40px,5vw,64px)}
-.stat{padding:26px 22px 28px 0;display:grid;gap:8px;border-right:1px solid var(--line)}
-.stat:not(:first-child){padding-left:22px}
-.stat:last-child{border-right:0}
-.stat strong{font:800 clamp(2.1rem,4vw,3.2rem)/1 var(--display);font-stretch:120%;font-variant-numeric:tabular-nums}
-.stat strong sup{color:var(--accent);font-size:.5em;vertical-align:top}
-.stat span{font:400 .72rem/1.4 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
-@media (max-width:720px){.stats{grid-template-columns:1fr 1fr}.stat{border-bottom:1px solid var(--line)}.stat:nth-child(2){border-right:0}.stat:nth-child(3){padding-left:0}.stat:nth-child(n+3){border-bottom:0}}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,96px)}
-.about-grid > div{display:grid;gap:22px;align-content:start;min-width:0}
-.about-grid p{color:var(--muted);font-size:1.05rem;max-width:58ch}
-.quote{margin:8px 0 0;padding:26px;background:var(--surface);border-left:4px solid var(--accent)}
-.quote p{font:600 1.15rem/1.45 var(--body);color:var(--ink)!important}
-.who{display:flex;gap:12px;align-items:center;margin-top:16px;font-size:.88rem}
-.who .av{width:40px;height:40px;flex:none;background:var(--band);color:var(--accent);display:grid;place-items:center;font:800 .8rem/1 var(--display)}
-.who small{display:block;color:var(--muted);font:400 .7rem/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase}
-.sectors{display:flex;flex-wrap:wrap;gap:8px}
-.sectors span{border:1px solid var(--line);padding:8px 12px;font:500 .72rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase}
-@media (max-width:820px){.about-grid{grid-template-columns:1fr}}
+/* ===== 2. TANGLE: the usual way untangles into one line ===== */
+.tangle{background:var(--band);color:var(--band-fg);position:relative}
+.tangle-track{height:260vh}
+.tangle-stick{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;overflow:hidden}
+.tangle-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(24px,5vw,72px);align-items:center;width:100%}
+.tangle-text{position:relative;display:grid;min-width:0}
+.tangle-text > div{grid-area:1/1;display:grid;gap:20px;align-content:center;transition:opacity .35s,transform .35s}
+.tangle-text .after{opacity:0;transform:translateY(16px)}
+.tangle.done .before{opacity:0;transform:translateY(-16px)}
+.tangle.done .after{opacity:1;transform:none}
+.tangle-text p{color:var(--band-muted);max-width:48ch}
+.chase{display:flex;align-items:baseline;gap:14px;font:500 .74rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--band-muted)}
+.chase b{font:900 4.4rem/1 var(--display);font-stretch:125%;color:var(--accent);font-variant-numeric:tabular-nums;min-width:1ch}
+.tangle svg{width:100%;height:auto;display:block;max-height:76svh}
+.t-line{stroke:var(--band-muted);stroke-width:1.4;fill:none}
+.t-cross{stroke:var(--band-muted);stroke-width:1;stroke-dasharray:4 5;fill:none}
+.t-main{stroke:var(--accent);stroke-width:3;fill:none}
+.t-node rect{fill:var(--band-2);stroke:var(--band-line)}
+.t-node text{fill:var(--band-fg);font:500 12px var(--mono);letter-spacing:.04em}
+.t-node.you rect{fill:var(--band-fg)}
+.t-node.you text{fill:var(--band);font-weight:700}
+.t-node.mani rect{fill:var(--accent);stroke:none}
+.t-node.mani text{fill:var(--on-accent);font-weight:700}
+.t-q{fill:var(--band-muted);font:700 14px var(--mono)}
+.quote-mini{border-left:3px solid var(--accent);padding-left:16px;font-weight:600;color:var(--band-fg)!important}
+.quote-mini small{display:block;font:400 .7rem/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--band-muted);margin-top:8px}
+@media (max-width:860px){
+  .tangle-track{height:240vh}
+  .tangle-grid{grid-template-columns:1fr;gap:12px;padding-top:70px}
+  .tangle svg{max-height:40svh}
+  .tangle-text > div{gap:12px}
+  .tangle-text h2{font-size:1.9rem}
+  .chase b{font-size:2.8rem}
+  .quote-mini{display:none}
+}
+/* dimension-string stats */
+.dims{padding-block:56px 72px;border-top:1px solid var(--band-line)}
+.dims .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.dim{display:grid;gap:10px;min-width:0}
+.dim .line{position:relative;height:18px}
+.dim .line::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:var(--band-muted)}
+.dim .line::after{content:"";position:absolute;inset:0;border-left:1px solid var(--band-muted);border-right:1px solid var(--band-muted)}
+.dim .line i{position:absolute;top:50%;width:10px;height:1px;background:var(--band-fg);transform:rotate(-45deg)}
+.dim .line i:first-child{left:-5px}.dim .line i:last-child{right:-5px}
+.dim strong{font:800 clamp(2rem,3.6vw,3rem)/1 var(--display);font-stretch:120%;text-align:center}
+.dim strong sup{color:var(--accent);font-size:.5em}
+.dim span{font:400 .7rem/1.4 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--band-muted);text-align:center}
+@media (max-width:720px){.dims .wrap{grid-template-columns:1fr 1fr}}
 
-.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--band-line);border-left:1px solid var(--band-line)}
-.svc{padding:30px 26px 34px;border-right:1px solid var(--band-line);border-bottom:1px solid var(--band-line);display:grid;gap:12px;align-content:start;transition:background .25s;min-width:0}
-.svc:hover{background:var(--band-2)}
-.svc svg{width:42px;height:42px;color:var(--accent);margin-bottom:8px}
-.svc p{color:var(--band-muted);font-size:.93rem}
-.svc .spec{font:400 .66rem/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;border-top:1px dashed var(--band-line);padding-top:12px;margin-top:4px}
-.svc.cta-card{background:var(--accent);color:var(--on-accent)}
-.svc.cta-card p{color:var(--on-accent);opacity:.82}
-.svc.cta-card a{font:800 .8rem/1 var(--display);font-stretch:112%;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border-bottom:2px solid currentColor;justify-self:start;padding-bottom:4px;margin-top:8px}
-@media (max-width:1000px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:540px){.svc-grid{grid-template-columns:1fr}}
+/* ===== 3. SCOPE BUILDER: services as a configurator ===== */
+.scope{padding-block:clamp(72px,9vw,120px)}
+.scope-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,5vw,64px);align-items:start}
+.scope-grid > div{min-width:0}
+.scope-head{display:grid;gap:18px;margin-bottom:32px}
+.svc-list{display:grid;border-top:1px solid var(--line)}
+.svc-btn{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:44px 1fr 34px;gap:16px;align-items:center;padding:18px 8px 18px 0;border-bottom:1px solid var(--line);transition:background .2s,padding .2s}
+.svc-btn:hover{background:var(--surface);padding-left:12px}
+.svc-btn:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.svc-btn svg{width:36px;height:36px;color:var(--muted)}
+.svc-btn h3{font-size:1.05rem}
+.svc-btn p{color:var(--muted);font-size:.88rem;margin-top:4px}
+.svc-btn .tick{width:30px;height:30px;border:2px solid var(--line);display:grid;place-items:center;font:700 1rem/1 var(--body);color:transparent;transition:all .2s}
+.svc-btn[aria-pressed="true"] svg{color:var(--accent)}
+.svc-btn[aria-pressed="true"] .tick{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.sheet{position:sticky;top:96px;background:var(--paper);color:var(--paper-ink);padding:28px;display:grid;gap:18px;box-shadow:0 24px 50px -24px rgba(0,0,0,.35)}
+.sheet-head{display:flex;justify-content:space-between;gap:12px;font:500 .68rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--paper-muted);border-bottom:2px solid var(--paper-ink);padding-bottom:12px}
+.sheet h3{font-size:1.6rem}
+.sheet-count{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--paper-line)}
+.sheet-count div{padding:12px;border-right:1px solid var(--paper-line);display:grid;gap:6px}
+.sheet-count div:last-child{border-right:0}
+.sheet-count b{font:800 2rem/1 var(--display);font-stretch:120%;font-variant-numeric:tabular-nums}
+.sheet-count span{font:500 .6rem/1.2 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--paper-muted)}
+.sheet-count .fixed b{color:#B36F00}
+.sheet-items{display:grid;gap:14px;max-height:340px;overflow:auto}
+.sheet-items .empty{color:var(--paper-muted);font-size:.92rem}
+.sheet-item{display:grid;gap:4px;padding-left:14px;border-left:3px solid var(--accent);animation:slip .3s ease-out}
+.sheet-item b{font:700 .95rem/1.2 var(--display);font-stretch:110%;text-transform:uppercase}
+.sheet-item span{font-size:.84rem;color:var(--paper-muted)}
+@keyframes slip{from{transform:translateX(10px);opacity:.3}to{transform:none;opacity:1}}
+.sheet .btn{justify-self:start}
+@media (max-width:860px){.scope-grid{grid-template-columns:1fr}.sheet{position:static}}
 
-.filters{display:flex;gap:8px;flex-wrap:wrap}
-.filters button{font:600 .72rem/1 var(--display);font-stretch:112%;text-transform:uppercase;letter-spacing:.1em;padding:11px 16px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
-.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.proj{background:var(--surface);display:grid;grid-template-rows:auto 1fr;min-width:0;transition:transform .25s}
-.proj:hover{transform:translateY(-4px)}
-.plate{position:relative;aspect-ratio:3/2;max-width:100%;background:var(--band);color:var(--band-fg);overflow:hidden}
-.plate::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--band-line) 1px,transparent 1px),linear-gradient(90deg,var(--band-line) 1px,transparent 1px);background-size:24px 24px;opacity:.5}
-.plate svg{position:relative;width:100%;height:100%;display:block}
-.badge{position:absolute;top:14px;left:14px;background:var(--accent);color:var(--on-accent);font:500 .64rem/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:7px 9px}
-.proj .meta{padding:20px 22px 24px;display:flex;justify-content:space-between;align-items:end;gap:12px}
-.proj .meta small{display:block;margin-top:8px;color:var(--muted);font:400 .72rem/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase}
-.proj .arrow{width:40px;height:40px;flex:none;border:1px solid var(--line);display:grid;place-items:center;transition:background .2s}
-.proj:hover .arrow{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
-.proj.ask{background:var(--band);color:var(--band-fg);padding:28px;display:grid;align-content:space-between;gap:24px;grid-template-rows:none}
-.proj.ask h3{font-size:clamp(1.5rem,2.4vw,2rem)}
-.proj.ask p{color:var(--band-muted)}
-@media (max-width:960px){.proj-grid{grid-template-columns:1fr 1fr}}
-@media (max-width:600px){.proj-grid{grid-template-columns:1fr}}
+/* ===== 4. DRAWING SET: projects scroll sideways ===== */
+.set{background:var(--band);color:var(--band-fg);position:relative}
+.set-track{position:relative}
+.set-stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:28px;padding-top:64px}
+.set-rail{display:flex;gap:28px;will-change:transform;padding-left:var(--gut-l);padding-right:var(--gut-r)}
+.set-intro{flex:none;width:min(420px,80vw);display:grid;gap:20px;align-content:center}
+.sheetcard{flex:none;width:min(560px,80vw);background:var(--band-2);border:1px solid var(--band-line);display:grid;grid-template-rows:auto auto}
+.sheetcard .plate{position:relative;aspect-ratio:3/2;max-width:100%;overflow:hidden;border-bottom:1px solid var(--band-line)}
+.sheetcard .plate::before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--band-line) 1px,transparent 1px),linear-gradient(90deg,var(--band-line) 1px,transparent 1px);background-size:24px 24px;opacity:.6}
+.sheetcard svg{position:relative;width:100%;height:100%;display:block}
+.sheetcard .tb{display:grid;grid-template-columns:1.6fr 1fr 70px;font:400 .62rem/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--band-muted)}
+.sheetcard .tb div{padding:14px 16px;border-right:1px solid var(--band-line);min-width:0}
+.sheetcard .tb div:last-child{border-right:0;text-align:center}
+.sheetcard .tb b{display:block;margin-top:4px;color:var(--band-fg);font:700 1.05rem/1.15 var(--display);font-stretch:112%;letter-spacing:0}
+.sheetcard .tb .no b{color:var(--accent);font-family:var(--mono);font-size:1rem}
+.set-end{flex:none;width:min(420px,80vw);background:var(--accent);color:var(--on-accent);padding:32px;display:grid;align-content:space-between;gap:24px}
+.set-end h3{font-size:2rem}
+.set-prog{display:flex;align-items:center;gap:16px;font:500 .7rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--band-muted)}
+.set-prog .bar{flex:1;height:2px;background:var(--band-line);position:relative;max-width:420px}
+.set-prog .bar i{position:absolute;inset:0 auto 0 0;width:0;background:var(--accent)}
 .dw{fill:none;stroke:currentColor;stroke-width:1.5}
 .dw-thin{fill:none;stroke:currentColor;stroke-width:.8;opacity:.55}
 .dw-acc{fill:none;stroke:var(--accent);stroke-width:1.5}
 .dw-dash{fill:none;stroke:var(--accent);stroke-width:1.5;stroke-dasharray:5 5}
 .dw-txt{fill:currentColor;font:500 11px var(--mono);letter-spacing:.06em;opacity:.75}
 .dw-txt-acc{fill:var(--accent);font:500 11px var(--mono);letter-spacing:.06em}
+@media (max-width:899px){
+  .set-stick{position:static;height:auto;padding-block:72px}
+  .set-rail{overflow-x:auto;scroll-snap-type:x mandatory;transform:none!important;padding-bottom:12px}
+  .set-rail > *{scroll-snap-align:start}
+  .set-prog{display:none}
+}
 
-.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.trust-item{display:grid;gap:12px;align-content:start;padding-top:22px;border-top:2px solid var(--ink);min-width:0}
-.trust-item svg{width:38px;height:38px;color:var(--accent)}
-.trust-item p{color:var(--muted);font-size:.95rem}
-@media (max-width:900px){.trust-grid{grid-template-columns:1fr 1fr;gap:32px 20px}}
-@media (max-width:520px){.trust-grid{grid-template-columns:1fr}}
+/* ===== 5. CONTRACT: promises as clauses, signed on scroll ===== */
+.contract{background:var(--line);padding-block:clamp(72px,9vw,120px)}
+.agreement{max-width:820px;margin:0 auto;background:var(--paper);color:var(--paper-ink);padding:clamp(28px,6vw,64px);box-shadow:0 30px 60px -30px rgba(0,0,0,.45);position:relative;display:grid;gap:28px}
+.agreement::before{content:"";position:absolute;inset:12px;border:1px solid var(--paper-line);pointer-events:none}
+.ag-head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font:500 .68rem/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--paper-muted)}
+.agreement h2{font-size:clamp(1.9rem,4vw,3rem)}
+.agreement > p{color:var(--paper-muted);max-width:60ch}
+.clauses{display:grid;gap:0;counter-reset:cl}
+.clause{display:grid;grid-template-columns:90px 1fr;gap:20px;padding:20px 0;border-top:1px solid var(--paper-line)}
+.clause span{font:500 .74rem/1.6 var(--mono);letter-spacing:.08em;color:var(--paper-muted)}
+.clause h3{font-size:1.1rem;margin-bottom:6px}
+.clause p{color:var(--paper-muted);font-size:.95rem}
+.sign{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;border-top:2px solid var(--paper-ink);padding-top:24px}
+.sign svg{width:min(320px,100%);height:auto;display:block}
+.sign path{fill:none;stroke:#1f4f86;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.sign small{display:block;font:500 .66rem/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--paper-muted);border-top:1px solid var(--paper-ink);padding-top:8px;margin-top:4px}
+.ag-seal{width:112px;height:112px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;text-align:center;font:900 .9rem/1 var(--display);font-stretch:120%;text-transform:uppercase;box-shadow:inset 0 0 0 6px var(--accent),inset 0 0 0 8px var(--on-accent);transform:rotate(-10deg)}
+.ag-seal small{display:block;font:500 .54rem/1.3 var(--mono);letter-spacing:.1em;margin-top:4px}
+@media (max-width:560px){.clause{grid-template-columns:1fr;gap:6px}.sign{grid-template-columns:1fr}}
 
-.voices-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.voice{margin:0;background:var(--band-2);border:1px solid var(--band-line);padding:30px 26px;display:grid;gap:22px;align-content:space-between;min-width:0}
-.voice .stars{color:var(--accent);letter-spacing:4px;font-size:.9rem}
-.voice p{font-size:1.02rem;line-height:1.6}
-.voice .who small{color:var(--band-muted)}
-.voice .who .av{background:var(--accent);color:var(--on-accent)}
-@media (max-width:900px){.voices-grid{grid-template-columns:1fr}}
+/* ===== 6. VISITOR BOOK: flip through client notes ===== */
+.voices{background:var(--accent);color:var(--on-accent);padding-block:clamp(72px,9vw,120px);overflow:hidden}
+.voices-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(32px,6vw,96px);align-items:center}
+.voices-grid > div{min-width:0}
+.voices .eyebrow{color:var(--on-accent)}
+.voices .eyebrow::before{background:var(--on-accent)}
+.voices-l{display:grid;gap:22px}
+.deck-ctrl{display:flex;align-items:center;gap:12px}
+.deck-ctrl button{all:unset;cursor:pointer;width:52px;height:52px;border:2px solid var(--on-accent);display:grid;place-items:center;font:700 1.2rem/1 var(--body);transition:background .2s,color .2s}
+.deck-ctrl button:hover{background:var(--on-accent);color:var(--accent)}
+.deck-ctrl button:focus-visible{outline:2px solid var(--on-accent);outline-offset:3px}
+.deck-ctrl span{font:500 .8rem/1 var(--mono);letter-spacing:.12em;margin-left:8px}
+.deck{position:relative;height:400px;touch-action:pan-y}
+.note{position:absolute;inset:0;margin:0;background:var(--paper);color:var(--paper-ink);padding:34px 34px 30px 64px;display:grid;align-content:space-between;gap:18px;background-image:repeating-linear-gradient(transparent 0 31px,var(--paper-line) 31px 32px);background-position:0 18px;box-shadow:0 18px 40px -18px rgba(0,0,0,.45);transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .45s;cursor:grab;user-select:none}
+.note::before{content:"";position:absolute;left:44px;top:0;bottom:0;width:1px;background:var(--stamp);opacity:.45}
+.note p{font:600 1.75rem/32px var(--hand);color:#1f3f6e}
+.note .who{display:flex;gap:12px;align-items:center;font:600 .9rem/1.3 var(--body)}
+.note .who small{display:block;font:400 .66rem/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--paper-muted)}
+.note .pg{position:absolute;top:14px;right:18px;font:500 .64rem/1 var(--mono);letter-spacing:.1em;color:var(--paper-muted)}
+.note.out{transform:translateX(120%) rotate(14deg)!important;opacity:0}
+@media (max-width:860px){.voices-grid{grid-template-columns:1fr}.deck{height:440px}.note{padding:28px 22px 24px 48px}.note::before{left:32px}.note p{font-size:1.45rem}}
 
-.faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(32px,6vw,96px)}
-.faq-grid > div{display:grid;gap:20px;align-content:start;min-width:0}
-.faq-grid > div:last-child{gap:0}
-details{border-top:1px solid var(--line)}
-details:last-of-type{border-bottom:1px solid var(--line)}
-summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;align-items:center;padding:22px 0;font:700 1.02rem/1.3 var(--display);font-stretch:108%}
-summary::-webkit-details-marker{display:none}
-summary::after{content:"+";flex:none;width:32px;height:32px;display:grid;place-items:center;background:var(--surface);font:500 1.2rem/1 var(--mono);transition:transform .2s,background .2s}
-details[open] summary::after{transform:rotate(45deg);background:var(--accent);color:var(--on-accent)}
-details p{padding:0 48px 24px 0;color:var(--muted)}
-@media (max-width:820px){.faq-grid{grid-template-columns:1fr}}
+/* ===== 7. ASK AN ENGINEER: FAQ as a conversation ===== */
+.ask{background:var(--band);color:var(--band-fg);padding-block:clamp(72px,9vw,120px)}
+.ask-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(32px,6vw,96px);align-items:start}
+.ask-grid > div{min-width:0}
+.ask-l{display:grid;gap:20px;position:sticky;top:110px}
+.phone{background:var(--band-2);border:1px solid var(--band-line);display:grid;grid-template-rows:auto 1fr auto;max-height:640px;min-height:520px}
+.phone-top{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--band-line)}
+.phone-top .av{width:38px;height:38px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;font:800 .85rem/1 var(--display)}
+.phone-top b{display:block;font-size:.95rem}
+.phone-top small{font:400 .66rem/1 var(--mono);letter-spacing:.08em;color:var(--band-muted);text-transform:uppercase}
+.thread{overflow-y:auto;padding:20px 18px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+.bub{max-width:82%;padding:12px 15px;font-size:.93rem;line-height:1.5;animation:pop .25s ease-out}
+.bub.q{align-self:flex-end;background:var(--band-fg);color:var(--band);font-weight:600}
+.bub.a{align-self:flex-start;background:var(--band);border:1px solid var(--band-line)}
+.bub.a::before{content:"Engineer";display:block;font:500 .6rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.bub.typing{display:flex;gap:5px;padding:16px}
+.bub.typing i{width:7px;height:7px;border-radius:50%;background:var(--band-muted);animation:blink 1s infinite}
+.bub.typing i:nth-child(2){animation-delay:.15s}.bub.typing i:nth-child(3){animation-delay:.3s}
+@keyframes blink{50%{opacity:.25}}
+@keyframes pop{from{transform:translateY(6px);opacity:.4}to{transform:none;opacity:1}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:14px 18px;border-top:1px solid var(--band-line)}
+.chips button{all:unset;cursor:pointer;border:1px solid var(--band-muted);padding:9px 13px;font-size:.84rem;transition:all .2s}
+.chips button:hover{border-color:var(--accent);color:var(--accent)}
+.chips button:focus-visible{outline:2px solid var(--accent)}
+.chips .done-note{font:400 .74rem/1.4 var(--mono);color:var(--band-muted)}
+@media (max-width:860px){.ask-grid{grid-template-columns:1fr}.ask-l{position:static}.phone{min-height:480px}}
 
-.cta{background:var(--accent);color:var(--on-accent);padding-block:clamp(56px,8vw,96px)}
-.cta .wrap{display:flex;justify-content:space-between;align-items:end;gap:32px;flex-wrap:wrap}
-.cta h2{font-size:clamp(2.2rem,6vw,5rem);font-weight:900;max-width:14ch}
-.cta p{max-width:44ch;margin-top:16px;font-size:1.05rem}
-.btn-dark{background:var(--on-accent);color:var(--accent)}
-.btn-dark:hover{background:transparent;color:var(--on-accent);border-color:var(--on-accent)}
-.contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(32px,6vw,96px)}
-.contact-grid > div{display:grid;gap:22px;align-content:start;min-width:0}
+/* ===== 8. WORK ORDER: booking slip ===== */
+.order{background:var(--bg);padding-block:clamp(72px,9vw,120px)}
+.order-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(32px,6vw,96px);align-items:start}
+.order-grid > div{min-width:0;display:grid;gap:22px;align-content:start}
+.order h2{font-size:clamp(2.4rem,5.6vw,4.6rem);font-weight:900}
 .cinfo{display:grid;margin:8px 0 0}
-.cinfo div{display:grid;grid-template-columns:90px 1fr;gap:12px;padding:16px 0;border-top:1px solid var(--line)}
+.cinfo div{display:grid;grid-template-columns:90px 1fr;gap:12px;padding:15px 0;border-top:1px solid var(--line)}
 .cinfo dt{font:500 .7rem/1.6 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.cinfo dd{margin:0;font-weight:600;user-select:all;min-width:0;overflow-wrap:anywhere}
-form{background:var(--surface);padding:clamp(24px,4vw,40px);display:grid;grid-template-columns:1fr 1fr;gap:18px;min-width:0}
-form h3{grid-column:1/-1;font-size:1.5rem;margin-bottom:6px}
-.field{display:grid;gap:8px;min-width:0}
+.cinfo dd{margin:0;font-weight:600;user-select:all;overflow-wrap:anywhere}
+.slip{background:var(--paper);color:var(--paper-ink);display:grid;grid-template-columns:1fr 92px;box-shadow:0 24px 50px -24px rgba(0,0,0,.4)}
+.slip form,.slip .ticket{padding:clamp(22px,4vw,36px);display:grid;grid-template-columns:1fr 1fr;gap:16px;min-width:0}
+.slip-head{grid-column:1/-1;display:flex;justify-content:space-between;gap:12px;font:500 .66rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--paper-muted);border-bottom:2px solid var(--paper-ink);padding-bottom:12px}
+.slip h3{grid-column:1/-1;font-size:1.5rem}
+.field{display:grid;gap:7px;min-width:0}
 .field.full{grid-column:1/-1}
-label{font:500 .7rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-input,select,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);padding:14px;border-radius:0;width:100%}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:inset 0 -2px 0 var(--accent)}
-textarea{min-height:110px;resize:vertical}
-form .btn{justify-self:start}
-.form-note{grid-column:1/-1;font-size:.84rem;color:var(--muted)}
-.form-note.ok{color:var(--ink);font-weight:600}
-@media (max-width:820px){.contact-grid{grid-template-columns:1fr}}
-@media (max-width:520px){form{grid-template-columns:1fr}}
+.slip label{font:500 .66rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--paper-muted)}
+.slip input,.slip select,.slip textarea{font:inherit;color:var(--paper-ink);background:transparent;border:0;border-bottom:1.5px solid var(--paper-ink);padding:10px 2px;border-radius:0;width:100%}
+.slip select{background:var(--paper)}
+.slip input:focus,.slip select:focus,.slip textarea:focus{outline:none;border-bottom-color:var(--accent);box-shadow:0 2px 0 var(--accent)}
+.slip textarea{min-height:80px;resize:vertical}
+.form-note{grid-column:1/-1;font-size:.82rem;color:var(--paper-muted)}
+.form-note.err{color:var(--stamp);font-weight:600}
+.stub{border-left:2px dashed var(--paper-muted);display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;transform:rotate(180deg);font:800 1rem/1 var(--display);font-stretch:120%;letter-spacing:.2em;text-transform:uppercase;color:var(--paper-muted);position:relative}
+.stub::before,.stub::after{content:"";position:absolute;left:-12px;width:22px;height:22px;border-radius:50%;background:var(--bg)}
+.stub::before{top:-11px}.stub::after{bottom:-11px}
+.ticket{align-content:start}
+.ticket .ref{grid-column:1/-1;font:900 clamp(2.2rem,5vw,3.4rem)/1 var(--display);font-stretch:122%;color:var(--paper-ink)}
+.ticket dl{grid-column:1/-1;display:grid;grid-template-columns:120px 1fr;gap:8px 16px;margin:0;font-size:.92rem}
+.ticket dt{font:500 .66rem/1.8 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--paper-muted)}
+.ticket dd{margin:0;overflow-wrap:anywhere}
+@media (max-width:860px){.order-grid{grid-template-columns:1fr}}
+@media (max-width:560px){.slip{grid-template-columns:1fr}.stub{writing-mode:horizontal-tb;transform:none;border-left:0;border-top:2px dashed var(--paper-muted);padding:14px}.stub::before,.stub::after{display:none}.slip form,.slip .ticket{grid-template-columns:1fr}}
 
-footer{padding-block:64px 32px}
-.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;padding-bottom:48px;border-bottom:1px solid var(--band-line)}
+footer{padding-block:56px 32px}
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;padding-bottom:40px;border-bottom:1px solid var(--band-line)}
 .foot > div{display:grid;gap:14px;align-content:start;min-width:0}
 .foot h4{margin:0;font:500 .72rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--band-muted)}
 .foot ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
@@ -258,230 +444,265 @@ footer{padding-block:64px 32px}
 <header class="site-header"><div class="wrap">
   <a href="#top" class="logo" aria-label="Manidhay, home"><span class="logo-mark" aria-hidden="true">M</span><span><b>Manidhay</b><small>Business Services</small></span></a>
   <ul class="nav">
-    <li><a href="#ch-1">How we build</a></li><li><a href="#services">Services</a></li><li><a href="#projects">Projects</a></li><li><a href="#faq">FAQ</a></li><li><a href="#contact">Contact</a></li>
+    <li><a href="#ch-1">The build</a></li><li><a href="#about">Why us</a></li><li><a href="#services">Services</a></li><li><a href="#projects">Projects</a></li><li><a href="#faq">Ask</a></li><li><a href="#contact">Contact</a></li>
   </ul>
   <a class="btn btn-accent" href="#contact">Book a site visit</a>
 </div></header>
 
 <main id="top">
-<!-- ================= 3D STORY ================= -->
+<!-- ============ 1. THE BUILD ============ -->
 <div class="story" id="story">
   <div class="stage" id="stage">
     <canvas id="scene" aria-label="3D construction site that builds a house as you scroll" role="img"></canvas>
-    <nav class="rail" id="rail" aria-label="Construction stages"></nav>
-    <div class="hud" aria-live="off">
-      <div class="hud-top"><span>Stage <b id="hud-no">00 / 08</b></span><b id="hud-name">Empty plot</b></div>
-      <div class="hud-bar"><i id="hud-fill"></i></div>
-      <dl>
-        <dt>Built</dt><dd id="hud-built">0%</dd>
-        <dt>Level</dt><dd id="hud-level">±0.00 m</dd>
-        <dt>Site log</dt><dd id="hud-log">30 × 40 ft plot, untouched</dd>
-      </dl>
+    <div class="hud">
+      <div class="hud-row"><span>Stage <b id="hud-no">00/08</b></span><b id="hud-name">Empty plot</b><span>Built <b id="hud-built">0%</b></span><span class="lvl">Level <b id="hud-level">±0.00 m</b></span><span class="log" id="hud-log">30 × 40 ft plot, untouched</span></div>
+      <div class="segs" id="segs"></div>
     </div>
   </div>
 
   <div class="chapters">
-    <article class="chapter hero-ch" id="ch-0" data-name="Start" data-hud="Empty plot" data-log="30 × 40 ft plot, untouched"><div class="wrap"><div class="card">
+    <article class="chapter" id="ch-0" data-side="l" data-name="Start" data-hud="Empty plot" data-log="30 × 40 ft plot, untouched"><div class="wrap"><div class="doc hero-doc">
       <p class="eyebrow">Manidhay · Karnataka</p>
       <h1>Built on <span class="amb">trust.</span><br>Plot to <span class="out">keys.</span></h1>
-      <p class="lede">One accountable team for engineering design, architecture, government approvals, home loans and construction. Scroll down and watch a home get built the way we build it: eight stages, your sign-off at each one.</p>
-      <div class="hero-actions"><a class="btn btn-accent" href="#contact">Book a free site visit</a><a class="btn btn-ghost" href="#ch-1">Start the build</a></div>
+      <p class="lede">This is the story of one house, told through the paperwork of its build. Scroll, and watch it go from an empty plot to handover with one accountable team at every stage.</p>
+      <div class="actions"><a class="btn btn-accent" href="#contact">Book a free site visit</a><a class="btn btn-ghost" href="#ch-1">Start the build</a></div>
       <p class="cue"><i></i>Scroll to build</p>
     </div></div></article>
 
-    <article class="chapter" id="ch-1" data-name="Survey" data-hud="Survey &amp; feasibility" data-log="Pegs set, soil bore BH-1 logged"><div class="wrap"><div class="card">
-      <p class="stage-no">Stage 01 / 08</p>
+    <article class="chapter" id="ch-1" data-side="l" data-name="Survey" data-hud="Survey" data-log="Pegs set, soil bore BH-1 logged"><div class="wrap"><div class="doc d-field">
+      <p class="tagline">Field book · Page 01 · Stage 01/08</p>
       <h2>Survey &amp; feasibility</h2>
-      <p>Before a single line is drawn, we walk the plot with you. The boundary is pegged and strung, levels are taken, and a soil test tells us what the ground can safely carry.</p>
-      <ul><li>Boundary and level survey checked against your documents</li><li>Soil test to choose the right type and depth of foundation</li><li>Setbacks and buildable area under local building rules</li><li>An honest early view of what the land can hold and what it will cost</li></ul>
-      <dl><div><dt>You receive</dt><dd>Site report, soil test results, early budget</dd></div><div><dt>Your part</dt><dd>One free site visit with our engineer</dd></div></dl>
+      <p>Before a single line is drawn, we walk the plot with you. The boundary is pegged and strung, levels are taken, and a soil test tells us what the ground can carry.</p>
+      <dl class="readings"><dt>Plot</dt><dd>30 × 40 ft</dd><dt>Area</dt><dd>1,200 sq ft</dd><dt>Boundary</dt><dd>4 pegs, strung</dd><dt>Soil</dt><dd>Bore BH-1, sent to lab</dd></dl>
+      <ul><li>Boundary and levels checked against your documents</li><li>Setbacks and buildable area under local rules</li><li>An honest early view of feasibility and cost</li></ul>
+      <div class="meta-row"><div><b>You receive</b>Site report, soil results, early budget</div><div><b>Your part</b>One free site visit</div></div>
     </div></div></article>
 
-    <article class="chapter" id="ch-2" data-name="Design" data-hud="Design" data-log="Drawings A-101 to S-204 in review"><div class="wrap"><div class="card">
-      <p class="stage-no">Stage 02 / 08</p>
-      <h2>Design</h2>
-      <p>Architects and structural engineers work on the same set of drawings. The blue outline you see is the plan: the house exists on paper, to scale, before anything is built.</p>
-      <ul><li>Floor plans and elevations around your family, plot and vastu</li><li>Structural design: column grid, footing sizes, beams and steel</li><li>3D views so you can see the house before it exists</li><li>An itemised estimate tied to the approved drawings</li></ul>
-      <dl><div><dt>You receive</dt><dd>Floor plans, elevations, structural drawings</dd></div><div><dt>Your part</dt><dd>Design reviews and a final sign-off</dd></div></dl>
+    <article class="chapter" id="ch-2" data-side="r" data-name="Design" data-hud="Design" data-log="Drawing set issued for review"><div class="wrap"><div class="doc d-bp">
+      <div class="bp-body">
+        <p class="tagline">Drawing register · Stage 02/08</p>
+        <h2>Design</h2>
+        <p>Architects and structural engineers work on one set of drawings, so the plan you approve is exactly what gets built. The blue outline around the house is that set, drawn to scale.</p>
+      </div>
+      <div class="register">
+        <div><span>A-101</span><span>Floor plans, all levels</span><span>R2</span></div>
+        <div><span>A-201</span><span>Elevations &amp; 3D views</span><span>R1</span></div>
+        <div><span>S-101</span><span>Column &amp; footing layout</span><span>R1</span></div>
+        <div><span>S-201</span><span>Beam &amp; slab steel details</span><span>R1</span></div>
+        <div><span>E-001</span><span>Itemised estimate</span><span>R2</span></div>
+      </div>
+      <div class="titleblock"><div>You receive<b>Full drawing set</b></div><div>Your part<b>Review + sign-off</b></div><div>Vastu<b>Considered</b></div></div>
     </div></div></article>
 
-    <article class="chapter" id="ch-3" data-name="Approvals" data-hud="Approvals &amp; finance" data-log="Plan sanctioned, loan estimate filed"><div class="wrap"><div class="card">
-      <p class="stage-no">Stage 03 / 08</p>
+    <article class="chapter" id="ch-3" data-side="l" data-name="Approvals" data-hud="Approvals &amp; finance" data-log="Plan sanctioned, loan estimate filed"><div class="wrap"><div class="doc d-stamp">
+      <p class="tagline">Application file · Stage 03/08</p>
       <h2>Approvals &amp; finance</h2>
-      <p>We prepare and file the paperwork, follow it up with the authorities, and give your bank an estimate it accepts. You sign the applications. We do the running between offices.</p>
-      <ul><li>Plan sanction from the local authority</li><li>NOCs and licences as your site requires</li><li>Bank-ready estimate and home loan assistance</li><li>A stage-wise payment plan linked to work done</li></ul>
-      <dl><div><dt>You receive</dt><dd>Sanctioned plan, NOCs, bank-ready estimate</dd></div><div><dt>Your part</dt><dd>Signing the applications</dd></div></dl>
+      <p>We prepare and file the paperwork, follow it up with the authorities, and give your bank an estimate it accepts. You sign. We do the running between offices.</p>
+      <div class="checks">
+        <label><i>✓</i>Plan sanction from the local authority</label>
+        <label><i>✓</i>NOCs and licences your site needs</label>
+        <label><i>✓</i>Bank-ready estimate and loan assistance</label>
+        <label><i>✓</i>Stage-wise payment plan, tied to work done</label>
+      </div>
+      <div class="meta-row"><div><b>You receive</b>Sanctioned plan, NOCs, estimate</div><div><b>Your part</b>Signing applications</div></div>
+      <div class="seal" aria-hidden="true">SANCTIONED<small>PLAN APPROVED</small></div>
     </div></div></article>
 
-    <article class="chapter" id="ch-4" data-name="Foundation" data-hud="Foundation" data-log="Footings cast, plinth beam done"><div class="wrap"><div class="card">
-      <p class="stage-no">Stage 04 / 08</p>
+    <article class="chapter" id="ch-4" data-side="r" data-name="Foundation" data-hud="Foundation" data-log="Footings cast, plinth beam done"><div class="wrap"><div class="doc d-tag">
+      <p class="tagline"><span>Inspection tag</span><span>Stage 04/08</span></p>
       <h2>Foundation</h2>
-      <p>The part nobody sees later, so we do it most carefully. Footings are sized from the soil report, and the steel is inspected before every pour.</p>
-      <ul><li>Column grid marked on site from the structural drawing</li><li>Excavation and a levelled concrete bed</li><li>Reinforced footings with column starters</li><li>Plinth beams tie everything together at ground level</li></ul>
-      <dl><div><dt>You receive</dt><dd>Photo record of steel before each pour</dd></div><div><dt>Your part</dt><dd>Foundation sign-off, first stage payment</dd></div></dl>
+      <p>The part nobody sees later, so it gets the most care. Footings are sized from the soil report, and no concrete is poured until the steel is checked.</p>
+      <ul><li>Column grid marked from the structural drawing</li><li>Excavation and a levelled concrete bed</li><li>Reinforced footings with column starters</li><li>Plinth beams tie it all together</li></ul>
+      <div class="passrow"><span>Steel checked</span><span>Photos sent</span><span>Pour cleared</span></div>
+      <div class="meta-row" style="padding-top:2px"><div><b>You receive</b>Photo record of steel</div><div><b>Your part</b>Sign-off, 1st payment</div></div>
     </div></div></article>
 
-    <article class="chapter" id="ch-5" data-name="Structure" data-hud="RCC structure" data-log="Columns and slabs, one level at a time"><div class="wrap"><div class="card">
-      <p class="stage-no">Stage 05 / 08</p>
+    <article class="chapter" id="ch-5" data-side="l" data-name="Structure" data-hud="RCC structure" data-log="Columns and slabs, one level at a time"><div class="wrap"><div class="doc d-slab">
+      <p class="tagline">Live slab log · Stage 05/08</p>
       <h2>Structure</h2>
-      <p>The reinforced concrete frame rises one floor at a time. Each slab is checked by our engineer before the next level begins.</p>
-      <ul><li>Columns cast exactly to the structural drawings</li><li>Slab steel, cover and shuttering checked before pouring</li><li>Concrete compacted and properly cured</li><li>The next floor starts only after inspection</li></ul>
-      <dl><div><dt>You receive</dt><dd>Slab-by-slab updates and photos</dd></div><div><dt>Your part</dt><dd>Sign-off and payment per slab</dd></div></dl>
+      <p>The concrete frame rises one floor at a time. Watch the log fill as each slab is poured. The next level only starts after our engineer has inspected the last.</p>
+      <div class="slabs" aria-label="Slab progress">
+        <div class="slab"><span>Slab 1</span><div class="bar"><i id="slab-0"></i></div><b>+3.60 m</b></div>
+        <div class="slab"><span>Slab 2</span><div class="bar"><i id="slab-1"></i></div><b>+6.60 m</b></div>
+        <div class="slab"><span>Slab 3</span><div class="bar"><i id="slab-2"></i></div><b>+9.60 m</b></div>
+      </div>
+      <ul><li>Columns cast exactly to drawing</li><li>Steel, cover and shuttering checked before each pour</li><li>Concrete compacted and properly cured</li></ul>
+      <div class="meta-row"><div><b>You receive</b>Slab-by-slab photos</div><div><b>Your part</b>Sign-off per slab</div></div>
     </div></div></article>
 
-    <article class="chapter" id="ch-6" data-name="Walls" data-hud="Walls &amp; openings" data-log="Masonry up, windows and door fixed"><div class="wrap"><div class="card">
-      <p class="stage-no">Stage 06 / 08</p>
+    <article class="chapter" id="ch-6" data-side="r" data-name="Walls" data-hud="Walls &amp; openings" data-log="Masonry up, windows and door fixed"><div class="wrap"><div class="doc d-sched">
+      <p class="tagline">Room schedule · sample ground floor · Stage 06/08</p>
       <h2>Walls &amp; openings</h2>
-      <p>Masonry fills the frame and rooms take shape. Wiring and plumbing lines go in before plastering, so nothing gets broken open later.</p>
-      <ul><li>Block or brick walls laid to the floor plan</li><li>Lintels over every door and window opening</li><li>Concealed electrical conduits and plumbing lines</li><li>A walk-through with you to check room sizes on site</li></ul>
-      <dl><div><dt>You receive</dt><dd>Regular site updates</dd></div><div><dt>Your part</dt><dd>Room-size check and stage sign-off</dd></div></dl>
+      <p>Masonry fills the frame and rooms take shape. Wiring and plumbing go in before plaster, so nothing gets broken open later. We check every room size with you on site.</p>
+      <table><thead><tr><th>Room</th><th>Size (ft)</th></tr></thead><tbody>
+        <tr><td>Living</td><td>14 × 12</td></tr><tr><td>Kitchen</td><td>10 × 9</td></tr><tr><td>Bedroom 1</td><td>12 × 11</td></tr><tr><td>Bedroom 2</td><td>11 × 10</td></tr><tr><td>Toilet</td><td>7 × 5</td></tr>
+      </tbody></table>
+      <div class="meta-row"><div><b>You receive</b>Regular site updates</div><div><b>Your part</b>Room-size walk-through</div></div>
     </div></div></article>
 
-    <article class="chapter" id="ch-7" data-name="Finishing" data-hud="Finishing" data-log="Painted, compound wall installed"><div class="wrap"><div class="card">
-      <p class="stage-no">Stage 07 / 08</p>
-      <h2>Finishing</h2>
-      <p>Plaster, flooring, paint and fittings, then the outside. Our precast compound wall goes up in days, not weeks, with the gate and landscaping after.</p>
-      <ul><li>Plastering, waterproofing and flooring</li><li>Paint, fixtures and fittings</li><li>Precast concrete compound wall and gate</li><li>Every finish inspected before it's signed off</li></ul>
-      <dl><div><dt>You receive</dt><dd>Inspected finishes, room by room</dd></div><div><dt>Your part</dt><dd>Approving finishes and fittings</dd></div></dl>
+    <article class="chapter" id="ch-7" data-side="l" data-name="Finishing" data-hud="Finishing" data-log="Painted, compound wall installed"><div class="wrap"><div class="doc d-swatch">
+      <div class="swatches" aria-hidden="true">
+        <span style="background:#ECE7DC;color:#1B1E21">Walls</span><span style="background:#2C3135;color:#ECEDEA">Slab edge</span><span style="background:#E8980A;color:#15181B">Gate &amp; sills</span><span style="background:#B4B1A9;color:#1B1E21">Precast wall</span>
+      </div>
+      <div class="sw-body">
+        <p class="tagline" style="color:var(--paper-muted)">Finish schedule · Stage 07/08</p>
+        <h2>Finishing</h2>
+        <p>Plaster, flooring, paint and fittings, then the outside. Our precast compound wall goes up in days, not weeks.</p>
+        <ul><li>Plastering, waterproofing and flooring</li><li>Paint, fixtures and fittings you approve</li><li>Precast compound wall, gate and landscaping</li></ul>
+        <div class="meta-row"><div><b>You receive</b>Inspected finishes</div><div><b>Your part</b>Approve finishes</div></div>
+      </div>
     </div></div></article>
 
-    <article class="chapter end" id="ch-8" data-name="Handover" data-hud="Handover" data-log="Keys and documents handed over"><div class="wrap"><div class="card">
-      <p class="stage-no">Stage 08 / 08</p>
+    <article class="chapter" id="ch-8" data-side="r" data-name="Handover" data-hud="Handover" data-log="Keys and documents handed over"><div class="wrap"><div class="doc d-key">
+      <p class="tagline">Key tag · Stage 08/08</p>
       <h2>The keys are yours.</h2>
-      <p>A final walkthrough with you, room by room. Then the keys and every document, in one file. On schedule, on budget, with one name accountable from the first peg to the last light.</p>
-      <ul><li>Final walkthrough and snag check</li><li>Keys, drawings and approvals handed over</li><li>One point of contact the whole way</li></ul>
-      <div class="hero-actions"><a class="btn btn-accent" href="#contact">Start with your plot</a><a class="btn btn-ghost" href="#services">See all services</a></div>
+      <p>A final walkthrough, room by room. Then your keys and every document in one file. One name accountable from the first peg to the last light.</p>
+      <ul><li>Final walkthrough and snag check</li><li>Sanctioned plan, drawings and approvals file</li><li>On schedule, on budget</li></ul>
+      <div class="actions"><a class="btn btn-accent" href="#contact">Start with your plot</a></div>
     </div></div></article>
   </div>
 </div>
 
-<div class="ticker" aria-hidden="true"><div>
-  <span>Engineering design</span><span>Architecture</span><span>Construction</span><span>Government approvals</span><span>Loans &amp; finance</span><span>Precast walls</span><span>Training</span>
-  <span>Engineering design</span><span>Architecture</span><span>Construction</span><span>Government approvals</span><span>Loans &amp; finance</span><span>Precast walls</span><span>Training</span>
-</div></div>
+<!-- ============ 2. THE TANGLE ============ -->
+<section class="tangle" id="about" style="padding:0">
+  <div class="tangle-track" id="tangle-track">
+    <div class="tangle-stick"><div class="wrap tangle-grid">
+      <div class="tangle-text">
+        <div class="before">
+          <p class="eyebrow">The usual way</p>
+          <h2>Six people to chase. Nobody accountable.</h2>
+          <p>Building usually means coordinating architects, structural designers, civil engineers, interior designers and licensing consultants who rarely talk to each other. When something slips, everyone points elsewhere.</p>
+          <p class="chase">People you chase <b id="chase-n">6</b></p>
+        </div>
+        <div class="after">
+          <p class="eyebrow">The Manidhay way</p>
+          <h2>One team. One name to call.</h2>
+          <p>Manidhay was founded to end that. Our in-house team takes your project from site selection to handover, and we answer for every stage of it.</p>
+          <p class="quote-mini">“We build every project as if our own family were moving in.”<small>Founder name · Founder &amp; Principal Engineer</small></p>
+          <p class="chase">People you chase <b id="chase-n2">1</b></p>
+        </div>
+      </div>
+      <svg viewBox="0 0 640 520" role="img" aria-label="Diagram: without Manidhay you coordinate six consultants yourself; with Manidhay you deal with one team that coordinates them" id="tangle-svg"></svg>
+    </div></div>
+  </div>
+  <div class="dims"><div class="wrap">
+    <div class="dim"><div class="line"><i></i><i></i></div><strong>50<sup>+</sup></strong><span>Projects delivered</span></div>
+    <div class="dim"><div class="line"><i></i><i></i></div><strong>7</strong><span>Services under one roof</span></div>
+    <div class="dim"><div class="line"><i></i><i></i></div><strong>1</strong><span>Point of accountability</span></div>
+    <div class="dim"><div class="line"><i></i><i></i></div><strong>₹0</strong><span>Your first site visit</span></div>
+  </div></div>
+</section>
 
-<section id="about"><div class="wrap">
-  <div class="about-grid">
-    <div>
-      <p class="eyebrow">About Manidhay</p>
-      <h2>One name accountable for your entire build.</h2>
-      <div class="sectors" aria-label="What we build"><span>Residential homes</span><span>Villas &amp; duplexes</span><span>Commercial complexes</span><span>Temples &amp; heritage</span><span>Resorts</span><span>Layouts &amp; walls</span></div>
-    </div>
-    <div>
-      <p>Building a home or a commercial space usually means coordinating architects, structural designers, civil engineers, interior designers and licensing consultants who rarely talk to each other. When something slips, everyone points elsewhere.</p>
-      <p>Manidhay was founded to end that. Our in-house team takes your project from site selection to handover, and we answer for every stage of it.</p>
-      <figure class="quote"><p>“We build every project as if our own family were moving in. That standard has not changed since our first site.”</p>
-        <figcaption class="who"><span class="av">FN</span><span>Founder name<small>Founder &amp; Principal Engineer</small></span></figcaption></figure>
-    </div>
-  </div>
-  <div class="stats">
-    <div class="stat"><strong>50<sup>+</sup></strong><span>Projects delivered</span></div>
-    <div class="stat"><strong>07</strong><span>Services, one roof</span></div>
-    <div class="stat"><strong>01</strong><span>Point of accountability</span></div>
-    <div class="stat"><strong>₹0</strong><span>First site visit</span></div>
-  </div>
-</div></section>
-
-<section class="band" id="services"><div class="wrap">
-  <div class="sec-head">
-    <div><p class="eyebrow">Our services</p><h2>Seven disciplines.<br>One team.</h2></div>
-    <p class="lede">Take one service or all seven. Either way you get one contract, one schedule and one engineer who answers your calls.</p>
-  </div>
-  <div class="svc-grid">
-    <article class="svc"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 40h36M8 40V12h28v28M8 22h28M8 32h28M18 12v28M26 12v28"/><path d="M8 12l14-8 14 8"/></svg><h3>Engineering Design</h3><p>Structural and civil design built for safety, durability and cost efficiency.</p><p class="spec">Load calcs · Column grid · Steel</p></article>
-    <article class="svc"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h36v36H4zM4 20h16v20M20 4v10M28 20h12M28 20v8"/><circle cx="34" cy="34" r="2"/></svg><h3>Architecture</h3><p>Plans and elevations that fit your plot, your budget and your vastu needs.</p><p class="spec">Floor plans · Elevations · 3D</p></article>
-    <article class="svc"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 40h32M10 40V22h24v18M16 22v-8h12v8M4 14h36M22 4v10"/></svg><h3>Construction</h3><p>Quality-checked execution from foundation to finishing, on schedule.</p><p class="spec">Footing → slab → finishing</p></article>
-    <article class="svc"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="10" width="36" height="24"/><path d="M4 18h36M10 28h8"/><circle cx="32" cy="27" r="3"/></svg><h3>Loans &amp; Finance</h3><p>Bank-ready estimates, home loan assistance and stage-wise payment plans.</p><p class="spec">Estimates · Disbursement stages</p></article>
-    <article class="svc"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 4h18l8 8v28H10z"/><path d="M28 4v8h8M16 22h14M16 28h14"/><path d="M15 34l3 3 6-6"/></svg><h3>Government Approvals</h3><p>Plan sanction, NOCs and licences prepared, filed and followed up for you.</p><p class="spec">Plan sanction · NOC · Licences</p></article>
-    <article class="svc"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 38h36M6 38V12h4v26M34 38V12h4v26M20 38V12h4v26M10 16h10M10 24h10M10 32h10M24 16h10M24 24h10M24 32h10"/></svg><h3>Precast Concrete Walls</h3><p>Ready-made compound walls, installed in days and built to last decades.</p><p class="spec">Posts + panels · Days, not weeks</p></article>
-    <article class="svc"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 16l18-9 18 9-18 9z"/><path d="M12 20v10c6 5 14 5 20 0V20M40 16v12"/></svg><h3>Education &amp; Training</h3><p>Practical, site-based training for civil engineering students and professionals.</p><p class="spec">On-site · Hands-on</p></article>
-    <article class="svc cta-card"><h3>Not sure where to start?</h3><p>Tell us about your plot and we'll recommend the right next step.</p><a href="#contact">Talk to an engineer</a></article>
-  </div>
-</div></section>
-
-<section id="projects"><div class="wrap">
-  <div class="sec-head">
-    <div><p class="eyebrow">Selected work</p><h2>Projects that<br>speak for us.</h2></div>
-    <div class="filters" role="group" aria-label="Filter projects">
-      <button type="button" data-f="all" aria-pressed="true">All</button>
-      <button type="button" data-f="building" aria-pressed="false">Buildings</button>
-      <button type="button" data-f="wall" aria-pressed="false">Concrete walls</button>
-      <button type="button" data-f="structural" aria-pressed="false">Structural</button>
-      <button type="button" data-f="ongoing" aria-pressed="false">Ongoing</button>
-    </div>
-  </div>
-  <div class="proj-grid">
-    <article class="proj" data-cat="building"><div class="plate"><span class="badge">Building</span>
-      <svg viewBox="0 0 300 200" role="img" aria-label="Temple elevation drawing"><path class="dw" d="M70 170h160M90 170v-40h120v40M100 130l10-20h80l10 20M120 110l10-30h40l10 30M136 80l14-40 14 40"/><path class="dw-acc" d="M150 40v-14M144 30h12"/><rect class="dw" x="136" y="140" width="28" height="30"/><path class="dw-thin" d="M98 140v30M202 140v30M110 140v30M190 140v30M40 176h220"/></svg></div>
-      <div class="meta"><div><h3>Temple Complex</h3><small>Chikmagalur</small></div><span class="arrow" aria-hidden="true">↗</span></div></article>
-    <article class="proj" data-cat="building"><div class="plate"><span class="badge">Building</span>
-      <svg viewBox="0 0 300 200" role="img" aria-label="Hillside resort drawing"><path class="dw-thin" d="M20 180c60-10 90-60 140-70s80 10 120-10"/><path class="dw" d="M60 160v-30h50v30M52 134l33-24 33 24M150 130v-30h60v30M142 104l38-28 38 28M226 108v-24h40v24M220 88l26-18 26 18"/><path class="dw-acc" d="M76 160v-14h18v14M172 130v-14h16v14"/><circle class="dw-thin" cx="250" cy="40" r="12"/></svg></div>
-      <div class="meta"><div><h3>Hillside Resort</h3><small>Chikmagalur</small></div><span class="arrow" aria-hidden="true">↗</span></div></article>
-    <article class="proj" data-cat="wall"><div class="plate"><span class="badge">Concrete wall</span>
-      <svg viewBox="0 0 300 200" role="img" aria-label="Precast compound wall elevation"><path class="dw" d="M20 150h260M30 150V80h10v70M100 150V80h10v70M170 150V80h10v70M240 150V80h10v70"/><path class="dw-thin" d="M40 96h60M40 112h60M40 128h60M110 96h60M110 112h60M110 128h60M180 96h60M180 112h60M180 128h60"/><path class="dw-acc" d="M30 168h70M30 164v8M100 164v8"/><text class="dw-txt-acc" x="44" y="186">2.0 M BAY</text></svg></div>
-      <div class="meta"><div><h3>Precast Compound Wall</h3><small>Residential layout</small></div><span class="arrow" aria-hidden="true">↗</span></div></article>
-    <article class="proj" data-cat="ongoing"><div class="plate"><span class="badge">Ongoing</span>
-      <svg viewBox="0 0 300 200" role="img" aria-label="Commercial complex under construction"><path class="dw" d="M60 175V85h180v90M60 145h180M60 115h180M40 175h220"/><path class="dw-thin" d="M90 175V85M120 175V85M150 175V85M180 175V85M210 175V85"/><path class="dw-dash" d="M60 85V55h180v30M90 85V55M150 85V55M210 85V55"/><path class="dw-thin" d="M250 175V50M262 175V50M250 70h12M250 100h12M250 130h12M250 160h12"/></svg></div>
-      <div class="meta"><div><h3>Commercial Complex</h3><small>Structure in progress</small></div><span class="arrow" aria-hidden="true">↗</span></div></article>
-    <article class="proj" data-cat="structural"><div class="plate"><span class="badge">Structural</span>
-      <svg viewBox="0 0 300 200" role="img" aria-label="RCC framed structure G+2"><path class="dw" d="M50 175h200M70 175V55M130 175V55M190 175V55M240 175V55M64 135h182M64 95h182M64 55h182"/><path class="dw-thin" d="M70 135l60-40M130 135l60-40M190 135l50-40"/><path class="dw-acc" d="M62 175v8h16v-8M122 175v8h16v-8M182 175v8h16v-8M232 175v8h16v-8"/><text class="dw-txt" x="74" y="48">G+2 · RCC FRAME</text></svg></div>
-      <div class="meta"><div><h3>RCC Framed Structure</h3><small>G+2 residential</small></div><span class="arrow" aria-hidden="true">↗</span></div></article>
-    <article class="proj ask" data-cat="all"><h3>Have a project in mind?</h3><p>We'd be glad to add yours to this list.</p><a class="btn btn-accent" href="#contact">Start a conversation</a></article>
-  </div>
-</div></section>
-
-<section style="padding-top:0"><div class="wrap">
-  <div class="sec-head"><div><p class="eyebrow">Our commitment</p><h2>Why families and businesses trust us.</h2></div><p class="lede">Four promises we put in writing on day one, and keep on every site.</p></div>
-  <div class="trust-grid">
-    <div class="trust-item"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 4l14 6v10c0 9-6 14-14 16C12 34 6 29 6 20V10z"/><path d="M13 20l5 5 9-10"/></svg><h3>Quality at every stage</h3><p>Materials and workmanship are inspected before each stage is signed off.</p></div>
-    <div class="trust-item"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 4h24v32H8z"/><path d="M14 12h12M14 18h12M14 24h8M26 30h-4"/></svg><h3>Transparent pricing</h3><p>Itemised estimates and stage-wise payments. No surprise bills at the end.</p></div>
-    <div class="trust-item"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="20" cy="21" r="15"/><path d="M20 12v9l6 4M16 3h8"/></svg><h3>Committed timelines</h3><p>A written schedule from day one, with regular progress updates from site.</p></div>
-    <div class="trust-item"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="20" cy="13" r="7"/><path d="M6 36c2-8 8-12 14-12s12 4 14 12"/></svg><h3>One point of contact</h3><p>A dedicated engineer who knows your project and answers your calls.</p></div>
-  </div>
-</div></section>
-
-<section class="band"><div class="wrap">
-  <div class="sec-head"><div><p class="eyebrow">Client voices</p><h2>In our clients'<br>own words.</h2></div></div>
-  <div class="voices-grid">
-    <figure class="voice"><span class="stars" aria-label="5 out of 5">■■■■■</span><p>“They handled the drawings, the plan approval and the bank loan, so we never had to run between offices. The house was handed over exactly as designed.”</p><figcaption class="who"><span class="av">CN</span><span>Client name<small>Residential home, Chikmagalur</small></span></figcaption></figure>
-    <figure class="voice"><span class="stars" aria-label="5 out of 5">■■■■■</span><p>“The precast compound wall went up in a matter of days. Clean finish and no mess on site. We have recommended them to our neighbours.”</p><figcaption class="who"><span class="av">CN</span><span>Client name<small>Residential layout</small></span></figcaption></figure>
-    <figure class="voice"><span class="stars" aria-label="5 out of 5">■■■■■</span><p>“Clear estimates, weekly updates and a single engineer to call. For a commercial build, that accountability made all the difference.”</p><figcaption class="who"><span class="av">CN</span><span>Client name<small>Commercial complex</small></span></figcaption></figure>
-  </div>
-</div></section>
-
-<section id="faq"><div class="wrap faq-grid">
-  <div><p class="eyebrow">Questions</p><h2>Frequently asked.</h2><p class="lede">Can't find your answer? Call +91 00000 00000 and an engineer will talk you through it.</p></div>
+<!-- ============ 3. SCOPE BUILDER ============ -->
+<section class="scope" id="services"><div class="wrap scope-grid">
   <div>
-    <details open><summary>Do I have to take all seven services?</summary><p>No. Many clients start with a single service, such as plan approval or structural design, and add others later. Every service can be taken on its own.</p></details>
-    <details><summary>Is the first site visit really free?</summary><p>Yes. We visit your plot, understand what you want to build and give you an honest early view of feasibility and budget, with no obligation.</p></details>
-    <details><summary>Can you help me get a home loan?</summary><p>Yes. We prepare bank-ready estimates and stage-wise cost plans, and work with your bank through the disbursement stages.</p></details>
-    <details><summary>How do payments work during construction?</summary><p>Payments are tied to completed stages, such as foundation, each slab and finishing, so you only pay for work that is done and inspected.</p></details>
-    <details><summary>How long does a typical home take?</summary><p>It depends on size, design and approvals. After the first site visit we give you a written, stage-by-stage schedule so you know exactly what to expect.</p></details>
-    <details><summary>Which areas do you work in?</summary><p>We work across Karnataka. Get in touch with your plot location and we'll confirm.</p></details>
+    <div class="scope-head">
+      <p class="eyebrow">Our services</p>
+      <h2>Build your own scope.</h2>
+      <p class="lede">Tap what you need. Pick one service or all seven, and watch the count on the right: the services add up, the contract and the engineer stay at one.</p>
+    </div>
+    <div class="svc-list" id="svc-list"></div>
+  </div>
+  <aside class="sheet" aria-live="polite">
+    <div class="sheet-head"><span>Scope sheet</span><span id="scope-ref">Draft</span></div>
+    <h3>Your project</h3>
+    <div class="sheet-count"><div><b id="cnt-svc">0</b><span>Services</span></div><div class="fixed"><b>1</b><span>Contract</span></div><div class="fixed"><b>1</b><span>Engineer</span></div></div>
+    <div class="sheet-items" id="sheet-items"></div>
+    <a class="btn btn-ink" href="#contact">Discuss this scope</a>
+  </aside>
+</div></section>
+
+<!-- ============ 4. DRAWING SET ============ -->
+<section class="set" id="projects" style="padding:0">
+  <div class="set-track" id="set-track"><div class="set-stick">
+    <div class="set-rail" id="set-rail">
+      <div class="set-intro"><p class="eyebrow">Selected work</p><h2>The drawing set.</h2><p class="lede">Five sheets from projects across Karnataka. Keep scrolling to turn through them.</p></div>
+      <article class="sheetcard"><div class="plate"><svg viewBox="0 0 300 200" role="img" aria-label="Temple elevation"><path class="dw" d="M70 170h160M90 170v-40h120v40M100 130l10-20h80l10 20M120 110l10-30h40l10 30M136 80l14-40 14 40"/><path class="dw-acc" d="M150 40v-14M144 30h12"/><rect class="dw" x="136" y="140" width="28" height="30"/><path class="dw-thin" d="M98 140v30M202 140v30M110 140v30M190 140v30M40 176h220"/></svg></div>
+        <div class="tb"><div>Project<b>Temple Complex</b></div><div>Location<b>Chikmagalur</b></div><div class="no">Sheet<b>01</b></div></div></article>
+      <article class="sheetcard"><div class="plate"><svg viewBox="0 0 300 200" role="img" aria-label="Hillside resort"><path class="dw-thin" d="M20 180c60-10 90-60 140-70s80 10 120-10"/><path class="dw" d="M60 160v-30h50v30M52 134l33-24 33 24M150 130v-30h60v30M142 104l38-28 38 28M226 108v-24h40v24M220 88l26-18 26 18"/><path class="dw-acc" d="M76 160v-14h18v14M172 130v-14h16v14"/><circle class="dw-thin" cx="250" cy="40" r="12"/></svg></div>
+        <div class="tb"><div>Project<b>Hillside Resort</b></div><div>Location<b>Chikmagalur</b></div><div class="no">Sheet<b>02</b></div></div></article>
+      <article class="sheetcard"><div class="plate"><svg viewBox="0 0 300 200" role="img" aria-label="Precast compound wall"><path class="dw" d="M20 150h260M30 150V80h10v70M100 150V80h10v70M170 150V80h10v70M240 150V80h10v70"/><path class="dw-thin" d="M40 96h60M40 112h60M40 128h60M110 96h60M110 112h60M110 128h60M180 96h60M180 112h60M180 128h60"/><path class="dw-acc" d="M30 168h70M30 164v8M100 164v8"/><text class="dw-txt-acc" x="44" y="186">2.0 M BAY</text></svg></div>
+        <div class="tb"><div>Project<b>Precast Compound Wall</b></div><div>Type<b>Residential layout</b></div><div class="no">Sheet<b>03</b></div></div></article>
+      <article class="sheetcard"><div class="plate"><svg viewBox="0 0 300 200" role="img" aria-label="Commercial complex in progress"><path class="dw" d="M60 175V85h180v90M60 145h180M60 115h180M40 175h220"/><path class="dw-thin" d="M90 175V85M120 175V85M150 175V85M180 175V85M210 175V85"/><path class="dw-dash" d="M60 85V55h180v30M90 85V55M150 85V55M210 85V55"/><path class="dw-thin" d="M250 175V50M262 175V50M250 70h12M250 100h12M250 130h12M250 160h12"/></svg></div>
+        <div class="tb"><div>Project<b>Commercial Complex</b></div><div>Status<b>In progress</b></div><div class="no">Sheet<b>04</b></div></div></article>
+      <article class="sheetcard"><div class="plate"><svg viewBox="0 0 300 200" role="img" aria-label="RCC framed structure"><path class="dw" d="M50 175h200M70 175V55M130 175V55M190 175V55M240 175V55M64 135h182M64 95h182M64 55h182"/><path class="dw-thin" d="M70 135l60-40M130 135l60-40M190 135l50-40"/><path class="dw-acc" d="M62 175v8h16v-8M122 175v8h16v-8M182 175v8h16v-8M232 175v8h16v-8"/><text class="dw-txt" x="74" y="48">G+2 · RCC FRAME</text></svg></div>
+        <div class="tb"><div>Project<b>RCC Framed Structure</b></div><div>Type<b>G+2 residential</b></div><div class="no">Sheet<b>05</b></div></div></article>
+      <div class="set-end"><h3>Sheet 06 is yours.</h3><p>Have a project in mind? We'd be glad to add it to this set.</p><a class="btn btn-ink" href="#contact">Start a conversation</a></div>
+    </div>
+    <div class="wrap"><div class="set-prog"><span id="set-no">Sheet 00 / 05</span><div class="bar"><i id="set-bar"></i></div></div></div>
+  </div></div>
+</section>
+
+<!-- ============ 5. CONTRACT ============ -->
+<section class="contract" id="promise"><div class="wrap">
+  <div class="agreement">
+    <div class="ag-head"><span>Schedule of commitments</span><span>Issued with every Manidhay contract</span></div>
+    <h2>Our promise, in writing.</h2>
+    <p>These four commitments are part of the agreement you sign on day one. They are why families and businesses trust us with their build.</p>
+    <div class="clauses">
+      <div class="clause"><span>Clause 1.1</span><div><h3>Quality at every stage</h3><p>Materials and workmanship are inspected before each stage is signed off.</p></div></div>
+      <div class="clause"><span>Clause 1.2</span><div><h3>Transparent pricing</h3><p>Itemised estimates and stage-wise payments. No surprise bills at the end.</p></div></div>
+      <div class="clause"><span>Clause 1.3</span><div><h3>Committed timelines</h3><p>A written schedule from day one, with regular progress updates from site.</p></div></div>
+      <div class="clause"><span>Clause 1.4</span><div><h3>One point of contact</h3><p>A dedicated engineer who knows your project and answers your calls.</p></div></div>
+    </div>
+    <div class="sign">
+      <div><svg viewBox="0 0 300 80" aria-hidden="true"><path id="sig" d="M12 52c8-22 20-38 26-30s-10 40-4 40 18-34 26-34-6 30 2 30 12-20 18-20 2 18 8 18 10-16 16-16 0 14 6 14 14-22 22-22-4 24 4 24 20-18 30-18c8 0 4 14 12 14s24-10 40-12 30 2 44-6"/></svg><small>For Manidhay Business Services</small></div>
+      <div class="ag-seal" aria-hidden="true">Manidhay<small>Plot to keys</small></div>
+    </div>
   </div>
 </div></section>
 
-<section class="cta"><div class="wrap">
-  <div><h2>Let's start with your plot.</h2><p>Book a free site visit. We'll walk the land with you and tell you honestly what it can become.</p></div>
-  <a class="btn btn-dark" href="#contact">Book a free site visit</a>
+<!-- ============ 6. VISITOR BOOK ============ -->
+<section class="voices"><div class="wrap voices-grid">
+  <div class="voices-l">
+    <p class="eyebrow">Client voices</p>
+    <h2>From the site visitor book.</h2>
+    <p style="max-width:40ch">Notes our clients left at handover. Flip through them, or drag a page aside.</p>
+    <div class="deck-ctrl"><button type="button" id="deck-prev" aria-label="Previous note">←</button><button type="button" id="deck-next" aria-label="Next note">→</button><span id="deck-no">01 / 03</span></div>
+  </div>
+  <div class="deck" id="deck">
+    <figure class="note"><span class="pg">P. 14</span><p>“They handled the drawings, the plan approval and the bank loan, so we never had to run between offices. The house was handed over exactly as designed.”</p><figcaption class="who"><span>Client name<small>Residential home, Chikmagalur</small></span></figcaption></figure>
+    <figure class="note"><span class="pg">P. 22</span><p>“The precast compound wall went up in a matter of days. Clean finish and no mess on site. We have recommended them to our neighbours.”</p><figcaption class="who"><span>Client name<small>Residential layout</small></span></figcaption></figure>
+    <figure class="note"><span class="pg">P. 31</span><p>“Clear estimates, weekly updates and a single engineer to call. For a commercial build, that accountability made all the difference.”</p><figcaption class="who"><span>Client name<small>Commercial complex</small></span></figcaption></figure>
+  </div>
 </div></section>
 
-<section id="contact"><div class="wrap contact-grid">
+<!-- ============ 7. ASK AN ENGINEER ============ -->
+<section class="ask" id="faq"><div class="wrap ask-grid">
+  <div class="ask-l">
+    <p class="eyebrow">Questions</p>
+    <h2>Ask an engineer.</h2>
+    <p class="lede">The questions people ask us most, answered the way we'd answer on the phone. Tap a question to ask it. For anything else, call +91 00000 00000.</p>
+  </div>
+  <div class="phone">
+    <div class="phone-top"><span class="av">M</span><span><b>Manidhay site engineer</b><small>Replies within one working day</small></span></div>
+    <div class="thread" id="thread" aria-live="polite"></div>
+    <div class="chips" id="chips"></div>
+  </div>
+</div></section>
+
+<!-- ============ 8. WORK ORDER ============ -->
+<section class="order" id="contact"><div class="wrap order-grid">
   <div>
-    <p class="eyebrow">Contact</p><h2>Talk to an engineer.</h2>
-    <p class="lede">Visit, call or write to us. We reply within one working day.</p>
+    <p class="eyebrow">Planning to build?</p>
+    <h2>Let's start with your plot.</h2>
+    <p class="lede">Fill in the work order and we'll book a free site visit. We'll walk the land with you and tell you honestly what it can become.</p>
     <dl class="cinfo"><div><dt>Phone</dt><dd>+91 00000 00000</dd></div><div><dt>Email</dt><dd>hello@manidhay.com</dd></div><div><dt>Office</dt><dd>Your office address here</dd></div></dl>
   </div>
-  <form id="visit-form" novalidate>
-    <h3>Request a free site visit</h3>
-    <div class="field"><label for="f-name">Full name</label><input id="f-name" name="name" autocomplete="name"></div>
-    <div class="field"><label for="f-contact">Phone or email</label><input id="f-contact" name="contact"></div>
-    <div class="field full"><label for="f-service">Service</label>
-      <select id="f-service" name="service"><option>Not sure yet</option><option>Engineering Design</option><option>Architecture</option><option>Construction</option><option>Loans &amp; Finance</option><option>Government Approvals</option><option>Precast Concrete Walls</option><option>Education &amp; Training</option></select></div>
-    <div class="field full"><label for="f-msg">Tell us about your plot</label><textarea id="f-msg" name="message" placeholder="Location, plot size (e.g. 30×40 ft), what you'd like to build"></textarea></div>
-    <button class="btn btn-accent" type="submit">Send request</button>
-    <p class="form-note" id="form-note">We never share your details. Expect a call within one working day.</p>
-  </form>
+  <div class="slip" id="slip">
+    <form id="visit-form" novalidate>
+      <div class="slip-head"><span>Work order</span><span>Site visit · Free</span></div>
+      <h3>Request a site visit</h3>
+      <div class="field"><label for="f-name">Full name</label><input id="f-name" name="name" autocomplete="name"></div>
+      <div class="field"><label for="f-contact">Phone or email</label><input id="f-contact" name="contact"></div>
+      <div class="field"><label for="f-loc">Plot location</label><input id="f-loc" name="loc" placeholder="Town / area"></div>
+      <div class="field"><label for="f-service">Service</label><select id="f-service" name="service"><option>Not sure yet</option><option>Engineering Design</option><option>Architecture</option><option>Construction</option><option>Loans &amp; Finance</option><option>Government Approvals</option><option>Precast Concrete Walls</option><option>Education &amp; Training</option></select></div>
+      <div class="field full"><label for="f-msg">About your plot</label><textarea id="f-msg" name="message" placeholder="Plot size (e.g. 30×40 ft), what you'd like to build"></textarea></div>
+      <button class="btn btn-accent" type="submit" style="justify-self:start">Issue work order</button>
+      <p class="form-note" id="form-note">We never share your details. Expect a call within one working day.</p>
+    </form>
+    <div class="stub" aria-hidden="true">Site visit</div>
+  </div>
 </div></section>
 </main>
 
@@ -489,7 +710,7 @@ footer{padding-block:64px 32px}
   <div class="foot">
     <div><a href="#top" class="logo"><span class="logo-mark" aria-hidden="true">M</span><span><b>Manidhay</b><small>Business Services</small></span></a><p>One trusted team for civil engineering, design, approvals, finance and construction across Karnataka.</p></div>
     <div><h4>Services</h4><ul><li><a href="#services">Engineering Design</a></li><li><a href="#services">Architecture</a></li><li><a href="#services">Construction</a></li><li><a href="#services">Government Approvals</a></li></ul></div>
-    <div><h4>Company</h4><ul><li><a href="#about">About us</a></li><li><a href="#ch-1">How we build</a></li><li><a href="#projects">Projects</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+    <div><h4>Company</h4><ul><li><a href="#about">Why us</a></li><li><a href="#ch-1">The build</a></li><li><a href="#projects">Projects</a></li><li><a href="#faq">Ask an engineer</a></li></ul></div>
     <div><h4>Get in touch</h4><ul><li>+91 00000 00000</li><li>hello@manidhay.com</li><li>Your office address here</li></ul></div>
   </div>
   <div class="wordmark" aria-hidden="true">Manidhay</div>
@@ -499,36 +720,130 @@ footer{padding-block:64px 32px}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (function(){
-/* ---------- page UI ---------- */
-var fb=document.querySelectorAll('.filters button'),cards=document.querySelectorAll('.proj');
-fb.forEach(function(b){b.addEventListener('click',function(){var f=b.dataset.f;fb.forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});cards.forEach(function(c){c.hidden=!(f==='all'||c.dataset.cat===f||c.dataset.cat==='all')})})});
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function sm(a,b,x){var t=Math.min(1,Math.max(0,(x-a)/(b-a)));return t*t*(3-2*t)}
+function clamp(x){return Math.min(1,Math.max(0,x))}
+function sectionP(el){var r=el.getBoundingClientRect();return clamp(-r.top/Math.max(1,r.height-innerHeight))}
+var go=function(t){t.scrollIntoView({behavior:reduce?'auto':'smooth',block:t.classList.contains('chapter')?'center':'start'})};
+document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var t=document.querySelector(a.getAttribute('href'));if(!t)return;e.preventDefault();go(t)})});
+
+/* ---- tangle diagram ---- */
+var svg=document.getElementById('tangle-svg'),NS='http://www.w3.org/2000/svg',tangle=document.getElementById('about'),ttrack=document.getElementById('tangle-track');
+var nodes={you:{t:'You',c:'you',a:[320,262],b:[64,262]},mani:{t:'Manidhay',c:'mani',a:[320,262],b:[296,262],hide:1},
+  ar:{t:'Architect',a:[118,84],b:[548,52]},sd:{t:'Structural designer',a:[500,70],b:[548,134]},ce:{t:'Civil engineer',a:[566,300],b:[548,216]},
+  id:{t:'Interior designer',a:[450,462],b:[548,298]},lc:{t:'Licensing consultant',a:[150,452],b:[548,380]},bk:{t:'Bank',a:[70,262],b:[548,462]}};
+var cons=['ar','sd','ce','id','lc','bk'];
+var lines=[];
+function ln(f,t,cls,a,b,q){var l=document.createElementNS(NS,'line');l.setAttribute('class',cls);svg.appendChild(l);var o={el:l,f:f,t:t,a:a,b:b};
+  if(q){var tx=document.createElementNS(NS,'text');tx.setAttribute('class','t-q');tx.textContent='?';svg.appendChild(tx);o.q=tx}lines.push(o)}
+[['ar','sd'],['sd','ce'],['ce','id'],['id','lc'],['lc','ar'],['ar','ce'],['sd','lc'],['bk','id'],['bk','sd']].forEach(function(p,i){ln(p[0],p[1],'t-cross',1,0,i%2===0)});
+cons.forEach(function(c){ln('you',c,'t-line',1,0)});
+cons.forEach(function(c){ln('mani',c,'t-line',0,1)});
+ln('you','mani','t-main',0,1);
+Object.keys(nodes).forEach(function(k){var n=nodes[k],g=document.createElementNS(NS,'g');g.setAttribute('class','t-node '+(n.c||''));
+  var w=n.t.length*7.4+26,r=document.createElementNS(NS,'rect');r.setAttribute('x',-w/2);r.setAttribute('y',-16);r.setAttribute('width',w);r.setAttribute('height',32);
+  var tx=document.createElementNS(NS,'text');tx.setAttribute('text-anchor','middle');tx.setAttribute('y',4);tx.textContent=n.t;g.appendChild(r);g.appendChild(tx);svg.appendChild(g);n.g=g;n.w=w});
+var chaseEl=document.getElementById('chase-n'),lastTP=-1;
+function drawTangle(p){if(Math.abs(p-lastTP)<.001)return;lastTP=p;var e=sm(.2,.75,p);
+  Object.keys(nodes).forEach(function(k){var n=nodes[k];n.x=n.a[0]+(n.b[0]-n.a[0])*e;n.y=n.a[1]+(n.b[1]-n.a[1])*e;
+    var sc=n.hide?e:1;n.g.setAttribute('transform','translate('+n.x.toFixed(1)+' '+n.y.toFixed(1)+') scale('+Math.max(sc,.001).toFixed(3)+')');n.g.style.opacity=n.hide?e:1});
+  lines.forEach(function(l){var f=nodes[l.f],t=nodes[l.t];l.el.setAttribute('x1',f.x);l.el.setAttribute('y1',f.y);l.el.setAttribute('x2',t.x);l.el.setAttribute('y2',t.y);
+    var o=l.a+(l.b-l.a)*e;l.el.style.opacity=o;if(l.q){l.q.setAttribute('x',(f.x+t.x)/2-4);l.q.setAttribute('y',(f.y+t.y)/2+5);l.q.style.opacity=o}});
+  chaseEl.textContent=Math.round(6-5*e);tangle.classList.toggle('done',e>.6)}
+svg.insertBefore(document.createComment('lines'),svg.firstChild);
+drawTangle(0);
+
+/* ---- scope builder ---- */
+var SV=[
+ ['Engineering Design','Structural and civil design built for safety, durability and cost.','Structural design · Column & footing layout · Steel detailing','M4 40h36M8 40V12h28v28M8 22h28M8 32h28M18 12v28M26 12v28M8 12l14-8 14 8'],
+ ['Architecture','Plans and elevations that fit your plot, budget and vastu.','Floor plans · Elevations · 3D views','M4 4h36v36H4zM4 20h16v20M20 4v10M28 20h12M28 20v8'],
+ ['Construction','Quality-checked execution from foundation to finishing.','Engineer supervision · Stage inspections · Site updates','M6 40h32M10 40V22h24v18M16 22v-8h12v8M4 14h36M22 4v10'],
+ ['Loans & Finance','Bank-ready estimates and home loan assistance.','Bank estimate · Loan assistance · Stage-wise payments','M4 10h36v24H4zM4 18h36M10 28h8'],
+ ['Government Approvals','Plan sanction, NOCs and licences, filed and followed up.','Plan sanction · NOCs · Licences · Follow-up','M10 4h18l8 8v28H10zM28 4v8h8M16 22h14M16 28h14'],
+ ['Precast Concrete Walls','Ready-made compound walls, installed in days.','Posts and panels · Installed in days · Built to last','M4 38h36M6 38V12h4v26M34 38V12h4v26M20 38V12h4v26M10 16h10M10 24h10M24 16h10M24 24h10'],
+ ['Education & Training','Site-based training for students and professionals.','On-site sessions · Practical, hands-on','M4 16l18-9 18 9-18 9zM12 20v10c6 5 14 5 20 0V20M40 16v12']];
+var picked=[2,4,1],list=document.getElementById('svc-list'),items=document.getElementById('sheet-items'),cnt=document.getElementById('cnt-svc'),ref=document.getElementById('scope-ref');
+SV.forEach(function(s,i){var b=document.createElement('button');b.type='button';b.className='svc-btn';b.id='svc-'+i;
+  b.innerHTML='<svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="'+s[3]+'"/></svg><div><h3>'+s[0].replace('&','&amp;')+'</h3><p>'+s[1]+'</p></div><span class="tick" aria-hidden="true">✓</span>';
+  b.addEventListener('click',function(){var k=picked.indexOf(i);if(k>=0)picked.splice(k,1);else picked.push(i);renderScope()});list.appendChild(b)});
+function renderScope(){SV.forEach(function(s,i){document.getElementById('svc-'+i).setAttribute('aria-pressed',String(picked.indexOf(i)>=0))});
+  cnt.textContent=picked.length;ref.textContent=picked.length?'Draft · '+picked.length+' of 7':'Draft';
+  items.innerHTML=picked.length?'':'<p class="empty">Nothing picked yet. Tap a service on the left to add it to your scope.</p>';
+  picked.slice().sort(function(a,b){return a-b}).forEach(function(i){var d=document.createElement('div');d.className='sheet-item';d.innerHTML='<b>'+SV[i][0].replace('&','&amp;')+'</b><span>'+SV[i][2]+'</span>';items.appendChild(d)})}
+renderScope();
+
+/* ---- drawing set (horizontal) ---- */
+var strack=document.getElementById('set-track'),srail=document.getElementById('set-rail'),setNo=document.getElementById('set-no'),setBar=document.getElementById('set-bar'),travel=0,wide=true;
+function sizeSet(){wide=innerWidth>=900;if(!wide){strack.style.height='';srail.style.transform='';return}
+  travel=Math.max(0,srail.scrollWidth-innerWidth);strack.style.height=(innerHeight+travel)+'px'}
+function drawSet(){if(!wide)return;var p=sectionP(strack);srail.style.transform='translate3d('+(-p*travel).toFixed(1)+'px,0,0)';
+  setBar.style.width=(p*100).toFixed(1)+'%';setNo.textContent='Sheet '+String(Math.min(5,Math.round(p*6))).padStart(2,'0')+' / 05'}
+sizeSet();addEventListener('resize',sizeSet);
+
+/* ---- signature ---- */
+var sig=document.getElementById('sig'),sigLen=sig.getTotalLength();sig.style.strokeDasharray=sigLen;sig.style.strokeDashoffset=0;
+function drawSig(){var r=sig.getBoundingClientRect(),q=clamp((innerHeight*.95-r.top)/(innerHeight*.45));sig.style.strokeDashoffset=(sigLen*(1-q)).toFixed(1)}
+
+/* ---- visitor book deck ---- */
+var deck=document.getElementById('deck'),notes=[].slice.call(deck.querySelectorAll('.note')),order=notes.map(function(_,i){return i}),deckNo=document.getElementById('deck-no'),cur=0;
+function layDeck(){order.forEach(function(ni,pos){var n=notes[ni];n.style.zIndex=10-pos;n.style.transform='translate('+(pos*12)+'px,'+(pos*12)+'px) rotate('+(pos===0?-1:pos%2?2.5:-2.5)+'deg)';n.setAttribute('aria-hidden',pos?'true':'false')});deckNo.textContent=String(order[0]+1).padStart(2,'0')+' / '+String(notes.length).padStart(2,'0')}
+function nextNote(){var top=notes[order[0]];top.classList.add('out');setTimeout(function(){top.classList.remove('out');order.push(order.shift());layDeck()},reduce?0:320)}
+function prevNote(){order.unshift(order.pop());layDeck()}
+document.getElementById('deck-next').addEventListener('click',nextNote);document.getElementById('deck-prev').addEventListener('click',prevNote);
+var dx0=null,dn=null;deck.addEventListener('pointerdown',function(e){dn=notes[order[0]];dx0=e.clientX;dn.style.transition='none';dn.setPointerCapture(e.pointerId)});
+deck.addEventListener('pointermove',function(e){if(dx0===null)return;var d=e.clientX-dx0;dn.style.transform='translate('+d+'px,0) rotate('+(d/20)+'deg)'});
+function endDrag(e){if(dx0===null)return;var d=e.clientX-dx0;dx0=null;dn.style.transition='';if(Math.abs(d)>90)nextNote();else layDeck()}
+deck.addEventListener('pointerup',endDrag);deck.addEventListener('pointercancel',endDrag);
+layDeck();
+
+/* ---- ask an engineer ---- */
+var QA=[['Do I have to take all seven services?','No. Many clients start with a single service, such as plan approval or structural design, and add others later. Every service can be taken on its own.'],
+ ['Is the first site visit really free?','Yes. We visit your plot, understand what you want to build and give you an honest early view of feasibility and budget, with no obligation.'],
+ ['Can you help me get a home loan?','Yes. We prepare bank-ready estimates and stage-wise cost plans, and work with your bank through the disbursement stages.'],
+ ['How do payments work during construction?','Payments are tied to completed stages, such as foundation, each slab and finishing, so you only pay for work that is done and inspected.'],
+ ['How long does a typical home take?','It depends on size, design and approvals. After the first site visit we give you a written, stage-by-stage schedule so you know exactly what to expect.'],
+ ['Which areas do you work in?','We work across Karnataka. Get in touch with your plot location and we\'ll confirm.']];
+var thread=document.getElementById('thread'),chips=document.getElementById('chips'),asked=[0,1];
+function bub(cls,txt){var b=document.createElement('div');b.className='bub '+cls;if(txt)b.textContent=txt;thread.appendChild(b);thread.scrollTop=thread.scrollHeight;return b}
+asked.forEach(function(i){bub('q',QA[i][0]);bub('a',QA[i][1])});thread.scrollTop=0;
+function renderChips(){chips.innerHTML='';var left=QA.map(function(_,i){return i}).filter(function(i){return asked.indexOf(i)<0});
+  if(!left.length){chips.innerHTML='<span class="done-note">That\'s every common question. For anything else, call +91 00000 00000.</span>';return}
+  left.forEach(function(i){var b=document.createElement('button');b.type='button';b.textContent=QA[i][0];b.addEventListener('click',function(){ask(i)});chips.appendChild(b)})}
+function ask(i){asked.push(i);renderChips();bub('q',QA[i][0]);var t=bub('a typing');t.innerHTML='<i></i><i></i><i></i>';
+  setTimeout(function(){t.className='bub a';t.textContent=QA[i][1];thread.scrollTop=thread.scrollHeight},reduce?0:750)}
+renderChips();
+
+/* ---- work order ---- */
 var form=document.getElementById('visit-form'),note=document.getElementById('form-note');
 form.addEventListener('submit',function(e){e.preventDefault();var n=form.elements.name.value.trim(),c=form.elements.contact.value.trim();
-  if(!n||!c){note.className='form-note';note.textContent='Add your name and a phone number or email so we can reach you.';return}
-  note.className='form-note ok';note.textContent='Thanks, '+n+'. This is a design preview, so the request was not sent anywhere.';form.reset();});
+  if(!n||!c){note.className='form-note err';note.textContent='Add your name and a phone number or email so we can reach you.';return}
+  var refNo='MBS-'+String(Math.floor(1000+Math.random()*9000)),esc=function(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML};
+  var t=document.createElement('div');t.className='ticket';
+  t.innerHTML='<div class="slip-head"><span>Work order issued</span><span>Preview</span></div><p class="ref">'+refNo+'</p><dl><dt>Name</dt><dd>'+esc(n)+'</dd><dt>Contact</dt><dd>'+esc(c)+'</dd><dt>Location</dt><dd>'+esc(form.elements.loc.value.trim()||'To confirm')+'</dd><dt>Service</dt><dd>'+esc(form.elements.service.value)+'</dd></dl><p class="form-note">This is a design preview, so the order was not sent anywhere. On the live site, an engineer would call within one working day.</p><button class="btn btn-ink" type="button" id="new-order" style="justify-self:start">New work order</button>';
+  form.hidden=true;form.parentNode.insertBefore(t,form);document.getElementById('new-order').addEventListener('click',function(){t.remove();form.reset();note.className='form-note';note.textContent='We never share your details. Expect a call within one working day.';form.hidden=false})});
 
-/* ---------- story progress ---------- */
-var chapters=[].slice.call(document.querySelectorAll('.chapter')),N=chapters.length;
-var rail=document.getElementById('rail'),railBtns=[];
-chapters.forEach(function(ch,i){var b=document.createElement('button');b.type='button';b.innerHTML='<span>'+String(i).padStart(2,'0')+' '+ch.dataset.name+'</span><i></i>';b.setAttribute('aria-label','Go to '+ch.dataset.name);
-  b.addEventListener('click',function(){ch.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'})});rail.appendChild(b);railBtns.push(b)});
-document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var t=document.querySelector(a.getAttribute('href'));if(!t)return;e.preventDefault();t.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:t.classList.contains('chapter')?'center':'start'})})});
+/* ---- per-frame scroll work for non-3D sections ---- */
+var slabEls=[0,1,2].map(function(i){return document.getElementById('slab-'+i)});
+function sectionsTick(s){drawTangle(sectionP(ttrack));drawSet();drawSig();
+  slabEls.forEach(function(el,f){el.style.width=(sm(4.35+f*.4,4.55+f*.4,s)*100).toFixed(1)+'%'})}
 
+/* ---- story progress ---- */
+var chapters=[].slice.call(document.querySelectorAll('.chapter')),N=chapters.length,SIDE=chapters.map(function(c){return c.dataset.side==='r'?1:-1});
+var segs=document.getElementById('segs'),segBtns=[];
+chapters.forEach(function(ch,i){var b=document.createElement('button');b.type='button';b.innerHTML='<i></i><span>'+ch.dataset.name+'</span>';b.setAttribute('aria-label','Go to stage: '+ch.dataset.name);
+  b.addEventListener('click',function(){go(ch)});segs.appendChild(b);segBtns.push(b)});
 function computeS(){var vc=innerHeight/2,cs=chapters.map(function(el){var r=el.getBoundingClientRect();return r.top+r.height/2});
   if(vc<=cs[0])return 0;for(var i=0;i<N-1;i++){if(vc<cs[i+1])return i+(vc-cs[i])/(cs[i+1]-cs[i])}return N-1}
-function sm(a,b,x){var t=Math.min(1,Math.max(0,(x-a)/(b-a)));return t*t*(3-2*t)}
-var el={no:document.getElementById('hud-no'),name:document.getElementById('hud-name'),fill:document.getElementById('hud-fill'),built:document.getElementById('hud-built'),level:document.getElementById('hud-level'),log:document.getElementById('hud-log')};
+var el={no:document.getElementById('hud-no'),name:document.getElementById('hud-name'),built:document.getElementById('hud-built'),level:document.getElementById('hud-level'),log:document.getElementById('hud-log')};
 var lastIdx=-1,lastBuilt=-1,lastLvl='';
 function levelAt(s){var l=0;if(s>4.1)l=0.6;for(var f=0;f<3;f++){if(sm(4.35+f*.4,4.55+f*.4,s)>.98)l=0.6+3*(f+1)}if(sm(6.5,6.8,s)>.98)l=10.6;return l}
 function updateHUD(s){var idx=Math.round(s);
-  if(idx!==lastIdx){lastIdx=idx;var ch=chapters[idx];el.no.textContent=String(idx).padStart(2,'0')+' / 08';el.name.textContent=ch.dataset.hud;el.log.textContent=ch.dataset.log;
-    chapters.forEach(function(c,i){c.classList.toggle('is-active',i===idx)});railBtns.forEach(function(b,i){b.classList.toggle('on',i===idx);b.classList.toggle('done',i<idx)})}
-  var built=Math.round(Math.min(1,Math.max(0,(s-3.3)/(7.9-3.3)))*100);
-  if(built!==lastBuilt){lastBuilt=built;el.built.textContent=built+'%';el.fill.style.width=(s/(N-1)*100)+'%'}
-  el.fill.style.width=(s/(N-1)*100).toFixed(1)+'%';
-  var l=levelAt(s),lt=l?'+'+l.toFixed(2)+' m':'±0.00 m';if(lt!==lastLvl){lastLvl=lt;el.level.textContent=lt}}
-
-var stage=document.getElementById('stage'),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(idx!==lastIdx){lastIdx=idx;var ch=chapters[idx];el.no.textContent=String(idx).padStart(2,'0')+'/08';el.name.textContent=ch.dataset.hud;el.log.textContent=ch.dataset.log;segBtns.forEach(function(b,i){b.classList.toggle('on',i===idx)})}
+  segBtns.forEach(function(b,i){b.firstChild.style.width=(clamp(s-i+1)*100).toFixed(0)+'%'});
+  var built=Math.round(clamp((s-3.3)/(7.9-3.3))*100);if(built!==lastBuilt){lastBuilt=built;el.built.textContent=built+'%'}
+  var l=levelAt(s),lt=l?'+'+l.toFixed(2)+' m':'±0.00 m';if(lt!==lastLvl){lastLvl=lt;el.level.textContent=lt}
+  sectionsTick(s)}
+var stage=document.getElementById('stage');
 var sCur=computeS();updateHUD(sCur);
 
 /* ---------- 3D scene ---------- */
@@ -692,10 +1007,11 @@ function placeCamera(s,time){var i=Math.min(N-2,Math.floor(s)),e=sm(0,1,s-i);
   camP.copy(K[i].p).lerp(K[i+1].p,e);camT.copy(K[i].t).lerp(K[i+1].t,e);
   if(camera.aspect<.85){tmp.copy(camP).sub(camT).multiplyScalar(1.5);camP.copy(camT).add(tmp)}
   if(!reduce){var a=Math.sin(time*.13)*.05;tmp.copy(camP).sub(camT);var c=Math.cos(a),sn=Math.sin(a);var x=tmp.x*c-tmp.z*sn,z=tmp.x*sn+tmp.z*c;camP.set(camT.x+x,camP.y+Math.sin(time*.21)*.15,camT.z+z)}
+  var side=SIDE[i]+(SIDE[i+1]-SIDE[i])*e;
+  if(W>=900)camera.setViewOffset(W,H,side*W*.16,0,W,H);else camera.setViewOffset(W,H,0,H*.17,W,H);camera.updateProjectionMatrix();
   camera.position.copy(camP);camera.lookAt(camT)}
 
-function resize(){var w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;
-  if(w>=900)camera.setViewOffset(w,h,-w*.16,0,w,h);else camera.setViewOffset(w,h,0,h*.17,w,h);camera.updateProjectionMatrix()}
+var W=1,H=1;function resize(){W=stage.clientWidth;H=stage.clientHeight;renderer.setSize(W,H,false);camera.aspect=W/H;camera.updateProjectionMatrix()}
 resize();if('ResizeObserver' in window)new ResizeObserver(resize).observe(stage);else addEventListener('resize',resize);
 
 function update(s,time){
