@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Manidhay Business Services — One Stop Civil Engineering</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#14202b;--mut:#5b6b7a;--bg:#fff;--soft:#f3f6f9;--line:#e1e8ee;--brand:#3f6f94;--brand-d:#274a66;--acc:#f0a30a}
+*{box-sizing:border-box;margin:0}
+body{font:16px/1.6 Inter,sans-serif;color:var(--ink);background:var(--bg)}
+h1,h2,h3,.logo{font-family:Sora,sans-serif;line-height:1.2}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:auto;padding:0 20px}
+.btn{display:inline-block;padding:12px 24px;border-radius:8px;font-weight:600;border:0;cursor:pointer;font-size:15px;background:var(--acc);color:#1b1300}
+.btn.ghost{background:transparent;border:1.5px solid #fff;color:#fff}
+.btn.sec{background:var(--brand);color:#fff}
+.btn.sm{padding:7px 14px;font-size:13px}.btn.danger{background:#fde8e8;color:#b42318}
+/* site */
+header.top{position:sticky;top:0;background:#fffffff2;backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:5}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--brand-d)}
+.logo i{width:34px;height:34px;border-radius:50%;border:2px solid var(--brand);display:grid;place-items:center;font:700 13px Sora;font-style:normal;color:var(--brand)}
+nav a{margin-left:24px;font-size:14px;font-weight:500;color:var(--mut)}nav a:hover{color:var(--brand)}
+.hero{background:linear-gradient(135deg,rgba(20,32,43,.92),rgba(39,74,102,.88)),repeating-linear-gradient(45deg,#274a66 0 12px,#2c5272 12px 24px);color:#fff;padding:110px 0 100px}
+.hero h1{font-size:clamp(34px,5vw,56px);max-width:760px}.hero p{max-width:620px;margin:20px 0 32px;color:#d5e0ea;font-size:18px}
+.hero .btn+.btn{margin-left:12px}
+.tag{display:inline-block;color:var(--acc);font:600 13px Sora;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
+section{padding:80px 0}.soft{background:var(--soft)}
+section h2{font-size:clamp(26px,3.5vw,38px);margin-bottom:12px}
+.lead{color:var(--mut);max-width:640px;margin-bottom:40px}
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px;transition:.2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 30px #14202b14}
+.card .ic{width:44px;height:44px;border-radius:10px;background:#e6eef5;color:var(--brand);display:grid;place-items:center;font-size:22px;margin-bottom:16px}
+.card h3{font-size:18px;margin-bottom:6px}.card p{color:var(--mut);font-size:14.5px}
+.stats{display:flex;flex-wrap:wrap;gap:40px;margin-top:36px}.stats b{font:700 34px Sora;color:var(--brand)}.stats span{display:block;color:var(--mut);font-size:14px}
+.proj{border-radius:14px;overflow:hidden;background:#fff;border:1px solid var(--line)}
+.proj .im{aspect-ratio:4/3;background:linear-gradient(135deg,#9bb5c9,#3f6f94);background-size:cover;background-position:center;position:relative}
+.proj .im em{position:absolute;left:12px;top:12px;background:#fff;border-radius:99px;padding:3px 12px;font:600 12px Inter;font-style:normal;color:var(--brand-d)}
+.proj div.b{padding:18px}.proj h3{font-size:17px}.proj p{color:var(--mut);font-size:14px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.chip{padding:7px 16px;border-radius:99px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:14px}.chip.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.cta{background:var(--brand-d);color:#fff;text-align:center}.cta p{color:#c8d7e3;margin:12px auto 28px;max-width:520px}
+.contact{display:grid;gap:40px;grid-template-columns:1fr 1fr}
+@media(max-width:760px){.contact{grid-template-columns:1fr}nav{display:none}}
+form.f{display:grid;gap:12px}
+input,textarea,select{font:inherit;padding:11px 13px;border:1px solid var(--line);border-radius:8px;width:100%;background:#fff}
+input:focus,textarea:focus,select:focus{outline:2px solid #3f6f9440;border-color:var(--brand)}
+label{font-size:13px;font-weight:600;color:var(--mut);display:block;margin-bottom:4px}
+footer{background:#0f1922;color:#9fb0bf;padding:36px 0;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}footer a{margin-right:16px}footer a:hover{color:#fff}
+/* admin */
+#admin{display:none;min-height:100vh;background:var(--soft)}
+.ad{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+.side{background:#0f1922;color:#b8c6d2;padding:22px 14px}
+.side .logo{color:#fff;margin:0 8px 28px}.side .logo i{border-color:#fff;color:#fff}
+.side a{display:block;padding:10px 12px;border-radius:8px;font-size:14.5px;cursor:pointer;margin-bottom:2px}
+.side a.on,.side a:hover{background:#1d2c39;color:#fff}
+.main{padding:32px;max-width:900px}
+.main h1{font-size:26px;margin-bottom:4px}.main .sub{color:var(--mut);margin-bottom:24px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;margin-bottom:18px}
+.row{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line)}.row:last-child{border:0}
+.row small{color:var(--mut);display:block}.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.bar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:18px}
+.toast{position:fixed;bottom:24px;right:24px;background:#12b76a;color:#fff;padding:10px 18px;border-radius:8px;opacity:0;transition:.3s;pointer-events:none}.toast.on{opacity:1}
+@media(max-width:760px){.ad{grid-template-columns:1fr}.side{display:flex;overflow:auto;gap:6px;padding:10px}.side .logo{display:none}.main{padding:18px}.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- ============ LANDING PAGE ============ -->
+<div id="site">
+<header class="top"><div class="wrap">
+  <a href="#" class="logo"><i>M</i><span>MANIDHAY</span></a>
+  <nav><a href="#about">About</a><a href="#services">Services</a><a href="#projects">Projects</a><a href="#contact">Contact</a><a href="#/admin">Admin</a></nav>
+</div></header>
+
+<div class="hero"><div class="wrap">
+  <span class="tag" id="s-tag"></span>
+  <h1 id="s-title"></h1><p id="s-sub"></p>
+  <a class="btn" href="#contact">Get a free consultation</a><a class="btn ghost" href="#projects">View projects</a>
+</div></div>
+
+<section id="about"><div class="wrap">
+  <span class="tag" style="color:var(--brand)">What we do</span>
+  <h2>One team. Site selection to handing over the keys.</h2>
+  <p class="lead" id="s-about"></p>
+  <div class="stats" id="s-stats"></div>
+</div></section>
+
+<section id="services" class="soft"><div class="wrap">
+  <span class="tag" style="color:var(--brand)">Services</span>
+  <h2>Everything your project needs</h2>
+  <p class="lead">No more juggling architects, structural designers, contractors and licensing consultants.</p>
+  <div class="grid" id="s-services"></div>
+</div></section>
+
+<section id="projects"><div class="wrap">
+  <span class="tag" style="color:var(--brand)">Our projects</span>
+  <h2>Best and stand out amongst peers</h2>
+  <p class="lead">A selection of our recent and ongoing work.</p>
+  <div class="filters" id="s-filters"></div>
+  <div class="grid" id="s-projects"></div>
+</div></section>
+
+<section class="cta"><div class="wrap">
+  <h2>Planning to build?</h2><p>Tell us about your plot and your idea — we'll take it from there.</p>
+  <a class="btn" href="#contact">Start your project</a>
+</div></section>
+
+<section id="contact"><div class="wrap contact">
+  <div><span class="tag" style="color:var(--brand)">Contact</span><h2>Let's talk</h2>
+    <p class="lead" id="s-contact"></p></div>
+  <form class="f" onsubmit="event.preventDefault();toast('Preview only — enquiry not sent');this.reset()">
+    <div><label>Name</label><input required></div>
+    <div><label>Phone / Email</label><input required></div>
+    <div><label>Service</label><select id="s-opts"></select></div>
+    <div><label>Message</label><textarea rows="4"></textarea></div>
+    <button class="btn sec">Send enquiry</button>
+  </form>
+</div></section>
+
+<footer><div class="wrap">
+  <span id="s-copy"></span><span id="s-social"></span>
+</div></footer>
+</div>
+
+<!-- ============ ADMIN PANEL ============ -->
+<div id="admin"><div class="ad">
+  <aside class="side">
+    <a href="#" class="logo"><i>M</i><span>Admin</span></a>
+    <a data-t="site">🏠 &nbsp;Site content</a>
+    <a data-t="services">🛠 &nbsp;Services</a>
+    <a data-t="projects">🏗 &nbsp;Projects</a>
+    <a data-t="contact">☎ &nbsp;Contact &amp; social</a>
+    <a href="#" style="margin-top:24px">↗ &nbsp;View website</a>
+  </aside>
+  <div class="main" id="ad-main"></div>
+</div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY='manidhay-content-v1';
+const DEF={
+ site:{tag:'Civil Engineering · Karnataka',title:'One Stop Solution for all Civil Engineering Services',sub:'From site selection to handing over the keys — design, approvals, finance and construction under a single roof.',about:'Building a home or commercial space usually means coordinating architects, structural designers, civil engineers, interior designers and licensing consultants. Manidhay gives you a single point of contact for all of it.',stats:[{n:'50+',l:'Projects delivered'},{n:'7',l:'Core services'},{n:'1',l:'Point of contact'}],copy:'© 2026 Manidhay Business Services. All rights reserved.'},
+ services:[
+  {i:'📐',t:'Engineering Design',d:'Structural and civil design built for safety and cost efficiency.'},
+  {i:'🏛',t:'Architecture',d:'Plans and elevations that fit your plot, budget and vastu needs.'},
+  {i:'🏗',t:'Construction',d:'Quality-controlled execution from foundation to finishing.'},
+  {i:'💰',t:'Loans and Financial',d:'Help with bank loans, estimates and stage-wise payments.'},
+  {i:'📜',t:'Government Approvals',d:'Plan sanction, NOCs and licences handled for you.'},
+  {i:'🧱',t:'Readymade Concrete Wall',d:'Precast compound walls — fast installation, durable finish.'},
+  {i:'🎓',t:'Education and Training',d:'Practical training for civil engineering students and professionals.'}],
+ projects:[
+  {t:'Temple Complex',c:'Building Construction',d:'Chikmagalur',img:''},
+  {t:'Hillside Resort',c:'Building Construction',d:'Chikmagalur',img:''},
+  {t:'Precast Compound Wall',c:'Concrete Wall',d:'Residential layout',img:''},
+  {t:'Commercial Complex',c:'Ongoing Projects',d:'Structure in progress',img:''},
+  {t:'RCC Framed Structure',c:'Structural Projects',d:'G+2 residential',img:''}],
+ contact:{text:'Visit, call or write to us — we respond within one working day.',phone:'+91 00000 00000',email:'hello@manidhay.com',addr:'Your office address here'},
+ social:{Facebook:'#',Twitter:'#',Instagram:'#',YouTube:'#',LinkedIn:'#'}
+};
+let D;try{D=JSON.parse(localStorage[KEY])}catch(e){}D=D||structuredClone(DEF);
+const save=()=>{try{localStorage[KEY]=JSON.stringify(D)}catch(e){}toast('Saved');};
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),1800)}
+
+/* ---- render site ---- */
+let filter='All';
+function renderSite(){
+ const s=D.site;
+ $('#s-tag').textContent=s.tag;$('#s-title').textContent=s.title;$('#s-sub').textContent=s.sub;$('#s-about').textContent=s.about;$('#s-copy').textContent=s.copy;
+ $('#s-stats').innerHTML=s.stats.map(x=>`<div><b>${esc(x.n)}</b><span>${esc(x.l)}</span></div>`).join('');
+ $('#s-services').innerHTML=D.services.map(x=>`<div class="card"><div class="ic">${esc(x.i)}</div><h3>${esc(x.t)}</h3><p>${esc(x.d)}</p></div>`).join('');
+ $('#s-opts').innerHTML=D.services.map(x=>`<option>${esc(x.t)}</option>`).join('');
+ const cats=['All',...new Set(D.projects.map(p=>p.c))];if(!cats.includes(filter))filter='All';
+ $('#s-filters').innerHTML=cats.map(c=>`<span class="chip ${c==filter?'on':''}" onclick="filter='${esc(c)}';renderSite()">${esc(c)}</span>`).join('');
+ $('#s-projects').innerHTML=D.projects.filter(p=>filter=='All'||p.c==filter).map(p=>`<div class="proj"><div class="im" style="${p.img?`background-image:url('${esc(p.img)}')`:''}"><em>${esc(p.c)}</em></div><div class="b"><h3>${esc(p.t)}</h3><p>${esc(p.d)}</p></div></div>`).join('');
+ const c=D.contact;
+ $('#s-contact').innerHTML=`${esc(c.text)}<br><br>📞 ${esc(c.phone)}<br>✉️ ${esc(c.email)}<br>📍 ${esc(c.addr)}`;
+ $('#s-social').innerHTML=Object.entries(D.social).filter(([,u])=>u).map(([k,u])=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(k)}</a>`).join('');
+}
+
+/* ---- admin ---- */
+let tab='site',edit=null;
+const inp=(id,l,v,t='input')=>`<div><label>${l}</label>`+(t=='input'?`<input id="${id}" value="${esc(v)}">`:`<textarea id="${id}" rows="3">${esc(v)}</textarea>`)+'</div>';
+const g=id=>$('#'+id).value;
+const head=(h,s)=>`<h1>${h}</h1><p class="sub">${s}</p>`;
+function renderAdmin(){
+ document.querySelectorAll('.side a[data-t]').forEach(a=>{a.classList.toggle('on',a.dataset.t==tab);a.onclick=()=>{tab=a.dataset.t;edit=null;renderAdmin()}});
+ const m=$('#ad-main');
+ if(tab=='site'){const s=D.site;m.innerHTML=head('Site content','Hero, about text, stats and footer.')+`<div class="panel"><div class="two">${inp('a1','Small tag',s.tag)}${inp('a2','Hero title',s.title)}</div><br>${inp('a3','Hero subtitle',s.sub,'textarea')}<br>${inp('a4','About text',s.about,'textarea')}<br>${inp('a5','Footer text',s.copy)}</div>
+  <div class="panel"><b>Stats</b><br><br>${s.stats.map((x,i)=>`<div class="two" style="margin-bottom:8px"><input id="n${i}" value="${esc(x.n)}"><input id="l${i}" value="${esc(x.l)}"></div>`).join('')}</div><button class="btn sec" onclick="saveSite()">Save changes</button>`}
+ if(tab=='services'){
+  if(edit!==null){const x=edit>=0?D.services[edit]:{i:'🛠',t:'',d:''};m.innerHTML=head(edit>=0?'Edit service':'New service','')+`<div class="panel"><div class="two">${inp('b1','Icon (emoji)',x.i)}${inp('b2','Title',x.t)}</div><br>${inp('b3','Description',x.d,'textarea')}</div><button class="btn sec" onclick="saveSvc()">Save</button> <button class="btn sm danger" onclick="edit=null;renderAdmin()">Cancel</button>`;return}
+  m.innerHTML=`<div class="bar">${head('Services',D.services.length+' listed on the website')}<button class="btn sec" onclick="edit=-1;renderAdmin()">+ Add service</button></div><div class="panel">${D.services.map((x,i)=>`<div class="row"><div>${esc(x.i)} <b>${esc(x.t)}</b><small>${esc(x.d)}</small></div><div><button class="btn sm sec" onclick="edit=${i};renderAdmin()">Edit</button> <button class="btn sm danger" onclick="del('services',${i})">Delete</button></div></div>`).join('')||'<small>No services yet.</small>'}</div>`}
+ if(tab=='projects'){
+  if(edit!==null){const x=edit>=0?D.projects[edit]:{t:'',c:'Building Construction',d:'',img:''};m.innerHTML=head(edit>=0?'Edit project':'New project','')+`<div class="panel"><div class="two">${inp('c1','Title',x.t)}${inp('c2','Category (type to create new)',x.c)}</div><br>${inp('c3','Location / short description',x.d)}<br>${inp('c4','Image URL (optional)',x.img)}</div><button class="btn sec" onclick="saveProj()">Save</button> <button class="btn sm danger" onclick="edit=null;renderAdmin()">Cancel</button>`;return}
+  m.innerHTML=`<div class="bar">${head('Projects',D.projects.length+' shown on the website')}<button class="btn sec" onclick="edit=-1;renderAdmin()">+ Add project</button></div><div class="panel">${D.projects.map((x,i)=>`<div class="row"><div><b>${esc(x.t)}</b><small>${esc(x.c)} · ${esc(x.d)}</small></div><div><button class="btn sm sec" onclick="edit=${i};renderAdmin()">Edit</button> <button class="btn sm danger" onclick="del('projects',${i})">Delete</button></div></div>`).join('')||'<small>No projects yet.</small>'}</div>`}
+ if(tab=='contact'){const c=D.contact;m.innerHTML=head('Contact & social','Shown in the contact section and footer. Leave a social link empty to hide it.')+`<div class="panel"><div class="two">${inp('d1','Phone',c.phone)}${inp('d2','Email',c.email)}</div><br>${inp('d3','Address',c.addr)}<br>${inp('d4','Intro text',c.text,'textarea')}</div><div class="panel"><b>Social links</b><br><br>${Object.entries(D.social).map(([k,u])=>`<div style="margin-bottom:8px"><label>${k}</label><input id="so-${k}" value="${esc(u)}"></div>`).join('')}</div><button class="btn sec" onclick="saveContact()">Save changes</button>`}
+}
+function saveSite(){const s=D.site;s.tag=g('a1');s.title=g('a2');s.sub=g('a3');s.about=g('a4');s.copy=g('a5');s.stats.forEach((x,i)=>{x.n=g('n'+i);x.l=g('l'+i)});save();renderSite()}
+function saveSvc(){const o={i:g('b1'),t:g('b2'),d:g('b3')};if(!o.t)return toast('Title required');edit>=0?D.services[edit]=o:D.services.push(o);edit=null;save();renderSite();renderAdmin()}
+function saveProj(){const o={t:g('c1'),c:g('c2')||'Other',d:g('c3'),img:g('c4')};if(!o.t)return toast('Title required');edit>=0?D.projects[edit]=o:D.projects.push(o);edit=null;save();renderSite();renderAdmin()}
+function saveContact(){const c=D.contact;c.phone=g('d1');c.email=g('d2');c.addr=g('d3');c.text=g('d4');for(const k in D.social)D.social[k]=g('so-'+k);save();renderSite()}
+function del(k,i){if(confirm('Delete this item?')){D[k].splice(i,1);save();renderSite();renderAdmin()}}
+
+/* ---- routing: #/admin shows the panel ---- */
+function route(){const a=location.hash=='#/admin';$('#admin').style.display=a?'block':'none';$('#site').style.display=a?'none':'block';if(a)renderAdmin()}
+addEventListener('hashchange',route);renderSite();route();
+</script>
+</body>
+</html>
