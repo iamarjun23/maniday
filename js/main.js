@@ -160,6 +160,30 @@
   addEventListener('resize', queue);
   queue();
 
+  // ---- one section per screen: CSS snaps the page (styles.css §16). A wheel or trackpad gesture moves
+  // exactly one section; inside a section taller than the screen it scrolls normally until that section's edge.
+  const snaps = [...$$('main > section'), $('.ftr')].filter(Boolean);
+  let wheelLock = 0;
+  if (snaps.length > 1) addEventListener('wheel', e => {
+    if (e.ctrlKey || Math.abs(e.deltaY) < 2 || Math.abs(e.deltaX) > Math.abs(e.deltaY) || document.body.style.overflow === 'hidden') return;
+    const now = performance.now(), vh = innerHeight, y = scrollY, dir = Math.sign(e.deltaY);
+    const max = document.documentElement.scrollHeight - vh;
+    const tops = snaps.map(el => el.getBoundingClientRect().top + y);
+    let i = 0;
+    tops.forEach((t, k) => { if (t <= y + 2) i = k; });
+    if (y >= max - 2) i = snaps.length - 1;                     // the footer snaps to the bottom, so it may start below scrollY
+    const end = tops[i] + snaps[i].offsetHeight;
+    if (dir > 0 ? y + vh < end - 2 : y > tops[i] + 2) return;   // still inside a tall section: native scroll
+    e.preventDefault();
+    if (now < wheelLock) { wheelLock = Math.max(wheelLock, now + 200); return; }   // ignore the rest of this gesture
+    const j = Math.min(snaps.length - 1, Math.max(0, i + dir));
+    if (j === i) return;
+    const tall = snaps[j].offsetHeight > vh + 2;
+    const top = dir < 0 && tall ? tops[j] + snaps[j].offsetHeight - vh : tops[j];
+    wheelLock = now + 750;
+    scrollTo({ top: Math.min(max, Math.max(0, top)), behavior: still ? 'auto' : 'smooth' });
+  }, { passive: false });
+
   // ---- [data-scrub]: children with data-at="0.3" get .on past that point; the box gets .done at data-scrub
   $$('[data-scrub]').forEach(box => {
     const items = [...box.querySelectorAll('[data-at]')], doneAt = +(box.dataset.scrub || 1);

@@ -140,7 +140,7 @@
 *,*::before,*::after{box-sizing:border-box}
 html{
   scroll-behavior:smooth;
-  scroll-padding-top:24px;
+  scroll-padding-top:0;
   -webkit-text-size-adjust:100%;
   text-size-adjust:100%;
 }
@@ -938,4 +938,19 @@ html{scrollbar-color:var(--line-2) transparent;scrollbar-width:thin}
 @media (max-width:720px){.dock .tab:not([aria-current]){display:none}}
 @media (max-width:400px){.dock .tab{display:none}}
 @media print{.dock{display:none!important}}
+
+
+/* 16. ONE SECTION PER SCREEN ============================================== */
+/* Every top-level section fills the screen and the page snaps to one section at a
+   time. A section taller than the screen (the scroll story, long lists on phones)
+   scrolls freely inside before the next one snaps in. The footer snaps to the bottom. */
+
+html{scroll-snap-type:y mandatory}
+main>section{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;scroll-snap-align:start}
+main>section.story{display:block}
+.sec.tight{padding-top:var(--sec)}
+.page-hero .panel{flex:1;display:flex;flex-direction:column;justify-content:center}
+main>section>.dark-panel{flex:1;display:flex;align-items:center;margin-block:var(--gut)}
+.ftr{scroll-snap-align:end}
+@media print{html{scroll-snap-type:none}}
 
