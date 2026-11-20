@@ -376,21 +376,18 @@ a.card{text-decoration:none}
 .page-hero{padding:var(--gut)}
 .page-hero .panel{
   position:relative;overflow:hidden;border-radius:var(--r-lg);background:var(--bg-2);
-  display:grid;grid-template-columns:minmax(0,1fr) clamp(84px,13vw,180px);
+  display:flex;flex-direction:column;justify-content:center;
 }
-.page-hero .ph-text{padding:clamp(140px,16vw,190px) clamp(24px,5vw,72px) clamp(48px,6vw,80px);min-width:0}
-.page-hero h1{font-size:clamp(2.3rem,6vw,5.6rem);margin-top:var(--s4)}
+.page-hero .ph-text{position:relative;z-index:1;padding:clamp(140px,16vw,190px) clamp(24px,5vw,72px) clamp(110px,15vw,230px);min-width:0}
+.page-hero h1{font-size:clamp(2.3rem,6vw,5.6rem)}
 .page-hero .lead{margin-top:var(--s5)}
-/* page name turned on its side in a rail on the right */
-.page-hero .ph-rail{margin-block:clamp(110px,12vw,130px) clamp(28px,4vw,48px);border-left:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;overflow:hidden}
-.page-hero .ph-rail span{writing-mode:vertical-rl;font-weight:800;letter-spacing:-.05em;line-height:1;white-space:nowrap;
-  font-size:clamp(3rem,6.5vw,6rem);color:transparent;-webkit-text-stroke:1.5px var(--line-2);user-select:none}
-@media (max-width:600px){
-  .page-hero .panel{grid-template-columns:minmax(0,1fr) 64px}
-  .page-hero .ph-text{padding-top:120px}
-  .page-hero .ph-rail{margin-top:100px}
-  .page-hero .ph-rail span{font-size:3rem;-webkit-text-stroke-width:1px}
-}
+/* one large outlined page name, sitting on the bottom-right edge */
+.page-hero .ph-word{position:absolute;right:clamp(16px,3vw,48px);bottom:-.17em;pointer-events:none;user-select:none;
+  font-weight:800;letter-spacing:-.06em;line-height:1;white-space:nowrap;
+  font-size:clamp(4.2rem,17vw,16rem);color:transparent;-webkit-text-stroke:1.5px var(--line-2)}
+.page-hero .ph-word span{display:block}
+@media (max-width:600px){.page-hero .ph-word{right:10px;font-size:19vw;-webkit-text-stroke-width:1.2px}}
+
 
 
 
@@ -943,7 +940,6 @@ main>section{min-height:100vh;min-height:100svh;display:flex;flex-direction:colu
 main>section.story{display:block}
 .sec.tight{padding-top:var(--sec)}
 .page-hero .panel{flex:1}
-.page-hero .ph-text{align-self:center}
 main>section>.dark-panel{flex:1;display:flex;align-items:center;margin-block:var(--gut)}
 .ftr{scroll-snap-align:end}
 @media print{html{scroll-snap-type:none}}
