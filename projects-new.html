@@ -106,18 +106,12 @@ html.shuffle::view-transition-old(root),html.shuffle::view-transition-new(root){
 
 <section class="page-hero">
   <div class="panel">
-    <div class="in-grid">
-      <div data-r>
-        <ol class="crumbs"><li><a href="index.html">Home</a></li><li aria-current="page">Projects</li></ol>
-        <p class="eyebrow">Our projects</p>
-        <h1>Built <em>with</em> care</h1>
-        <p class="lead">From our newest sites back to where we started. Every photo here is a Manidhay project.</p>
-      </div>
-      <div class="side" data-r style="--d:.15s">
-        <div class="stat glass"><span>Completed <svg class="i" aria-hidden="true"><use href="#i-tg"/></svg></span><b id="nDone">0</b></div>
-        <div class="stat glass"><span>On site now <svg class="i" aria-hidden="true"><use href="#i-tg"/></svg></span><b id="nLive">0</b></div>
-      </div>
+    <div class="ph-text" data-r>
+      <p class="eyebrow">Our projects</p>
+      <h1>Built <em>with</em> care</h1>
+      <p class="lead">From our newest sites back to where we started. Every photo here is a Manidhay project.</p>
     </div>
+    <div class="ph-rail" aria-hidden="true"><span>Projects</span></div>
   </div>
 </section>
 
@@ -199,9 +193,6 @@ html.shuffle::view-transition-old(root),html.shuffle::view-transition-new(root){
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const newest = Math.max(...P.map(p => p.year));
   const isNew = p => p.year === newest;
-
-  $('#nDone').dataset.count = P.filter(p => p.status === 'done').length;
-  $('#nLive').dataset.count = P.filter(p => p.status === 'ongoing').length;
 
   // ---- scramble: letters churn, then lock in left to right
   const glyphs = 'ABCDEFGHKMNPRSTUVWXYZ0123456789/#+';

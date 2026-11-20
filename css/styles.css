@@ -379,27 +379,23 @@ a.card{text-decoration:none}
 
 .page-hero{padding:var(--gut)}
 .page-hero .panel{
-  position:relative;overflow:hidden;border-radius:var(--r-lg);
-  padding:clamp(140px,16vw,190px) clamp(24px,5vw,72px) clamp(48px,6vw,80px);
-  background:radial-gradient(90% 120% at 85% 10%,var(--hero-1) 0,var(--hero-2) 50%,var(--hero-3) 100%);
+  position:relative;overflow:hidden;border-radius:var(--r-lg);background:var(--bg-2);
+  display:grid;grid-template-columns:minmax(0,1fr) clamp(84px,13vw,180px);
 }
-.page-hero .panel::after{ /* faint blueprint grid, very low contrast */
-  content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
-  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
-  background-size:56px 56px;
-  -webkit-mask-image:radial-gradient(70% 90% at 80% 20%,#000 0,transparent 70%);mask-image:radial-gradient(70% 90% at 80% 20%,#000 0,transparent 70%);
-}
-.page-hero .in-grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:var(--s7);align-items:end}
+.page-hero .ph-text{padding:clamp(140px,16vw,190px) clamp(24px,5vw,72px) clamp(48px,6vw,80px);min-width:0}
 .page-hero h1{font-size:clamp(2.3rem,6vw,5.6rem);margin-top:var(--s4)}
 .page-hero .lead{margin-top:var(--s5)}
-.page-hero .side{display:grid;gap:12px;justify-items:end}
-.page-hero .side .stat{min-width:190px;animation:float 7s ease-in-out infinite}
-.page-hero .side .stat:nth-child(2){animation-delay:-3.5s}
-@media (max-width:900px){
-  .page-hero .in-grid{grid-template-columns:minmax(0,1fr)}
-  .page-hero .side{justify-items:stretch;grid-template-columns:repeat(2,minmax(0,1fr))}
-  .page-hero .side .stat{min-width:0;animation:none}
+/* page name turned on its side in a rail on the right */
+.page-hero .ph-rail{margin-block:clamp(110px,12vw,130px) clamp(28px,4vw,48px);border-left:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.page-hero .ph-rail span{writing-mode:vertical-rl;font-weight:800;letter-spacing:-.05em;line-height:1;white-space:nowrap;
+  font-size:clamp(3rem,6.5vw,6rem);color:transparent;-webkit-text-stroke:1.5px var(--line-2);user-select:none}
+@media (max-width:600px){
+  .page-hero .panel{grid-template-columns:minmax(0,1fr) 64px}
+  .page-hero .ph-text{padding-top:120px}
+  .page-hero .ph-rail{margin-top:100px}
+  .page-hero .ph-rail span{font-size:3rem;-webkit-text-stroke-width:1px}
 }
+
 
 
 /* 9. HOME HERO (3D) ======================================================= */
@@ -752,9 +748,6 @@ html{scrollbar-color:var(--line-2) transparent;scrollbar-width:thin}
 }
 @keyframes grow-x{to{transform:scaleX(1)}}
 
-/* --- slow drift on the blueprint grid in page heroes --- */
-.page-hero .panel::after{animation:grid-drift 60s linear infinite}
-@keyframes grid-drift{to{background-position:56px 56px,56px 56px}}
 
 /* --- scroll-linked motion where supported (Chromium, Safari 26+); elsewhere it stays still --- */
 @supports (animation-timeline:view()){
