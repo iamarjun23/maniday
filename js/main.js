@@ -184,13 +184,6 @@
     scrollTo({ top: Math.min(max, Math.max(0, top)), behavior: still ? 'auto' : 'smooth' });
   }, { passive: false });
 
-  // ---- section gradients: the section crossing the middle of the screen sets the page tone (styles.css §17).
-  // Sections take tones 1 to 5 in turn; a section can pick its own with data-tone="3".
-  const toneIO = new IntersectionObserver(es => es.forEach(e => {
-    if (e.isIntersecting) root.dataset.tone = e.target.dataset.tone || (snaps.indexOf(e.target) % 5) + 1;
-  }), { rootMargin: '-50% 0px -50% 0px' });
-  snaps.forEach(el => toneIO.observe(el));
-
   // ---- [data-scrub]: children with data-at="0.3" get .on past that point; the box gets .done at data-scrub
   $$('[data-scrub]').forEach(box => {
     const items = [...box.querySelectorAll('[data-at]')], doneAt = +(box.dataset.scrub || 1);
