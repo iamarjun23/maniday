@@ -165,6 +165,64 @@
 .finale .big3 span:nth-child(3){color:var(--hl)}
 @media (max-width:1000px){.st-index{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:620px){.st-index{grid-template-columns:repeat(2,minmax(0,1fr))}.shots{grid-template-columns:1fr 1fr;grid-template-rows:auto;height:auto}.shot{aspect-ratio:1}.shot:first-child{grid-column:span 2;grid-row:auto;aspect-ratio:4/3}}
+
+/* ---- people-first layout ---- */
+.ppl-hero .panel{text-align:center}
+.ppl-hero h1{max-width:14ch;margin-inline:auto}
+.ppl-hero .lead{margin-inline:auto}
+.faces{display:flex;justify-content:center;margin-top:40px}
+.faces .av{width:clamp(52px,6vw,72px);height:clamp(52px,6vw,72px);font-size:clamp(.85rem,1.1vw,1.05rem);margin-left:-12px;border:3px solid var(--hero-2);box-shadow:var(--sh-1);animation:float 7s ease-in-out infinite}
+.faces .av:first-child{margin-left:0}
+.faces .av:nth-child(even){animation-delay:-3.5s}
+.faces-cap{margin-top:14px;font-size:.9rem;color:var(--muted)}
+
+.origin{padding-block:clamp(72px,9vw,120px)}
+.origin .head{margin-bottom:40px}
+.beats{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s4);position:relative}
+.beats::before{content:"";position:absolute;left:0;right:0;top:27px;height:1.5px;background:linear-gradient(90deg,var(--accent-2),var(--line-2))}
+.beats li{position:relative;padding-top:64px}
+.beats li::before{content:"";position:absolute;left:0;top:19px;width:18px;height:18px;border-radius:50%;background:var(--bg);border:2.5px solid var(--accent-2)}
+.beats .yr{font-size:clamp(1.8rem,3vw,2.6rem);font-weight:500;letter-spacing:-.04em;line-height:1}
+.beats h3{font-size:1.15rem;margin-top:10px}
+.beats p{color:var(--muted);margin-top:6px;font-size:.98rem}
+
+.people{padding-block:clamp(72px,9vw,128px);background:var(--bg-2)}
+.group{margin-top:clamp(48px,6vw,80px)}
+.group:first-of-type{margin-top:0}
+.group-h{display:flex;align-items:baseline;gap:16px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--line-2)}
+.group-h .n{font-size:var(--fs-xs);font-weight:600;letter-spacing:.16em;color:var(--accent-ink)}
+.group-h h3{font-size:clamp(1.4rem,2.4vw,2rem)}
+.group-h p{margin-left:auto;color:var(--muted);font-size:.95rem;max-width:40ch;text-align:right}
+.pcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4)}
+.pcards.one{grid-template-columns:minmax(0,1fr)}
+.pc{display:grid;grid-template-columns:clamp(120px,14vw,180px) 1fr;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-1);transition:transform var(--t) var(--ease),box-shadow var(--t)}
+.pc:hover{transform:translateY(-4px);box-shadow:var(--sh-2)}
+.portrait{position:relative;display:grid;place-items:center;min-height:200px;font-size:clamp(2rem,3.4vw,3rem);font-weight:500;letter-spacing:-.04em;color:var(--ink-2)}
+.portrait small{position:absolute;left:0;right:0;bottom:10px;text-align:center;font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);opacity:.55}
+.pc-body{padding:clamp(20px,2.4vw,30px);display:flex;flex-direction:column;gap:8px}
+.pc-role{font-size:var(--fs-xs);font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+.pc-body h4{font-size:clamp(1.3rem,2vw,1.6rem)}
+.pc-body p{color:var(--ink-2)}
+.pc-body .when{margin-top:auto;padding-top:10px;display:flex;gap:8px;align-items:center;font-size:.88rem;color:var(--muted)}
+.pc.lead-pc{grid-template-columns:clamp(160px,20vw,260px) 1fr}
+.pc.lead-pc .portrait{min-height:260px;font-size:clamp(2.6rem,4.4vw,4rem)}
+
+.belief{padding-block:clamp(72px,9vw,120px)}
+.belief .ways{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4);margin-top:0}
+.belief .ways li{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:var(--sh-1);grid-template-columns:1fr;gap:12px}
+
+@media (max-width:900px){
+  .beats{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:32px}.beats::before{display:none}
+  .pcards{grid-template-columns:minmax(0,1fr)}
+  .group-h{flex-wrap:wrap}.group-h p{margin-left:0;text-align:left;flex-basis:100%}
+  .belief .ways{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:520px){
+  .pc,.pc.lead-pc{grid-template-columns:minmax(0,1fr)}
+  .portrait,.pc.lead-pc .portrait{min-height:150px}
+  .beats{grid-template-columns:minmax(0,1fr)}
+  .faces .av{margin-left:-16px}
+}
 </style>
 </head>
 <body>
@@ -201,187 +259,86 @@
 
 <main id="main">
 
-<section class="st-hero">
-  <div class="panel photo-hero">
-    <img src="https://www.manidhay.com/wp-content/uploads/2018/06/mahalakshmi-temple-chikmagalur-4.jpg" alt="Mahalakshmi Temple, Chikmagalur, built by Manidhay" width="960" height="720" decoding="async">
-    <span class="credit">Our work: Mahalakshmi Temple, Chikmagalur</span>
-    <div class="ph-in">
-      <ol class="crumbs"><li><a href="index.html">Home</a></li><li aria-current="page">About us</li></ol>
-      <p class="eyebrow">The Manidhay story</p>
-      <h1>It started with <em>one wall</em></h1>
-      <p class="lead">A family from Chikmagalur that has built for three decades. Today we design, approve, finance and build, so you only ever make one call.</p>
-      <ol class="st-index">
-        <li><a href="#ch1"><small>CH. 01</small><b>Three decades</b></a></li>
-        <li><a href="#ch2"><small>CH. 02</small><b>One wall</b></a></li>
-        <li><a href="#ch3"><small>CH. 03</small><b>One team</b></a></li>
-        <li><a href="#ch4"><small>CH. 04</small><b>What we've built</b></a></li>
-        <li><a href="#ch5"><small>CH. 05</small><b>The people</b></a></li>
-        <li><a href="#ch6"><small>CH. 06</small><b>One call</b></a></li>
-      </ol>
+<section class="st-hero ppl-hero">
+  <div class="panel">
+    <ol class="crumbs" style="justify-content:center"><li><a href="index.html">Home</a></li><li aria-current="page">About us</li></ol>
+    <p class="eyebrow">About Manidhay</p>
+    <h1>The people <em>behind your build</em></h1>
+    <p class="lead">A family from Chikmagalur with three decades in construction, and the eight people who now build with them.</p>
+    <div class="faces" aria-hidden="true">
+      <span class="av" style="background:var(--t2)">PG</span><span class="av" style="background:var(--t1)">SR</span><span class="av" style="background:var(--t4)">SB</span><span class="av" style="background:var(--t3)">RJ</span><span class="av" style="background:var(--t2)">UH</span><span class="av" style="background:var(--t1)">SL</span><span class="av" style="background:var(--t4)">MN</span><span class="av" style="background:var(--t3)">SN</span>
     </div>
+    <p class="faces-cap">Eight people. One team. <a class="link" href="#people">Meet them <svg class="i" aria-hidden="true"><use href="#i-r"/></svg></a></p>
   </div>
 </section>
 
-<section class="breath">
+<section class="origin">
   <div class="wrap">
-    <p class="eyebrow">Manidhay in one breath</p>
-    <h2>Your complete building partner, <em>from plot to keys</em></h2>
-    <ul class="does" data-stagger>
-      <li><span class="sq"><svg class="i" aria-hidden="true"><use href="#i-design"/></svg></span>Engineering design</li>
-      <li><span class="sq"><svg class="i" aria-hidden="true"><use href="#i-arch"/></svg></span>Architecture</li>
-      <li><span class="sq"><svg class="i" aria-hidden="true"><use href="#i-stamp"/></svg></span>Government approvals</li>
-      <li><span class="sq"><svg class="i" aria-hidden="true"><use href="#i-rupee"/></svg></span>Loans &amp; finance</li>
-      <li><span class="sq"><svg class="i" aria-hidden="true"><use href="#i-crane"/></svg></span>Construction</li>
-      <li><span class="sq"><svg class="i" aria-hidden="true"><use href="#i-wall"/></svg></span>Readymade compound walls</li>
-      <li><span class="sq"><svg class="i" aria-hidden="true"><use href="#i-cap"/></svg></span>Courses for engineers</li>
+    <div class="head" data-r>
+      <div><p class="eyebrow">How we came together</p><h2>A family firm <em>that kept growing</em></h2></div>
+      <p>We didn't set out to be big. We set out to make building simpler for the families around us.</p>
+    </div>
+    <ol class="beats" data-stagger>
+      <li><span class="yr">30+ yrs</span><h3>A family in building</h3><p>Three decades in construction, long before Manidhay had a name.</p></li>
+      <li><span class="yr">2018</span><h3>One wall in Chikmagalur</h3><p>We started with one service: readymade concrete wall panels.</p></li>
+      <li><span class="yr">2019</span><h3>One team for everything</h3><p>Clients asked for more, so we brought design, approvals, loans and construction together.</p></li>
+      <li><span class="yr">Today</span><h3>Two offices, one team</h3><p>A head office in Chikmagalur and a branch in Bangalore.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="people" id="people">
+  <div class="wrap">
+    <div class="head" data-r>
+      <div><p class="eyebrow">Meet the team</p><h2>None of us is as smart <em>as all of us</em></h2></div>
+      <p>Engineers, an architect, and specialists in electrical, plumbing and finance. Here is who does what, and when you'll meet them.</p>
+    </div>
+
+    <div class="group">
+      <div class="group-h" data-r><span class="n">01</span><h3>Running the show</h3><p>Your first call, and the technical calls behind every project.</p></div>
+      <div class="pcards">
+        <article class="pc lead-pc" data-r><div class="portrait" style="background:var(--t2)" aria-hidden="true">PG<small>Photo soon</small></div><div class="pc-body"><span class="pc-role">Administrator</span><h4>Prajna Ganapathy P</h4><p>Keeps the office, the paperwork and the schedule running, so nothing falls between the cracks.</p><span class="when"><svg class="i" aria-hidden="true"><use href="#i-tg"/></svg>Usually your first call</span></div></article>
+        <article class="pc lead-pc" data-r><div class="portrait" style="background:var(--t1)" aria-hidden="true">SR<small>Photo soon</small></div><div class="pc-body"><span class="pc-role">Technical head</span><h4>Sri Rama Rao T A</h4><p>Leads the engineering on every project and signs off on how it is designed and built.</p><span class="when"><svg class="i" aria-hidden="true"><use href="#i-tg"/></svg>With you when we plan your build</span></div></article>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-h" data-r><span class="n">02</span><h3>Drawing it and paying for it</h3><p>Your plan on paper, and the money to make it real.</p></div>
+      <div class="pcards">
+        <article class="pc" data-r><div class="portrait" style="background:var(--t4)" aria-hidden="true">SB<small>Photo soon</small></div><div class="pc-body"><span class="pc-role">Architect &amp; interior designer</span><h4>Sridevi S Bhat</h4><p>Turns your plot and your wishes into plans, elevations and interiors.</p><span class="when"><svg class="i" aria-hidden="true"><use href="#i-tg"/></svg>With you at the design stage</span></div></article>
+        <article class="pc" data-r><div class="portrait" style="background:var(--t3)" aria-hidden="true">RJ<small>Photo soon</small></div><div class="pc-body"><span class="pc-role">Financial &amp; real estate advisor</span><h4>Raghavendra J</h4><p>Helps with bank loans, estimates, valuation and property questions.</p><span class="when"><svg class="i" aria-hidden="true"><use href="#i-tg"/></svg>With you when you plan the budget</span></div></article>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-h" data-r><span class="n">03</span><h3>Inside the walls</h3><p>The services you can't see, planned before the first brick.</p></div>
+      <div class="pcards">
+        <article class="pc" data-r><div class="portrait" style="background:var(--t2)" aria-hidden="true">UH<small>Photo soon</small></div><div class="pc-body"><span class="pc-role">Manager, electrical</span><h4>Usha H J</h4><p>Plans and manages the electrical work, from layout to final connection.</p><span class="when"><svg class="i" aria-hidden="true"><use href="#i-tg"/></svg>With you before the walls go up</span></div></article>
+        <article class="pc" data-r><div class="portrait" style="background:var(--t1)" aria-hidden="true">SL<small>Photo soon</small></div><div class="pc-body"><span class="pc-role">Manager, plumbing</span><h4>Shruthi L C</h4><p>Plans and manages water supply and drainage across the building.</p><span class="when"><svg class="i" aria-hidden="true"><use href="#i-tg"/></svg>With you before the walls go up</span></div></article>
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="group-h" data-r><span class="n">04</span><h3>On site, every day</h3><p>The engineers who turn drawings into a building you can walk into.</p></div>
+      <div class="pcards">
+        <article class="pc" data-r><div class="portrait" style="background:var(--t4)" aria-hidden="true">MN<small>Photo soon</small></div><div class="pc-body"><span class="pc-role">Site engineer</span><h4>Madhan N R</h4><p>Runs the work on site and checks quality at every stage.</p><span class="when"><svg class="i" aria-hidden="true"><use href="#i-tg"/></svg>On your site, every day</span></div></article>
+        <article class="pc" data-r><div class="portrait" style="background:var(--t3)" aria-hidden="true">SN<small>Photo soon</small></div><div class="pc-body"><span class="pc-role">Site engineer</span><h4>Sagar Naik B S</h4><p>Runs the work on site and keeps the job on schedule.</p><span class="when"><svg class="i" aria-hidden="true"><use href="#i-tg"/></svg>On your site, every day</span></div></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="belief">
+  <div class="wrap">
+    <div class="head" data-r>
+      <div><p class="eyebrow">How we work with you</p><h2>Your time <em>is money</em></h2></div>
+      <p>A young, energetic team that keeps you informed and explains every step.</p>
+    </div>
+    <ul class="ways">
+      <li><span class="sq soft"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span><div><b>On schedule</b><span>Each service delivered on time to keep your project moving.</span></div></li>
+      <li><span class="sq soft"><svg class="i" aria-hidden="true"><use href="#i-video"/></svg></span><div><b>Updates online</b><span>Most meetings happen online, so you don't travel to site for every question.</span></div></li>
+      <li><span class="sq soft"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg></span><div><b>Engineering made simple</b><span>We explain the why behind each step, so you understand what you pay for.</span></div></li>
     </ul>
-  </div>
-</section>
-
-<section class="ch alt" id="ch1">
-  <div class="wrap ch-grid">
-    <div class="ch-side" data-r>
-      <span class="ch-num">Chapter 01</span>
-      <span class="ch-year" data-count="30">30+</span>
-      <p>years our family has spent in construction, long before Manidhay had a name.</p>
-    </div>
-    <div class="ch-body">
-      <h2>Three decades <em>of building</em></h2>
-      <div class="prose">
-        <p>Our family has been in the construction business for three decades. We grew up around sites, drawings and the people who make buildings happen.</p>
-        <p>We also saw how hard it was for a family to build a home: too many people to deal with, too many offices to visit, and nobody who could explain why each step mattered.</p>
-      </div>
-      <p class="pull">We didn't want to be one more name on that list. We wanted to be the one you call.</p>
-    </div>
-  </div>
-</section>
-
-<section class="ch" id="ch2">
-  <div class="wrap ch-grid">
-    <div class="ch-side" data-r>
-      <span class="ch-num">Chapter 02</span>
-      <span class="ch-year">2018</span>
-      <p>Manidhay Business Services begins in Chikmagalur.</p>
-    </div>
-    <div class="ch-body">
-      <h2>One wall, <em>one town</em></h2>
-      <div class="prose">
-        <p>We started in Chikmagalur, the town where coffee was first grown in India, with a single service: installing readymade aerated concrete wall panels.</p>
-        <p>Panels made off-site, slotted between posts, finished in days. No plastering, no curing. Schools, godowns and companies trusted us with their boundaries first.</p>
-      </div>
-      <div class="shots" data-r>
-        <figure class="shot"><img src="https://www.manidhay.com/wp-content/uploads/2020/07/ready-made-aerated-concrete-wall-sai-angels-school-project-chikmagalur-1.jpeg" alt="Readymade concrete wall at Sai Angels School, Chikmagalur" width="1280" height="960" loading="lazy" decoding="async"><figcaption><b>Sai Angels School</b>Chikmagalur</figcaption></figure>
-        <figure class="shot"><img src="https://www.manidhay.com/wp-content/uploads/2020/07/st-marys-school-project-chikmagalur-1.jpeg" alt="Readymade concrete wall at St Mary's School, Chikmagalur" width="1280" height="960" loading="lazy" decoding="async"><figcaption><b>St Mary's School</b>Chikmagalur</figcaption></figure>
-        <figure class="shot"><img src="https://www.manidhay.com/wp-content/uploads/2020/07/ready-made-aerated-concrete-wall-vcnr-group-nelmangala-bangalore-1.jpeg" alt="Readymade concrete wall for VCNR Group, Nelamangala" width="1280" height="960" loading="lazy" decoding="async"><figcaption><b>VCNR Group</b>Nelamangala</figcaption></figure>
-      </div>
-      <p class="refrain" data-r>One wall.</p>
-    </div>
-  </div>
-</section>
-
-<section class="ch alt" id="ch3">
-  <div class="wrap ch-grid">
-    <div class="ch-side" data-r>
-      <span class="ch-num">Chapter 03</span>
-      <span class="ch-year">2019</span>
-      <p>We become a full, one-point civil engineering service.</p>
-    </div>
-    <div class="ch-body">
-      <h2>Six phone numbers, <em>or one</em></h2>
-      <div class="prose">
-        <p>On every wall job we heard the same thing. To build, a family had to find an architect, a structural designer, a licensing agent, a bank and a contractor, and then keep them all talking to each other.</p>
-        <p>So in 2019 we brought every wing of civil engineering under one roof.</p>
-      </div>
-      <div class="chase" data-r>
-        <ul>
-          <li><svg class="i" aria-hidden="true"><use href="#i-arch"/></svg><s>Architect</s></li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-design"/></svg><s>Structural designer</s></li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-stamp"/></svg><s>Licensing agent</s></li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-rupee"/></svg><s>Bank and valuer</s></li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-crane"/></svg><s>Contractor</s></li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-wall"/></svg><s>Wall installer</s></li>
-        </ul>
-        <span class="arrow-to" aria-hidden="true"><svg class="i i-lg"><use href="#i-r"/></svg></span>
-        <div class="one">
-          <b>Manidhay</b>
-          <span>One team. One phone number.</span>
-          <a href="tel:+919986470846"><svg class="i" aria-hidden="true"><use href="#i-ph"/></svg>+91 99864 70846</a>
-        </div>
-      </div>
-      <p class="refrain" data-r><s>One wall.</s> One team.</p>
-    </div>
-  </div>
-</section>
-
-<section class="built" id="ch4">
-  <div class="wrap head" data-r>
-    <div><span class="ch-num">Chapter 04</span><h2>What one team <em>has built</em></h2></div>
-    <p>A temple, a resort, a homestay, and buildings rising right now. Swipe through.</p>
-  </div>
-  <div class="reel" tabindex="0" aria-label="Projects, scroll sideways">
-    <figure><div class="pic"><img src="https://www.manidhay.com/wp-content/uploads/2018/06/mahalakshmi-temple-chikmagalur-4.jpg" alt="Mahalakshmi Temple, Chikmagalur" width="960" height="720" loading="lazy" decoding="async"></div><figcaption><b>Mahalakshmi Temple</b><span>Chikmagalur</span></figcaption></figure>
-    <figure><div class="pic"><img src="https://www.manidhay.com/wp-content/uploads/2018/06/vistara-county-resort-chikmagalur-3.jpg" alt="Vistara County Resort, Chikmagalur" width="1024" height="682" loading="lazy" decoding="async"></div><figcaption><b>Vistara County Resort</b><span>Chikmagalur</span></figcaption></figure>
-    <figure><div class="pic"><img src="https://www.manidhay.com/wp-content/uploads/2018/06/aura-homestay-chikmagalur-2.jpg" alt="Aura Homestay, Chikmagalur" width="960" height="638" loading="lazy" decoding="async"></div><figcaption><b>Aura Homestay</b><span>3,500 sq ft · 5 guest rooms</span></figcaption></figure>
-    <figure><div class="pic"><img src="https://www.manidhay.com/wp-content/uploads/2020/07/mrf-showroom-i-g-road-chikmagalur-3-scaled-1024x573.jpg" alt="MRF Showroom under construction, I G Road, Chikmagalur" width="1024" height="573" loading="lazy" decoding="async"></div><figcaption><b>MRF Showroom</b><span class="live">Building now</span></figcaption></figure>
-    <figure><div class="pic"><img src="https://www.manidhay.com/wp-content/uploads/2020/07/residence-at-mudigere-1-1024x720.jpeg" alt="Residence under construction in Mudigere" width="1024" height="720" loading="lazy" decoding="async"></div><figcaption><b>Residence, Mudigere</b><span class="live">Building now</span></figcaption></figure>
-    <figure><div class="pic"><img src="https://www.manidhay.com/wp-content/uploads/2020/07/commercial-building-at-t-c-palya-bangalore-12-1024x677.jpeg" alt="Commercial building under construction, T C Palya, Bangalore" width="1024" height="677" loading="lazy" decoding="async"></div><figcaption><b>Commercial building, T C Palya</b><span class="live">Building now</span></figcaption></figure>
-  </div>
-  <div class="wrap" style="margin-top:24px"><a class="link" style="color:var(--hl)" href="projects.html">See every project <svg class="i" aria-hidden="true"><use href="#i-r"/></svg></a></div>
-</section>
-
-<section class="ch alt" id="ch5">
-  <div class="wrap ch-grid">
-    <div class="ch-side" data-r>
-      <span class="ch-num">Chapter 05</span>
-      <span class="ch-year word">The team</span>
-      <p>Eight people, introduced in the order you'll meet them on your project.</p>
-    </div>
-    <div class="ch-body">
-      <h2>None of us is as smart <em>as all of us</em></h2>
-      <ol class="cast">
-        <li><span class="step"><svg class="i" aria-hidden="true"><use href="#i-ph"/></svg></span>
-          <div class="card"><span class="when">Your first call</span><h3>We listen and set things up</h3>
-            <div class="who"><span><i class="av" style="background:var(--t2)">PG</i>Prajna Ganapathy P <em>Administrator</em></span></div></div></li>
-        <li><span class="step"><svg class="i" aria-hidden="true"><use href="#i-design"/></svg></span>
-          <div class="card"><span class="when">Drawing it</span><h3>Your plan, designed and engineered</h3>
-            <div class="who"><span><i class="av" style="background:var(--t4)">SB</i>Sridevi S Bhat <em>Architect &amp; interior designer</em></span><span><i class="av" style="background:var(--t1)">SR</i>Sri Rama Rao T A <em>Technical head</em></span></div></div></li>
-        <li><span class="step"><svg class="i" aria-hidden="true"><use href="#i-rupee"/></svg></span>
-          <div class="card"><span class="when">Paying for it</span><h3>Loans, estimates and valuation</h3>
-            <div class="who"><span><i class="av" style="background:var(--t3)">RJ</i>Raghavendra J <em>Financial &amp; real estate advisor</em></span></div></div></li>
-        <li><span class="step"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg></span>
-          <div class="card"><span class="when">Services inside the walls</span><h3>Electrical and plumbing, planned early</h3>
-            <div class="who"><span><i class="av" style="background:var(--t2)">UH</i>Usha H J <em>Manager, electrical</em></span><span><i class="av" style="background:var(--t1)">SL</i>Shruthi L C <em>Manager, plumbing</em></span></div></div></li>
-        <li><span class="step"><svg class="i" aria-hidden="true"><use href="#i-crane"/></svg></span>
-          <div class="card"><span class="when">On site, every day</span><h3>Building it, until you get the keys</h3>
-            <div class="who"><span><i class="av" style="background:var(--t4)">MN</i>Madhan N R <em>Site engineer</em></span><span><i class="av" style="background:var(--t3)">SN</i>Sagar Naik B S <em>Site engineer</em></span></div></div></li>
-      </ol>
-    </div>
-  </div>
-</section>
-
-<section class="ch" id="ch6">
-  <div class="wrap ch-grid">
-    <div class="ch-side" data-r>
-      <span class="ch-num">Chapter 06</span>
-      <span class="ch-year word">Today</span>
-      <p>Two offices, projects across Karnataka, and a classroom.</p>
-    </div>
-    <div class="ch-body">
-      <h2>From Chikmagalur <em>to Bangalore</em></h2>
-      <div class="places">
-        <div class="place" data-r><div class="pimg"><img src="https://www.manidhay.com/wp-content/uploads/2020/07/mrf-showroom-i-g-road-chikmagalur-3-scaled-1024x573.jpg" alt="MRF Showroom project, Chikmagalur" width="1024" height="573" loading="lazy" decoding="async"></div><div class="pt"><span class="tag">Head office</span><h3>Chikmagalur</h3><p>Basavanahalli, Chikmagalur 577101. Where it all started.</p></div></div>
-        <div class="place" data-r style="--d:.1s"><div class="pimg"><img src="https://www.manidhay.com/wp-content/uploads/2020/07/commercial-building-at-t-c-palya-bangalore-12-1024x677.jpeg" alt="Commercial building project, T C Palya, Bangalore" width="1024" height="677" loading="lazy" decoding="async"></div><div class="pt"><span class="tag">Branch</span><h3>Bangalore</h3><p>Our branch office, with projects like this one at T C Palya.</p></div></div>
-      </div>
-      <div class="prose" style="margin-top:32px">
-        <p>We also teach what we build. Our courses, blog and videos explain civil and structural engineering simply, and why every project needs an engineer.</p>
-      </div>
-      <ul class="ways">
-        <li><span class="sq soft"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span><div><b>On schedule</b><span>A young, energetic team that delivers each service on time.</span></div></li>
-        <li><span class="sq soft"><svg class="i" aria-hidden="true"><use href="#i-video"/></svg></span><div><b>Updates online</b><span>Most meetings happen online, so you don't travel to site for every question.</span></div></li>
-        <li><span class="sq soft"><svg class="i" aria-hidden="true"><use href="#i-cap"/></svg></span><div><b>Engineering made simple</b><span>We explain the why behind each step. <a class="link" href="academy.html">Visit the Academy</a></span></div></li>
-      </ul>
-      <p class="refrain" data-r><s>One wall. One team.</s> One call.</p>
-    </div>
   </div>
 </section>
 
@@ -393,11 +350,9 @@
       <figcaption><b>Sir M. Visvesvaraya</b>, Karnataka's own father of Indian engineering</figcaption>
     </figure>
     <hr>
-    <p class="big3" data-r><span>One wall.</span><span>One team.</span><span>One call.</span></p>
-    <p class="eyebrow plain" style="margin-top:48px">Chapter 07</p>
-    <h2 style="margin-top:14px">The next chapter <em>is yours</em></h2>
-    <p class="next">Tell us about your plot, your plans or your course. Visit us in Chikmagalur or set up an online meeting.</p>
-    <div class="ctas"><a class="btn btn-or" href="contact.html">Start your project</a><a class="btn btn-line" style="color:var(--on-panel)" href="projects.html">See our work</a></div>
+    <h2>Come and <em>meet us</em></h2>
+    <p class="next">Visit our head office in Basavanahalli, Chikmagalur, or our branch in Bangalore. Or set up an online meeting.</p>
+    <div class="ctas"><a class="btn btn-or" href="contact.html">Contact the team</a><a class="btn btn-line" style="color:var(--on-panel)" href="tel:+919986470846">Call +91 99864 70846</a></div>
   </div>
 </section>
 </main>
