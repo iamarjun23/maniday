@@ -110,6 +110,61 @@
   .places{grid-template-columns:1fr}
 }
 @media (max-width:620px){.st-index{grid-template-columns:repeat(2,minmax(0,1fr))}.panels-row{height:120px}}
+
+/* ---- photo story additions ---- */
+.st-hero .panel.photo-hero{padding:0;min-height:min(88vh,860px);display:flex;align-items:flex-end;background:#2B1F14;color:#FBF6EF}
+.photo-hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.06);animation:kb 18s var(--ease) forwards}
+@keyframes kb{to{transform:scale(1)}}
+.photo-hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(20,14,8,.15) 0,rgba(20,14,8,.35) 40%,rgba(20,14,8,.88) 100%)}
+.photo-hero .ph-in{position:relative;z-index:2;width:100%;padding:clamp(140px,14vw,180px) clamp(24px,5vw,72px) clamp(32px,4vw,56px)}
+.photo-hero h1,.photo-hero h1 em{color:#FBF6EF}.photo-hero h1 em{opacity:.75}
+.photo-hero .lead{color:rgba(251,246,239,.85)}
+.photo-hero .crumbs,.photo-hero .crumbs a,.photo-hero .eyebrow{color:rgba(251,246,239,.8)}
+.photo-hero .credit{position:absolute;z-index:2;right:clamp(24px,5vw,72px);top:clamp(120px,12vw,150px);font-size:.8rem;padding:6px 12px;border-radius:var(--r-pill);background:rgba(20,14,8,.45);color:#FBF6EF;backdrop-filter:blur(6px)}
+.photo-hero .st-index a{background:rgba(251,246,239,.12);border-color:rgba(251,246,239,.18);color:#FBF6EF;backdrop-filter:blur(10px);box-shadow:none}
+.photo-hero .st-index small{color:#E9C27F}
+.st-index{grid-template-columns:repeat(6,minmax(0,1fr))}
+
+.breath{padding:clamp(64px,8vw,112px) 0;text-align:center}
+.breath h2{max-width:20ch;margin:16px auto 0;font-size:clamp(2rem,4.2vw,3.6rem)}
+.does{list-style:none;margin:40px auto 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:980px}
+.does li{display:inline-flex;align-items:center;gap:10px;padding:10px 18px 10px 10px;border-radius:var(--r-pill);background:var(--surface);border:1px solid var(--line);box-shadow:var(--sh-1);font-weight:500}
+.does .sq{width:34px;height:34px;border-radius:50%}
+
+.refrain{display:inline-flex;align-items:center;gap:12px;margin-top:36px;padding:12px 20px;border:2px solid var(--sage);border-radius:14px;color:var(--sage);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.9rem;transform:rotate(-2deg)}
+.refrain s{opacity:.45;text-decoration:none;font-weight:600}
+
+.shots{margin-top:40px;display:grid;grid-template-columns:1.3fr 1fr;grid-template-rows:1fr 1fr;gap:12px;height:clamp(360px,36vw,500px)}
+.shot{position:relative;margin:0;border-radius:var(--r);overflow:hidden;background:var(--bg-2);box-shadow:var(--sh-1)}
+.shot:first-child{grid-row:span 2}
+.shot img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.shot:hover img{transform:scale(1.05)}
+.shot figcaption{position:absolute;left:10px;bottom:10px;right:10px;padding:8px 12px;border-radius:12px;font-size:.82rem;line-height:1.3;background:rgba(20,14,8,.55);color:#FBF6EF;backdrop-filter:blur(8px)}
+.shot figcaption b{display:block;font-weight:600}
+
+.built{padding-block:clamp(72px,9vw,128px);background:var(--panel-dark);color:var(--on-panel)}
+.built h2{color:var(--on-panel)}.built h2 em{color:var(--on-panel-m)}
+.built .head p{color:var(--on-panel-m)}
+.built .ch-num{color:var(--hl)}
+.reel{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 var(--gut) 20px;scrollbar-width:thin}
+.reel figure{flex:0 0 min(78vw,520px);scroll-snap-align:start;margin:0}
+.reel .pic{aspect-ratio:4/3;border-radius:var(--r-lg);overflow:hidden;background:#3a2c1f}
+.reel img{width:100%;height:100%;object-fit:cover}
+.reel figcaption{margin-top:14px;display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.reel figcaption b{font-size:1.15rem;font-weight:600;color:var(--on-panel)}
+.reel figcaption span{color:var(--on-panel-m);font-size:.9rem}
+.reel .live{font-size:var(--fs-xs);font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--hl)}
+.place{overflow:hidden;padding:0}
+.place .pimg{aspect-ratio:16/9;background:var(--bg-2)}
+.place .pimg img{width:100%;height:100%;object-fit:cover}
+.place .pt{padding:20px 24px 24px;display:grid;gap:10px}
+
+.finale .big3{margin:0;font-size:clamp(2.4rem,6.4vw,5.6rem);letter-spacing:-.05em;line-height:1;font-weight:500;color:var(--on-panel)}
+.finale .big3 span{display:block}
+.finale .big3 span:nth-child(2){color:var(--on-panel-m)}
+.finale .big3 span:nth-child(3){color:var(--hl)}
+@media (max-width:1000px){.st-index{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:620px){.st-index{grid-template-columns:repeat(2,minmax(0,1fr))}.shots{grid-template-columns:1fr 1fr;grid-template-rows:auto;height:auto}.shot{aspect-ratio:1}.shot:first-child{grid-column:span 2;grid-row:auto;aspect-ratio:4/3}}
 </style>
 </head>
 <body>
@@ -147,22 +202,43 @@
 <main id="main">
 
 <section class="st-hero">
-  <div class="panel">
-    <ol class="crumbs"><li><a href="index.html">Home</a></li><li aria-current="page">About us</li></ol>
-    <p class="eyebrow">Our story, in five chapters</p>
-    <h1>It started with <em>one wall</em></h1>
-    <p class="lead">How a family that has built in Karnataka for three decades became the one team you call for everything, from the first drawing to the day you get your keys.</p>
-    <ol class="st-index">
-      <li><a href="#ch1"><small>CH. 01</small><b>Three decades of building</b></a></li>
-      <li><a href="#ch2"><small>CH. 02</small><b>One wall, one town</b></a></li>
-      <li><a href="#ch3"><small>CH. 03</small><b>Six phone numbers</b></a></li>
-      <li><a href="#ch4"><small>CH. 04</small><b>The people you'll meet</b></a></li>
-      <li><a href="#ch5"><small>CH. 05</small><b>Where we are today</b></a></li>
-    </ol>
+  <div class="panel photo-hero">
+    <img src="https://www.manidhay.com/wp-content/uploads/2018/06/mahalakshmi-temple-chikmagalur-4.jpg" alt="Mahalakshmi Temple, Chikmagalur, built by Manidhay" width="960" height="720" decoding="async">
+    <span class="credit">Our work: Mahalakshmi Temple, Chikmagalur</span>
+    <div class="ph-in">
+      <ol class="crumbs"><li><a href="index.html">Home</a></li><li aria-current="page">About us</li></ol>
+      <p class="eyebrow">The Manidhay story</p>
+      <h1>It started with <em>one wall</em></h1>
+      <p class="lead">A family from Chikmagalur that has built for three decades. Today we design, approve, finance and build, so you only ever make one call.</p>
+      <ol class="st-index">
+        <li><a href="#ch1"><small>CH. 01</small><b>Three decades</b></a></li>
+        <li><a href="#ch2"><small>CH. 02</small><b>One wall</b></a></li>
+        <li><a href="#ch3"><small>CH. 03</small><b>One team</b></a></li>
+        <li><a href="#ch4"><small>CH. 04</small><b>What we've built</b></a></li>
+        <li><a href="#ch5"><small>CH. 05</small><b>The people</b></a></li>
+        <li><a href="#ch6"><small>CH. 06</small><b>One call</b></a></li>
+      </ol>
+    </div>
   </div>
 </section>
 
-<section class="ch" id="ch1">
+<section class="breath">
+  <div class="wrap">
+    <p class="eyebrow">Manidhay in one breath</p>
+    <h2>Your complete building partner, <em>from plot to keys</em></h2>
+    <ul class="does" data-stagger>
+      <li><span class="sq"><svg class="i" aria-hidden="true"><use href="#i-design"/></svg></span>Engineering design</li>
+      <li><span class="sq"><svg class="i" aria-hidden="true"><use href="#i-arch"/></svg></span>Architecture</li>
+      <li><span class="sq"><svg class="i" aria-hidden="true"><use href="#i-stamp"/></svg></span>Government approvals</li>
+      <li><span class="sq"><svg class="i" aria-hidden="true"><use href="#i-rupee"/></svg></span>Loans &amp; finance</li>
+      <li><span class="sq"><svg class="i" aria-hidden="true"><use href="#i-crane"/></svg></span>Construction</li>
+      <li><span class="sq"><svg class="i" aria-hidden="true"><use href="#i-wall"/></svg></span>Readymade compound walls</li>
+      <li><span class="sq"><svg class="i" aria-hidden="true"><use href="#i-cap"/></svg></span>Courses for engineers</li>
+    </ul>
+  </div>
+</section>
+
+<section class="ch alt" id="ch1">
   <div class="wrap ch-grid">
     <div class="ch-side" data-r>
       <span class="ch-num">Chapter 01</span>
@@ -180,7 +256,7 @@
   </div>
 </section>
 
-<section class="ch alt" id="ch2">
+<section class="ch" id="ch2">
   <div class="wrap ch-grid">
     <div class="ch-side" data-r>
       <span class="ch-num">Chapter 02</span>
@@ -191,24 +267,19 @@
       <h2>One wall, <em>one town</em></h2>
       <div class="prose">
         <p>We started in Chikmagalur, the town where coffee was first grown in India, with a single service: installing readymade aerated concrete wall panels.</p>
-        <p>Panels made off-site, slotted between posts, finished in days. No plastering, no curing. It taught us what clients value most: work that is quick, clean and explained properly.</p>
+        <p>Panels made off-site, slotted between posts, finished in days. No plastering, no curing. Schools, godowns and companies trusted us with their boundaries first.</p>
       </div>
-      <figure class="panels" data-r>
-        <div class="panels-row" aria-hidden="true">
-          <div class="post"></div>
-          <div class="stack"><div class="slab" style="--k:0"></div><div class="slab" style="--k:1"></div><div class="slab" style="--k:2"></div><div class="slab" style="--k:3"></div></div>
-          <div class="post"></div>
-          <div class="stack"><div class="slab" style="--k:4"></div><div class="slab" style="--k:5"></div><div class="slab" style="--k:6"></div><div class="slab" style="--k:7"></div></div>
-          <div class="post"></div>
-        </div>
-        <div class="ground" aria-hidden="true"></div>
-        <figcaption>Where it began: readymade compound wall panels. <a class="link" href="services.html#walls">See the walls service <svg class="i" aria-hidden="true"><use href="#i-r"/></svg></a></figcaption>
-      </figure>
+      <div class="shots" data-r>
+        <figure class="shot"><img src="https://www.manidhay.com/wp-content/uploads/2020/07/ready-made-aerated-concrete-wall-sai-angels-school-project-chikmagalur-1.jpeg" alt="Readymade concrete wall at Sai Angels School, Chikmagalur" width="1280" height="960" loading="lazy" decoding="async"><figcaption><b>Sai Angels School</b>Chikmagalur</figcaption></figure>
+        <figure class="shot"><img src="https://www.manidhay.com/wp-content/uploads/2020/07/st-marys-school-project-chikmagalur-1.jpeg" alt="Readymade concrete wall at St Mary's School, Chikmagalur" width="1280" height="960" loading="lazy" decoding="async"><figcaption><b>St Mary's School</b>Chikmagalur</figcaption></figure>
+        <figure class="shot"><img src="https://www.manidhay.com/wp-content/uploads/2020/07/ready-made-aerated-concrete-wall-vcnr-group-nelmangala-bangalore-1.jpeg" alt="Readymade concrete wall for VCNR Group, Nelamangala" width="1280" height="960" loading="lazy" decoding="async"><figcaption><b>VCNR Group</b>Nelamangala</figcaption></figure>
+      </div>
+      <p class="refrain" data-r>One wall.</p>
     </div>
   </div>
 </section>
 
-<section class="ch" id="ch3">
+<section class="ch alt" id="ch3">
   <div class="wrap ch-grid">
     <div class="ch-side" data-r>
       <span class="ch-num">Chapter 03</span>
@@ -237,14 +308,31 @@
           <a href="tel:+919986470846"><svg class="i" aria-hidden="true"><use href="#i-ph"/></svg>+91 99864 70846</a>
         </div>
       </div>
+      <p class="refrain" data-r><s>One wall.</s> One team.</p>
     </div>
   </div>
 </section>
 
-<section class="ch alt" id="ch4">
+<section class="built" id="ch4">
+  <div class="wrap head" data-r>
+    <div><span class="ch-num">Chapter 04</span><h2>What one team <em>has built</em></h2></div>
+    <p>A temple, a resort, a homestay, and buildings rising right now. Swipe through.</p>
+  </div>
+  <div class="reel" tabindex="0" aria-label="Projects, scroll sideways">
+    <figure><div class="pic"><img src="https://www.manidhay.com/wp-content/uploads/2018/06/mahalakshmi-temple-chikmagalur-4.jpg" alt="Mahalakshmi Temple, Chikmagalur" width="960" height="720" loading="lazy" decoding="async"></div><figcaption><b>Mahalakshmi Temple</b><span>Chikmagalur</span></figcaption></figure>
+    <figure><div class="pic"><img src="https://www.manidhay.com/wp-content/uploads/2018/06/vistara-county-resort-chikmagalur-3.jpg" alt="Vistara County Resort, Chikmagalur" width="1024" height="682" loading="lazy" decoding="async"></div><figcaption><b>Vistara County Resort</b><span>Chikmagalur</span></figcaption></figure>
+    <figure><div class="pic"><img src="https://www.manidhay.com/wp-content/uploads/2018/06/aura-homestay-chikmagalur-2.jpg" alt="Aura Homestay, Chikmagalur" width="960" height="638" loading="lazy" decoding="async"></div><figcaption><b>Aura Homestay</b><span>3,500 sq ft · 5 guest rooms</span></figcaption></figure>
+    <figure><div class="pic"><img src="https://www.manidhay.com/wp-content/uploads/2020/07/mrf-showroom-i-g-road-chikmagalur-3-scaled-1024x573.jpg" alt="MRF Showroom under construction, I G Road, Chikmagalur" width="1024" height="573" loading="lazy" decoding="async"></div><figcaption><b>MRF Showroom</b><span class="live">Building now</span></figcaption></figure>
+    <figure><div class="pic"><img src="https://www.manidhay.com/wp-content/uploads/2020/07/residence-at-mudigere-1-1024x720.jpeg" alt="Residence under construction in Mudigere" width="1024" height="720" loading="lazy" decoding="async"></div><figcaption><b>Residence, Mudigere</b><span class="live">Building now</span></figcaption></figure>
+    <figure><div class="pic"><img src="https://www.manidhay.com/wp-content/uploads/2020/07/commercial-building-at-t-c-palya-bangalore-12-1024x677.jpeg" alt="Commercial building under construction, T C Palya, Bangalore" width="1024" height="677" loading="lazy" decoding="async"></div><figcaption><b>Commercial building, T C Palya</b><span class="live">Building now</span></figcaption></figure>
+  </div>
+  <div class="wrap" style="margin-top:24px"><a class="link" style="color:var(--hl)" href="projects.html">See every project <svg class="i" aria-hidden="true"><use href="#i-r"/></svg></a></div>
+</section>
+
+<section class="ch alt" id="ch5">
   <div class="wrap ch-grid">
     <div class="ch-side" data-r>
-      <span class="ch-num">Chapter 04</span>
+      <span class="ch-num">Chapter 05</span>
       <span class="ch-year word">The team</span>
       <p>Eight people, introduced in the order you'll meet them on your project.</p>
     </div>
@@ -271,18 +359,18 @@
   </div>
 </section>
 
-<section class="ch" id="ch5">
+<section class="ch" id="ch6">
   <div class="wrap ch-grid">
     <div class="ch-side" data-r>
-      <span class="ch-num">Chapter 05</span>
+      <span class="ch-num">Chapter 06</span>
       <span class="ch-year word">Today</span>
       <p>Two offices, projects across Karnataka, and a classroom.</p>
     </div>
     <div class="ch-body">
       <h2>From Chikmagalur <em>to Bangalore</em></h2>
       <div class="places">
-        <div class="place" data-r><span class="tag">Head office</span><h3>Chikmagalur</h3><p>Basavanahalli, Chikmagalur 577101. Where it all started.</p></div>
-        <div class="place" data-r style="--d:.1s"><span class="tag">Branch</span><h3>Bangalore</h3><p>Closer to clients and projects in and around the city.</p></div>
+        <div class="place" data-r><div class="pimg"><img src="https://www.manidhay.com/wp-content/uploads/2020/07/mrf-showroom-i-g-road-chikmagalur-3-scaled-1024x573.jpg" alt="MRF Showroom project, Chikmagalur" width="1024" height="573" loading="lazy" decoding="async"></div><div class="pt"><span class="tag">Head office</span><h3>Chikmagalur</h3><p>Basavanahalli, Chikmagalur 577101. Where it all started.</p></div></div>
+        <div class="place" data-r style="--d:.1s"><div class="pimg"><img src="https://www.manidhay.com/wp-content/uploads/2020/07/commercial-building-at-t-c-palya-bangalore-12-1024x677.jpeg" alt="Commercial building project, T C Palya, Bangalore" width="1024" height="677" loading="lazy" decoding="async"></div><div class="pt"><span class="tag">Branch</span><h3>Bangalore</h3><p>Our branch office, with projects like this one at T C Palya.</p></div></div>
       </div>
       <div class="prose" style="margin-top:32px">
         <p>We also teach what we build. Our courses, blog and videos explain civil and structural engineering simply, and why every project needs an engineer.</p>
@@ -292,6 +380,7 @@
         <li><span class="sq soft"><svg class="i" aria-hidden="true"><use href="#i-video"/></svg></span><div><b>Updates online</b><span>Most meetings happen online, so you don't travel to site for every question.</span></div></li>
         <li><span class="sq soft"><svg class="i" aria-hidden="true"><use href="#i-cap"/></svg></span><div><b>Engineering made simple</b><span>We explain the why behind each step. <a class="link" href="academy.html">Visit the Academy</a></span></div></li>
       </ul>
+      <p class="refrain" data-r><s>One wall. One team.</s> One call.</p>
     </div>
   </div>
 </section>
@@ -304,7 +393,8 @@
       <figcaption><b>Sir M. Visvesvaraya</b>, Karnataka's own father of Indian engineering</figcaption>
     </figure>
     <hr>
-    <p class="eyebrow plain">Chapter 06</p>
+    <p class="big3" data-r><span>One wall.</span><span>One team.</span><span>One call.</span></p>
+    <p class="eyebrow plain" style="margin-top:48px">Chapter 07</p>
     <h2 style="margin-top:14px">The next chapter <em>is yours</em></h2>
     <p class="next">Tell us about your plot, your plans or your course. Visit us in Chikmagalur or set up an online meeting.</p>
     <div class="ctas"><a class="btn btn-or" href="contact.html">Start your project</a><a class="btn btn-line" style="color:var(--on-panel)" href="projects.html">See our work</a></div>
