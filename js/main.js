@@ -123,12 +123,23 @@
   }), { threshold: .6 });
   $$('[data-count]').forEach(el => counter.observe(el));
 
+  // ---- bottom dock: the header scrolls away with the hero, then this dock rises from the bottom.
+  // Warm light sweeps across it as you read down the page (--p); the current page's tab is highlighted.
+  const navLinks = [...$$('.pill-nav a')].filter(a => a.getAttribute('href') !== 'index.html');
+  const dock = document.createElement('nav');
+  dock.className = 'dock'; dock.setAttribute('aria-label', 'Quick links'); dock.inert = true;
+  dock.innerHTML = '<a class="dock-logo" href="index.html" aria-label="Manidhay Business Services, home"><svg aria-hidden="true"><use href="#logo"/></svg></a>' +
+    navLinks.map(a => `<a class="tab" href="${a.getAttribute('href')}"${a.hasAttribute('aria-current') ? ' aria-current="page"' : ''}>${a.textContent}</a>`).join('') +
+    '<button class="dmenu" type="button" aria-controls="drawer" aria-expanded="false">Menu</button>' +
+    '<a class="call" href="tel:+919986470846" aria-label="Call +91 99864 70846"><svg class="i" aria-hidden="true"><use href="#i-ph"/></svg></a>' +
+    '<a class="btn btn-or" href="contact.html">Quote</a>';
+  document.body.append(dock);
+  const heroEl = $('.hero-panel, .page-hero .panel');
+  let dockOn = false;
+
   // ---- scroll progress engine: scrub(el, fn, 'pin'|'pass') calls fn(0..1) as el moves through the viewport
   const scrubs = [];
   let queued = false;
-  const bar = document.createElement('div'); bar.className = 'progress'; bar.setAttribute('aria-hidden', 'true');
-  document.body.append(bar);
-  const cssBar = CSS.supports('animation-timeline: scroll()');
   function measure() {
     queued = false;
     const vh = innerHeight;
@@ -138,7 +149,10 @@
       p = Math.min(1, Math.max(0, p));
       if (p !== s.p) { s.p = p; s.fn(p); }
     }
-    if (!cssBar) bar.style.transform = `scaleX(${scrollY / Math.max(1, document.documentElement.scrollHeight - vh)})`;
+    const p = Math.min(1, scrollY / Math.max(1, document.documentElement.scrollHeight - vh));
+    dock.style.setProperty('--p', p.toFixed(3));
+    const show = heroEl ? heroEl.getBoundingClientRect().bottom < vh * .35 : scrollY > vh * .6;
+    if (show !== dockOn) { dockOn = show; dock.classList.toggle('on', show); dock.inert = !show; }
   }
   const queue = () => { if (!queued) { queued = true; requestAnimationFrame(measure); } };
   window.scrub = (el, fn, mode = 'pass') => { scrubs.push({ el, fn, mode, p: -1 }); queue(); };
@@ -156,21 +170,19 @@
     });
   });
 
-  // ---- header turns solid once the page moves
-  const hdr = $('#hdr'), sent = document.createElement('div');
-  sent.style.cssText = 'position:absolute;top:100px;height:1px;width:1px';
-  document.body.prepend(sent);
-  if (hdr) new IntersectionObserver(([e]) => hdr.classList.toggle('solid', !e.isIntersecting)).observe(sent);
-
   // ---- mobile menu
   const drawer = $('#drawer'), btn = $('#menuBtn');
   if (drawer && btn) {
+    const dmenu = dock.querySelector('.dmenu');
+    let opener = btn;
     const setMenu = open => {
-      drawer.classList.toggle('open', open); btn.setAttribute('aria-expanded', open);
+      drawer.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open); dmenu.setAttribute('aria-expanded', open);
       document.body.style.overflow = open ? 'hidden' : '';
-      if (open) $('#menuClose').focus(); else btn.focus();
+      if (open) $('#menuClose').focus(); else opener.focus({ preventScroll: true });
     };
-    btn.onclick = () => setMenu(true);
+    btn.onclick = () => { opener = btn; setMenu(true); };
+    dmenu.onclick = () => { opener = dmenu; setMenu(true); };
     $('#menuClose').onclick = () => setMenu(false);
     drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
     addEventListener('keydown', e => { if (e.key === 'Escape' && drawer.classList.contains('open')) setMenu(false); });
