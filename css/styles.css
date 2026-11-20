@@ -942,7 +942,8 @@ html{scroll-snap-type:y mandatory}
 main>section{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;scroll-snap-align:start}
 main>section.story{display:block}
 .sec.tight{padding-top:var(--sec)}
-.page-hero .panel{flex:1;display:flex;flex-direction:column;justify-content:center}
+.page-hero .panel{flex:1}
+.page-hero .ph-text{align-self:center}
 main>section>.dark-panel{flex:1;display:flex;align-items:center;margin-block:var(--gut)}
 .ftr{scroll-snap-align:end}
 @media print{html{scroll-snap-type:none}}
