@@ -89,6 +89,14 @@
   --ease-io:cubic-bezier(.65,0,.35,1);
   --t-fast:.25s; --t:.45s; --t-slow:.9s;
 
+
+  /* section tones: the page background glides to each section's tone as it scrolls in (§17) */
+  --tone1-a:#FBF4E8; --tone1-b:#F3DFBF; --tone1-c:#EBCFA6;   /* warm sand */
+  --tone2-a:#FAF0E8; --tone2-b:#F3D9C8; --tone2-c:#E8C0A4;   /* clay blush */
+  --tone3-a:#F6F3E8; --tone3-b:#E6E5CF; --tone3-c:#D8D9BC;   /* sage cream */
+  --tone4-a:#FBF1DD; --tone4-b:#F3DCAB; --tone4-c:#E7C688;   /* turmeric gold */
+  --tone5-a:#F8EEE9; --tone5-b:#EDD5CC; --tone5-c:#DFBFB2;   /* dusk rose */
+
   color-scheme:light;
 }
 
@@ -111,6 +119,11 @@
     --sh-2:0 2px 4px rgba(0,0,0,.18),0 18px 40px -24px rgba(0,0,0,.6);
     --sh-3:0 4px 10px rgba(0,0,0,.18),0 34px 70px -36px rgba(0,0,0,.7);
     --sh-accent:0 12px 26px -12px rgba(237,182,85,.35);
+    --tone1-a:#0F0D0B; --tone1-b:#2A1F13; --tone1-c:#3B2A15;
+    --tone2-a:#100C0B; --tone2-b:#2D1A13; --tone2-c:#3E2219;
+    --tone3-a:#0D0E0B; --tone3-b:#1C2117; --tone3-c:#283022;
+    --tone4-a:#100E09; --tone4-b:#2F2511; --tone4-c:#473615;
+    --tone5-a:#100D0D; --tone5-b:#2A1A1A; --tone5-c:#3B2424;
     color-scheme:dark;
   }
 }
@@ -131,6 +144,11 @@
   --sh-2:0 2px 4px rgba(0,0,0,.18),0 18px 40px -24px rgba(0,0,0,.6);
   --sh-3:0 4px 10px rgba(0,0,0,.18),0 34px 70px -36px rgba(0,0,0,.7);
   --sh-accent:0 12px 26px -12px rgba(237,182,85,.35);
+  --tone1-a:#0F0D0B; --tone1-b:#2A1F13; --tone1-c:#3B2A15;
+  --tone2-a:#100C0B; --tone2-b:#2D1A13; --tone2-c:#3E2219;
+  --tone3-a:#0D0E0B; --tone3-b:#1C2117; --tone3-c:#283022;
+  --tone4-a:#100E09; --tone4-b:#2F2511; --tone4-c:#473615;
+  --tone5-a:#100D0D; --tone5-b:#2A1A1A; --tone5-c:#3B2424;
   color-scheme:dark;
 }
 
@@ -196,7 +214,7 @@ strong,b{font-weight:600}
 .wrap-sm{width:min(980px,100% - 2*var(--gut));margin-inline:auto}
 .sec{padding-block:var(--sec)}
 .sec.tight{padding-top:0}
-.sec.alt{background:var(--bg-2)}
+.sec.alt{background:transparent}
 .stack>*+*{margin-top:var(--s4)}
 .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4)}
 .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4)}
@@ -953,4 +971,36 @@ main>section.story{display:block}
 main>section>.dark-panel{flex:1;display:flex;align-items:center;margin-block:var(--gut)}
 .ftr{scroll-snap-align:end}
 @media print{html{scroll-snap-type:none}}
+
+
+/* 17. SECTION GRADIENTS =================================================== */
+/* A soft gradient sits behind the whole page. main.js sets data-tone on <html> to the
+   tone of the section crossing the middle of the screen; the three colours below then
+   glide to that tone. The blobs drift slowly using transform only, so the browser
+   moves a ready-painted layer instead of repainting it every frame. */
+
+@property --g1{syntax:"<color>";inherits:true;initial-value:#F7F1E6}
+@property --g2{syntax:"<color>";inherits:true;initial-value:#F3DFBF}
+@property --g3{syntax:"<color>";inherits:true;initial-value:#EBCFA6}
+:root{--g1:var(--tone1-a);--g2:var(--tone1-b);--g3:var(--tone1-c);
+  transition:--g1 1.4s var(--ease),--g2 1.4s var(--ease),--g3 1.4s var(--ease)}
+:root[data-tone="2"]{--g1:var(--tone2-a);--g2:var(--tone2-b);--g3:var(--tone2-c)}
+:root[data-tone="3"]{--g1:var(--tone3-a);--g2:var(--tone3-b);--g3:var(--tone3-c)}
+:root[data-tone="4"]{--g1:var(--tone4-a);--g2:var(--tone4-b);--g3:var(--tone4-c)}
+:root[data-tone="5"]{--g1:var(--tone5-a);--g2:var(--tone5-b);--g3:var(--tone5-c)}
+
+body{background:var(--g1)}
+body::before{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(38% 34% at 22% 28%,var(--g3) 0,transparent 70%),
+    radial-gradient(42% 38% at 78% 62%,var(--g2) 0,transparent 72%),
+    radial-gradient(30% 28% at 60% 18%,color-mix(in srgb,var(--g2) 70%,var(--hl) 30%) 0,transparent 70%),
+    var(--g1);
+  opacity:.9;will-change:transform;animation:tone-drift 26s ease-in-out infinite alternate}
+@keyframes tone-drift{
+  0%{transform:translate3d(0,0,0) rotate(0deg) scale(1)}
+  50%{transform:translate3d(4%,-3%,0) rotate(8deg) scale(1.06)}
+  100%{transform:translate3d(-3%,4%,0) rotate(-6deg) scale(1.02)}}
+@media (prefers-reduced-motion:reduce){body::before{animation:none}:root{transition:none}}
+@media print{body::before{display:none}}
 
