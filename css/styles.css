@@ -49,6 +49,7 @@
   --glass:rgba(255,253,248,.68);
   --glass-line:rgba(255,255,255,.75);
   --panel-dark:#2B1F14;
+  --dock-bg:#2B1F14;               /* bottom dock */
   --on-panel:#F4EBDD;
   --on-panel-m:#BBAA94;
   --map-filter:grayscale(.35) sepia(.12) contrast(.95);
@@ -103,7 +104,7 @@
     --sage:#DD7A52; --sage-soft:#2E1A12;
     --hero-1:#1A1917; --hero-2:#121110; --hero-3:#0B0B0A;
     --glass:rgba(21,20,19,.66); --glass-line:rgba(255,255,255,.07);
-    --panel-dark:#151413; --on-panel:#F4EFE6; --on-panel-m:#A29B91;
+    --panel-dark:#151413; --on-panel:#F4EFE6; --on-panel-m:#A29B91; --dock-bg:#201E1C;
     --map-filter:grayscale(.6) invert(.9) hue-rotate(180deg) sepia(.15) brightness(.9);
     --t1:#4A3F2E; --t2:#3F3627; --t3:#524632; --t4:#473C2C;
     --sh-1:0 1px 2px rgba(0,0,0,.2),0 6px 16px -10px rgba(0,0,0,.5);
@@ -123,7 +124,7 @@
   --sage:#DD7A52; --sage-soft:#2E1A12;
   --hero-1:#1A1917; --hero-2:#121110; --hero-3:#0B0B0A;
   --glass:rgba(21,20,19,.66); --glass-line:rgba(255,255,255,.07);
-  --panel-dark:#151413; --on-panel:#F4EFE6; --on-panel-m:#A29B91;
+  --panel-dark:#151413; --on-panel:#F4EFE6; --on-panel-m:#A29B91; --dock-bg:#201E1C;
   --map-filter:grayscale(.6) invert(.9) hue-rotate(180deg) sepia(.15) brightness(.9);
   --t1:#4A3F2E; --t2:#3F3627; --t3:#524632; --t4:#473C2C;
   --sh-1:0 1px 2px rgba(0,0,0,.2),0 6px 16px -10px rgba(0,0,0,.5);
@@ -139,7 +140,7 @@
 *,*::before,*::after{box-sizing:border-box}
 html{
   scroll-behavior:smooth;
-  scroll-padding-top:110px;
+  scroll-padding-top:0;
   -webkit-text-size-adjust:100%;
   text-size-adjust:100%;
 }
@@ -322,18 +323,13 @@ a.card{text-decoration:none}
 /* 7. HEADER =============================================================== */
 
 .top{
-  position:fixed;z-index:50;top:var(--gut);left:var(--gut);right:var(--gut);
+  position:absolute;z-index:50;top:var(--gut);left:var(--gut);right:var(--gut);
   display:flex;align-items:center;justify-content:space-between;gap:16px;
   --pad-x:clamp(14px,2vw,26px);
   padding:14px var(--pad-x);border-radius:var(--r);border-bottom:1px solid transparent;
   transition:background-color var(--t) var(--ease),border-color var(--t) var(--ease),padding var(--t) var(--ease),
     top var(--t) var(--ease),left var(--t) var(--ease),right var(--t) var(--ease),border-radius var(--t) var(--ease);
 }
-/* scrolled: dock flush to the top as a page-coloured bar with a hairline, no floating card.
-   Inner padding grows by the gutter so brand and buttons stay on the same vertical lines as the content. */
-.top.solid{top:0;left:0;right:0;border-radius:0;padding:10px calc(var(--gut) + var(--pad-x));
-  background:color-mix(in srgb,var(--bg) 86%,transparent);border-bottom-color:var(--line);
-  backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3)}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-size:1.28rem;letter-spacing:-.03em;color:var(--ink)}
 .brand svg{width:34px;height:34px}
 
@@ -519,13 +515,13 @@ a.card{text-decoration:none}
 
 /* --- service detail rows (services page) --- */
 .svc-layout{display:grid;grid-template-columns:240px 1fr;gap:clamp(32px,5vw,72px);align-items:start}
-.toc{position:sticky;top:120px;display:grid;gap:2px;padding:10px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-1)}
+.toc{position:sticky;top:24px;display:grid;gap:2px;padding:10px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh-1)}
 .toc a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;text-decoration:none;font-size:.93rem;font-weight:500;color:var(--muted);transition:background-color var(--t),color var(--t)}
 .toc a span{font-size:.75rem;font-variant-numeric:tabular-nums;opacity:.7}
 .toc a:hover{background:var(--surface-2);color:var(--ink)}
 .toc a.on{background:var(--accent-soft);color:var(--accent-ink)}
 .svc-rows{display:grid;gap:var(--s4)}
-.svc-row{display:grid;grid-template-columns:auto 1fr;gap:var(--s5);padding:clamp(24px,3vw,40px);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-1);scroll-margin-top:120px}
+.svc-row{display:grid;grid-template-columns:auto 1fr;gap:var(--s5);padding:clamp(24px,3vw,40px);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-1);scroll-margin-top:24px}
 .svc-row h2{font-size:clamp(1.7rem,2.8vw,2.3rem)}
 .svc-row .num{font-size:.8rem;font-weight:600;letter-spacing:.14em;color:var(--muted)}
 .svc-row p{color:var(--muted);margin-top:12px;max-width:60ch}
@@ -687,7 +683,7 @@ a.card{text-decoration:none}
 .cta-band .btn-line:hover{box-shadow:inset 0 0 0 1.5px var(--on-accent);color:var(--on-accent)}
 @media (max-width:900px){.cta-band{grid-template-columns:1fr}.cta-band .ctas{justify-content:flex-start}}
 
-.ftr{padding:clamp(56px,7vw,96px) 0 28px}
+.ftr{padding:clamp(56px,7vw,96px) 0 112px}
 .fg{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px}
 .fg p{color:var(--muted);margin-top:14px;max-width:34ch;font-size:.95rem}
 .fg h4{font-size:.74rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
@@ -740,12 +736,6 @@ html{scrollbar-color:var(--line-2) transparent;scrollbar-width:thin}
 .words .w>span{display:inline-block;transform:translateY(112%);transition:transform 1.05s var(--ease);transition-delay:calc(var(--wi,0) * 60ms + var(--d,0s))}
 .words.in .w>span{transform:none}
 
-/* --- reading progress bar --- */
-.progress{position:fixed;left:0;top:0;z-index:70;width:100%;height:3px;transform-origin:0 50%;transform:scaleX(0);
-  background:linear-gradient(90deg,var(--accent-2),var(--hl));pointer-events:none}
-@supports (animation-timeline:scroll()){
-  .progress{animation:grow-x linear both;animation-timeline:scroll(root)}
-}
 @keyframes grow-x{to{transform:scaleX(1)}}
 
 
@@ -815,7 +805,7 @@ html{scrollbar-color:var(--line-2) transparent;scrollbar-width:thin}
 
 /* desktop: the section pins; the 3D home sits left, the step cards slide in from the right and tuck under it */
 .story-grid{position:relative;height:500vh;height:500svh}
-.story-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(24px,3vw,48px);align-items:center;padding:84px var(--gut) 24px}
+.story-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(24px,3vw,48px);align-items:center;padding:24px var(--gut) 96px}
 .story-stage{position:relative;z-index:2;height:100%;display:flex;align-items:center}
 .story-frame{position:relative;width:100%;height:100%;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);box-shadow:var(--sh-2);
   background:radial-gradient(110% 80% at 50% 45%,var(--hero-1) 0,var(--hero-2) 50%,var(--hero-3) 100%)}
@@ -876,7 +866,7 @@ html{scrollbar-color:var(--line-2) transparent;scrollbar-width:thin}
   .story-grid{height:auto;display:grid;grid-template-columns:minmax(0,1fr);width:calc(100% - 2*var(--gut));margin:0 auto}
   .story-pin{display:contents}
   /* the stage is a window pinned at the top; cards slide up underneath it */
-  .story-stage{display:block;position:sticky;grid-column:1;grid-row:1;top:0;height:auto;z-index:3;padding:84px 0 12px;background:var(--bg)}
+  .story-stage{display:block;position:sticky;grid-column:1;grid-row:1;top:0;height:auto;z-index:3;padding:16px 0 12px;background:var(--bg)}
   .story-steps{display:block;transform:none!important}
   .story-step{display:flex;opacity:1;scale:1}
   .story-stage::after{content:"";position:absolute;left:0;right:0;top:100%;height:28px;background:linear-gradient(var(--bg),transparent);pointer-events:none}
@@ -907,3 +897,53 @@ html{scrollbar-color:var(--line-2) transparent;scrollbar-width:thin}
 
 /* --- hero intro stays readable over the 3D scene --- */
 .hero .intro p{text-shadow:0 0 14px var(--hero-1),0 0 4px var(--hero-1),0 0 2px var(--hero-1)}
+
+
+/* 15. BOTTOM DOCK ========================================================= */
+/* Appears once the hero has scrolled away. Warm light sweeps across it as you
+   read down the page; the current page's tab is highlighted. Built by main.js. */
+
+.dock{
+  position:fixed;z-index:55;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));
+  display:flex;align-items:center;gap:6px;padding:6px;max-width:calc(100% - 24px);
+  border-radius:var(--r-pill);background:var(--dock-bg);box-shadow:var(--sh-3);isolation:isolate;
+  transform:translate(-50%,calc(100% + 40px));opacity:0;pointer-events:none;
+  transition:transform .55s var(--ease),opacity .4s var(--ease);
+}
+.dock.on{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+.dock::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(90deg,
+    color-mix(in srgb,var(--hl) 34%,var(--dock-bg)) 0%,
+    color-mix(in srgb,var(--hl) 14%,var(--dock-bg)) calc(var(--p,0) * 100%),
+    var(--dock-bg) calc(var(--p,0) * 100% + 12%))}
+.dock-logo{--ink:var(--on-panel);--bg:var(--dock-bg);width:42px;height:42px;flex:none;display:grid;place-items:center;border-radius:50%}
+.dock-logo svg{width:30px;height:30px}
+.dock .tab{color:var(--on-panel);opacity:.82;font-size:.88rem;font-weight:500;padding:10px 16px;border-radius:var(--r-pill);white-space:nowrap;text-decoration:none;
+  transition:background-color var(--t) var(--ease),color var(--t),opacity var(--t)}
+.dock .tab:hover{opacity:1;background:rgba(255,255,255,.07)}
+.dock .tab[aria-current="page"]{background:#F7F3ED;color:#2A2622;opacity:1}
+.dock .call,.dock .dmenu{height:42px;flex:none;border:0;border-radius:var(--r-pill);background:rgba(255,255,255,.1);color:var(--on-panel);text-decoration:none;transition:background-color var(--t)}
+.dock .call{width:42px;display:grid;place-items:center}
+.dock .call:hover,.dock .dmenu:hover{background:rgba(255,255,255,.18)}
+.dock .dmenu{display:none;align-items:center;padding:0 16px;font-weight:600;font-size:.88rem}
+.dock .btn{min-height:42px;padding:8px 20px;font-size:.9rem}
+@media (max-width:1080px){.dock .dmenu{display:inline-flex}}
+@media (max-width:720px){.dock .tab:not([aria-current]){display:none}}
+@media (max-width:400px){.dock .tab{display:none}}
+@media print{.dock{display:none!important}}
+
+
+/* 16. ONE SECTION PER SCREEN ============================================== */
+/* Every top-level section fills the screen and the page snaps to one section at a
+   time. A section taller than the screen (the scroll story, long lists on phones)
+   scrolls freely inside before the next one snaps in. The footer snaps to the bottom. */
+
+html{scroll-snap-type:y mandatory}
+main>section{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;scroll-snap-align:start}
+main>section.story{display:block}
+.sec.tight{padding-top:var(--sec)}
+.page-hero .panel{flex:1;display:flex;flex-direction:column;justify-content:center}
+main>section>.dark-panel{flex:1;display:flex;align-items:center;margin-block:var(--gut)}
+.ftr{scroll-snap-align:end}
+@media print{html{scroll-snap-type:none}}
+
