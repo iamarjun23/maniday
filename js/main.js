@@ -164,6 +164,24 @@
   // exactly one section; inside a section taller than the screen it scrolls normally until that section's edge.
   const snaps = [...$$('main > section'), $('.ftr')].filter(Boolean);
   let wheelLock = 0;
+
+  // section transition: a gradient band sweeps across the screen in the direction of travel (styles.css §17)
+  const sweep = document.createElement('div');
+  sweep.className = 'sweep'; sweep.setAttribute('aria-hidden', 'true');
+  document.body.append(sweep);
+  let lastSweep = 0;
+  const runSweep = down => {
+    if (still) return;
+    lastSweep = performance.now();
+    const vh = innerHeight, h = sweep.offsetHeight;
+    sweep.getAnimations().forEach(a => a.cancel());
+    sweep.animate([
+      { transform: `translateY(${down ? vh : -h}px)`, opacity: .2 },
+      { opacity: 1, offset: .25 },
+      { opacity: 1, offset: .75 },
+      { transform: `translateY(${down ? -h : vh}px)`, opacity: .2 }
+    ], { duration: 900, easing: 'cubic-bezier(.45,.05,.4,1)' });
+  };
   if (snaps.length > 1) addEventListener('wheel', e => {
     if (e.ctrlKey || Math.abs(e.deltaY) < 2 || Math.abs(e.deltaX) > Math.abs(e.deltaY) || document.body.style.overflow === 'hidden') return;
     const now = performance.now(), vh = innerHeight, y = scrollY, dir = Math.sign(e.deltaY);
@@ -181,8 +199,19 @@
     const tall = snaps[j].offsetHeight > vh + 2;
     const top = dir < 0 && tall ? tops[j] + snaps[j].offsetHeight - vh : tops[j];
     wheelLock = now + 750;
+    runSweep(dir > 0);
     scrollTo({ top: Math.min(max, Math.max(0, top)), behavior: still ? 'auto' : 'smooth' });
   }, { passive: false });
+
+  // keyboard, touch and link moves have no wheel event: sweep when the next section reaches the middle
+  let secNow = -1;
+  const secIO = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    const k = snaps.indexOf(e.target);
+    if (secNow !== -1 && k !== secNow && performance.now() - lastSweep > 1000) runSweep(k > secNow);
+    secNow = k;
+  }), { rootMargin: '-50% 0px -50% 0px' });
+  snaps.forEach(el => secIO.observe(el));
 
   // ---- [data-scrub]: children with data-at="0.3" get .on past that point; the box gets .done at data-scrub
   $$('[data-scrub]').forEach(box => {

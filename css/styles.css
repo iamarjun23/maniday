@@ -954,3 +954,20 @@ main>section>.dark-panel{flex:1;display:flex;align-items:center;margin-block:var
 .ftr{scroll-snap-align:end}
 @media print{html{scroll-snap-type:none}}
 
+
+/* 17. SECTION TRANSITION SWEEP ============================================ */
+/* When the page moves from one section to the next, a soft gradient band sweeps
+   across the screen in the direction of travel and is gone. Sections keep their own
+   look. main.js runs the sweep; it only moves the band (transform), never repaints it. */
+
+.sweep{position:fixed;left:0;right:0;top:0;height:170vh;z-index:54;pointer-events:none;opacity:0;will-change:transform,opacity;
+  background:linear-gradient(to bottom,
+    transparent 0%,
+    color-mix(in srgb,var(--hl) 30%,transparent) 22%,
+    color-mix(in srgb,var(--accent-2) 62%,transparent) 42%,
+    color-mix(in srgb,var(--hl) 55%,transparent) 54%,
+    color-mix(in srgb,var(--bg) 55%,transparent) 72%,
+    transparent 100%)}
+@media (prefers-reduced-motion:reduce){.sweep{display:none}}
+@media print{.sweep{display:none}}
+
