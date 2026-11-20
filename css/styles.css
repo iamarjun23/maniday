@@ -947,3 +947,87 @@ main>section>.dark-panel{flex:1;display:flex;align-items:center;margin-block:var
 .ftr{scroll-snap-align:end}
 @media print{html{scroll-snap-type:none}}
 
+
+
+/* 17. ABOUT: STORY SUBSECTIONS ============================================ */
+/* Below the About hero: how it began, the people, how we work, and a closing quote.
+   Each section opens with a chapter label so the page reads as one story. */
+
+.chap{display:inline-flex;align-items:center;gap:12px;font-size:var(--fs-xs);font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-ink)}
+.chap b{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--accent-soft);font-size:.78rem;letter-spacing:0}
+
+/* chapter 1: how it began */
+.began{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(40px,7vw,112px);align-items:start}
+.began h2{margin-top:18px;font-size:clamp(2.2rem,4.4vw,3.8rem)}
+.began .prose{margin-top:26px;font-size:1.12rem}
+.began .prose p:first-child::first-letter{float:left;font-size:3.6em;line-height:.85;font-weight:500;padding:6px 6px 0 0;color:var(--accent-ink)}
+.began .pull{margin:32px 0 0;padding:4px 0 4px 22px;border-left:3px solid var(--accent-2);font-size:clamp(1.25rem,2.1vw,1.6rem);letter-spacing:-.02em;line-height:1.35;max-width:32ch}
+.beats{list-style:none;margin:0;padding:0;position:relative;display:grid;gap:14px}
+.beats::before{content:"";position:absolute;left:27px;top:28px;bottom:28px;width:1.5px;background:linear-gradient(var(--accent-2),var(--line-2))}
+.beats li{position:relative;display:grid;grid-template-columns:56px 1fr;gap:18px;align-items:start}
+.beats .dot{position:relative;z-index:1;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:var(--surface);border:2px solid var(--accent-2);color:var(--accent-ink)}
+.beats .txt{padding:16px 20px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line);box-shadow:var(--sh-1)}
+.beats .yr{font-size:var(--fs-xs);font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+.beats h3{font-size:1.2rem;margin-top:4px}
+.beats p{color:var(--muted);margin-top:4px;font-size:.96rem}
+.beats li.now .dot{background:linear-gradient(135deg,var(--accent-2),var(--accent-3));color:var(--on-accent);border-color:transparent;box-shadow:var(--sh-accent)}
+
+/* chapter 2: the people */
+.crew-intro{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:var(--s5) var(--s8);align-items:end;margin-bottom:clamp(40px,5vw,64px)}
+.crew-intro h2{margin-top:18px}
+.crew-intro p{color:var(--muted);font-size:var(--fs-lg);max-width:46ch}
+.faces{display:flex;margin-top:22px}
+.faces .av{width:48px;height:48px;font-size:.8rem;margin-left:-10px;border:3px solid var(--bg-2)}
+.faces .av:first-child{margin-left:0}
+.crew-group+.crew-group{margin-top:clamp(40px,5vw,64px)}
+.crew-h{display:flex;align-items:baseline;gap:16px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--line-2)}
+.crew-h .n{font-size:var(--fs-xs);font-weight:600;letter-spacing:.16em;color:var(--accent-ink)}
+.crew-h h3{font-size:clamp(1.35rem,2.3vw,1.9rem)}
+.crew-h p{margin-left:auto;color:var(--muted);font-size:.95rem;max-width:40ch;text-align:right}
+.crew{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4)}
+.mate{display:grid;grid-template-columns:clamp(120px,13vw,170px) minmax(0,1fr);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-1);transition:transform var(--t) var(--ease),box-shadow var(--t)}
+.mate:hover{transform:translateY(-4px);box-shadow:var(--sh-2)}
+.mate .portrait{position:relative;display:grid;place-items:center;min-height:190px;font-size:clamp(2rem,3.2vw,2.8rem);font-weight:500;letter-spacing:-.04em;color:var(--ink-2)}
+.mate .portrait small{position:absolute;left:0;right:0;bottom:10px;text-align:center;font-size:.66rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;opacity:.55}
+.mate .portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mate .body{padding:clamp(20px,2.4vw,28px);display:flex;flex-direction:column;gap:8px}
+.mate .role{font-size:var(--fs-xs);font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+.mate h4{font-size:clamp(1.25rem,1.9vw,1.5rem)}
+.mate p{color:var(--ink-2)}
+.mate .when{margin-top:auto;padding-top:8px;display:flex;gap:8px;align-items:center;font-size:.88rem;color:var(--muted)}
+.mate.big{grid-template-columns:clamp(150px,18vw,240px) minmax(0,1fr)}
+.mate.big .portrait{min-height:240px;font-size:clamp(2.6rem,4.2vw,3.8rem)}
+
+/* chapter 3: how we work */
+.promises{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4)}
+.promise{position:relative;padding:clamp(24px,2.6vw,32px);border-radius:var(--r-lg);background:var(--surface);border:1px solid var(--line);box-shadow:var(--sh-1);display:grid;gap:12px;align-content:start}
+.promise .k{font-size:clamp(2.6rem,4vw,3.4rem);font-weight:500;letter-spacing:-.05em;line-height:1;color:var(--accent-ink);opacity:.35}
+.promise h3{font-size:1.3rem}
+.promise p{color:var(--muted)}
+
+/* chapter 4: closing */
+.closing{padding:var(--gut)}
+.closing .dark{flex:1;display:flex;flex-direction:column;justify-content:center;border-radius:var(--r-lg);background:var(--panel-dark);color:var(--on-panel);padding:clamp(56px,8vw,112px) clamp(24px,6vw,96px);text-align:center}
+.closing .chap{color:var(--hl);justify-content:center}
+.closing .chap b{background:color-mix(in srgb,var(--hl) 18%,transparent)}
+.closing blockquote{margin:22px auto 0;max-width:24ch;font-size:clamp(1.7rem,3.8vw,3.2rem);letter-spacing:-.035em;line-height:1.15;font-weight:500;color:var(--on-panel)}
+.closing figure{margin:0}
+.closing figcaption{margin-top:22px;color:var(--on-panel-m)}
+.closing figcaption b{color:var(--on-panel)}
+.closing hr{width:64px;margin:clamp(40px,5vw,64px) auto;border:0;border-top:1.5px solid color-mix(in srgb,var(--on-panel) 20%,transparent)}
+.closing h2{color:var(--on-panel);font-size:clamp(2.2rem,4.6vw,3.8rem)}
+.closing h2 em{color:var(--on-panel-m)}
+.closing .next{margin:16px auto 0;max-width:48ch;color:var(--on-panel-m)}
+.closing .ctas{justify-content:center;margin-top:30px}
+.closing .btn-line{color:var(--on-panel);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--on-panel) 35%,transparent)}
+
+@media (max-width:900px){
+  .began,.crew-intro{grid-template-columns:minmax(0,1fr)}
+  .crew{grid-template-columns:minmax(0,1fr)}
+  .crew-h{flex-wrap:wrap}.crew-h p{margin-left:0;text-align:left;flex-basis:100%}
+  .promises{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:520px){
+  .mate,.mate.big{grid-template-columns:minmax(0,1fr)}
+  .mate .portrait,.mate.big .portrait{min-height:140px}
+}
