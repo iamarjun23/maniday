@@ -123,12 +123,23 @@
   }), { threshold: .6 });
   $$('[data-count]').forEach(el => counter.observe(el));
 
+  // ---- bottom dock: the header scrolls away with the hero, then this dock rises from the bottom.
+  // Warm light sweeps across it as you read down the page (--p); the current page's tab is highlighted.
+  const navLinks = [...$$('.pill-nav a')].filter(a => a.getAttribute('href') !== 'index.html');
+  const dock = document.createElement('nav');
+  dock.className = 'dock'; dock.setAttribute('aria-label', 'Quick links'); dock.inert = true;
+  dock.innerHTML = '<a class="dock-logo" href="index.html" aria-label="Manidhay Business Services, home"><svg aria-hidden="true"><use href="#logo"/></svg></a>' +
+    navLinks.map(a => `<a class="tab" href="${a.getAttribute('href')}"${a.hasAttribute('aria-current') ? ' aria-current="page"' : ''}>${a.textContent}</a>`).join('') +
+    '<button class="dmenu" type="button" aria-controls="drawer" aria-expanded="false">Menu</button>' +
+    '<a class="call" href="tel:+919986470846" aria-label="Call +91 99864 70846"><svg class="i" aria-hidden="true"><use href="#i-ph"/></svg></a>' +
+    '<a class="btn btn-or" href="contact.html">Quote</a>';
+  document.body.append(dock);
+  const heroEl = $('.hero-panel, .page-hero .panel');
+  let dockOn = false;
+
   // ---- scroll progress engine: scrub(el, fn, 'pin'|'pass') calls fn(0..1) as el moves through the viewport
   const scrubs = [];
   let queued = false;
-  const bar = document.createElement('div'); bar.className = 'progress'; bar.setAttribute('aria-hidden', 'true');
-  document.body.append(bar);
-  const cssBar = CSS.supports('animation-timeline: scroll()');
   function measure() {
     queued = false;
     const vh = innerHeight;
@@ -138,13 +149,40 @@
       p = Math.min(1, Math.max(0, p));
       if (p !== s.p) { s.p = p; s.fn(p); }
     }
-    if (!cssBar) bar.style.transform = `scaleX(${scrollY / Math.max(1, document.documentElement.scrollHeight - vh)})`;
+    const p = Math.min(1, scrollY / Math.max(1, document.documentElement.scrollHeight - vh));
+    dock.style.setProperty('--p', p.toFixed(3));
+    const show = heroEl ? heroEl.getBoundingClientRect().bottom < vh * .35 : scrollY > vh * .6;
+    if (show !== dockOn) { dockOn = show; dock.classList.toggle('on', show); dock.inert = !show; }
   }
   const queue = () => { if (!queued) { queued = true; requestAnimationFrame(measure); } };
   window.scrub = (el, fn, mode = 'pass') => { scrubs.push({ el, fn, mode, p: -1 }); queue(); };
   addEventListener('scroll', queue, { passive: true });
   addEventListener('resize', queue);
   queue();
+
+  // ---- one section per screen: CSS snaps the page (styles.css §16). A wheel or trackpad gesture moves
+  // exactly one section; inside a section taller than the screen it scrolls normally until that section's edge.
+  const snaps = [...$$('main > section'), $('.ftr')].filter(Boolean);
+  let wheelLock = 0;
+  if (snaps.length > 1) addEventListener('wheel', e => {
+    if (e.ctrlKey || Math.abs(e.deltaY) < 2 || Math.abs(e.deltaX) > Math.abs(e.deltaY) || document.body.style.overflow === 'hidden') return;
+    const now = performance.now(), vh = innerHeight, y = scrollY, dir = Math.sign(e.deltaY);
+    const max = document.documentElement.scrollHeight - vh;
+    const tops = snaps.map(el => el.getBoundingClientRect().top + y);
+    let i = 0;
+    tops.forEach((t, k) => { if (t <= y + 2) i = k; });
+    if (y >= max - 2) i = snaps.length - 1;                     // the footer snaps to the bottom, so it may start below scrollY
+    const end = tops[i] + snaps[i].offsetHeight;
+    if (dir > 0 ? y + vh < end - 2 : y > tops[i] + 2) return;   // still inside a tall section: native scroll
+    e.preventDefault();
+    if (now < wheelLock) { wheelLock = Math.max(wheelLock, now + 200); return; }   // ignore the rest of this gesture
+    const j = Math.min(snaps.length - 1, Math.max(0, i + dir));
+    if (j === i) return;
+    const tall = snaps[j].offsetHeight > vh + 2;
+    const top = dir < 0 && tall ? tops[j] + snaps[j].offsetHeight - vh : tops[j];
+    wheelLock = now + 750;
+    scrollTo({ top: Math.min(max, Math.max(0, top)), behavior: still ? 'auto' : 'smooth' });
+  }, { passive: false });
 
   // ---- [data-scrub]: children with data-at="0.3" get .on past that point; the box gets .done at data-scrub
   $$('[data-scrub]').forEach(box => {
@@ -156,21 +194,19 @@
     });
   });
 
-  // ---- header turns solid once the page moves
-  const hdr = $('#hdr'), sent = document.createElement('div');
-  sent.style.cssText = 'position:absolute;top:100px;height:1px;width:1px';
-  document.body.prepend(sent);
-  if (hdr) new IntersectionObserver(([e]) => hdr.classList.toggle('solid', !e.isIntersecting)).observe(sent);
-
   // ---- mobile menu
   const drawer = $('#drawer'), btn = $('#menuBtn');
   if (drawer && btn) {
+    const dmenu = dock.querySelector('.dmenu');
+    let opener = btn;
     const setMenu = open => {
-      drawer.classList.toggle('open', open); btn.setAttribute('aria-expanded', open);
+      drawer.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open); dmenu.setAttribute('aria-expanded', open);
       document.body.style.overflow = open ? 'hidden' : '';
-      if (open) $('#menuClose').focus(); else btn.focus();
+      if (open) $('#menuClose').focus(); else opener.focus({ preventScroll: true });
     };
-    btn.onclick = () => setMenu(true);
+    btn.onclick = () => { opener = btn; setMenu(true); };
+    dmenu.onclick = () => { opener = dmenu; setMenu(true); };
     $('#menuClose').onclick = () => setMenu(false);
     drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
     addEventListener('keydown', e => { if (e.key === 'Escape' && drawer.classList.contains('open')) setMenu(false); });

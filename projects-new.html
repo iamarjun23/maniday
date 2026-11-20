@@ -11,7 +11,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='9' fill='%232A2622'/><path d='M8 24V14l8-6 8 6v10M12 24v-7l4 4 4-4v7' fill='none' stroke='%23F5F1EA' stroke-width='2.2' stroke-linejoin='round'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,300;1,400&family=Yeseva+One&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 <script>document.documentElement.classList.add('js');try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 <style>
@@ -106,18 +106,11 @@ html.shuffle::view-transition-old(root),html.shuffle::view-transition-new(root){
 
 <section class="page-hero">
   <div class="panel">
-    <div class="in-grid">
-      <div data-r>
-        <ol class="crumbs"><li><a href="index.html">Home</a></li><li aria-current="page">Projects</li></ol>
-        <p class="eyebrow">Our projects</p>
-        <h1>Built <em>with</em> care</h1>
-        <p class="lead">From our newest sites back to where we started. Every photo here is a Manidhay project.</p>
-      </div>
-      <div class="side" data-r style="--d:.15s">
-        <div class="stat glass"><span>Completed <svg class="i" aria-hidden="true"><use href="#i-tg"/></svg></span><b id="nDone">0</b></div>
-        <div class="stat glass"><span>On site now <svg class="i" aria-hidden="true"><use href="#i-tg"/></svg></span><b id="nLive">0</b></div>
-      </div>
+    <div class="ph-text" data-r>
+      <h1>Built <em>with</em> care</h1>
+      <p class="lead">From our newest sites back to where we started. Every photo here is a Manidhay project.</p>
     </div>
+    <div class="ph-word" aria-hidden="true"><span><b>P</b>rojects</span></div>
   </div>
 </section>
 
@@ -199,9 +192,6 @@ html.shuffle::view-transition-old(root),html.shuffle::view-transition-new(root){
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const newest = Math.max(...P.map(p => p.year));
   const isNew = p => p.year === newest;
-
-  $('#nDone').dataset.count = P.filter(p => p.status === 'done').length;
-  $('#nLive').dataset.count = P.filter(p => p.status === 'ongoing').length;
 
   // ---- scramble: letters churn, then lock in left to right
   const glyphs = 'ABCDEFGHKMNPRSTUVWXYZ0123456789/#+';
